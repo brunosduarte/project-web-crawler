@@ -6,7 +6,7 @@
 - 📋 [Project](#-project)
   - 🚀 [Technologies](#-technologies)
   - 📷 [Preview](#-preview)
-- 📦 [Instalation](#-instalation)
+- 📦 [Installation](#-instalation)
 - ⚖️ [License](#%EF%B8%8F-license)
 - 📫 [Contact](#-contact)
 
@@ -35,15 +35,16 @@ When the Server gives back the result to the Frontend is generated a Tree view o
 [![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://d3js.org)
 
 
-## 📷 Preview
+## 🌐 Preview
 
-##### 💻 frontend:
+
+##### 🧮 Diagram:
 
 <p align="center"> 
-  <img alt="SiteMapper" src="diagram.jpg" width="100%">
+  <img alt="SiteMapper" src=".github/diagram.jpg" width="100%">
 </p>
 
-## 📦 Instalation
+## 📦 Installation
 
 To clone and run this application, you will need [Git][git], [NodeJS v18.17.1][nodejs] or higher + [npm v9.17.1][npm] or higher, and [PNPm 8.7.5][pnpm] installed on your computer. In your terminal, run:
 

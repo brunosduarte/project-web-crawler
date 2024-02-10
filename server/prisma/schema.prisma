@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Domain {
+  id  String @id @default(uuid())
+  url String @unique
+
+  @@map("domains")
+}
+
+model Queue {
+  id       String @id @default(uuid())
+  domainId String
+
+  @@map("queues")
+}
