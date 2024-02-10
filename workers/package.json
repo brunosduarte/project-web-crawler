@@ -1,10 +1,10 @@
 {
-  "name": "workers",
-  "version": "0.0.1",
+  "name": "@project-web-crawler/workers",
+  "author": "Bruno S. Duarte",
+  "version": "1.0.0",
   "description": "",
-  "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
