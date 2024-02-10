@@ -48,7 +48,7 @@ export function App() {
       </div>
 
       <div className='bg-purple-400 mt-6 text-white'>
-        <ProgressBar className='bg-green-300' progress={50} />
+        <ProgressBar progress={50} />
       </div>
     </div>
   )
