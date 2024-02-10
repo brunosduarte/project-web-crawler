@@ -2,7 +2,7 @@ import { MagnifyingGlass } from 'phosphor-react';
 import './styles/global.css';
 import { useState } from 'react';
 import { api } from './services/axios';
-import { ProgressBar } from './components/ProgressBar';
+//import { ProgressBar } from './components/ProgressBar';
 
 export function App() {
   const [isLoadingResults, setIsLoadingResults] = useState(false)
@@ -48,7 +48,7 @@ export function App() {
       </div>
 
       <div className='bg-purple-400 mt-6 text-white'>
-        <ProgressBar progress={50} />
+        {/* <ProgressBar progress={50} /> */}
       </div>
     </div>
   )
