@@ -21,8 +21,7 @@ For the communication between Workers and Server was used the concept of Pub/Sub
 When the Server gives back the result to the Frontend is generated a Tree view of the results.
 
 
-
-### 🚀 Technologies
+## 🚀 Technologies
 
 [![React.js](https://img.shields.io/badge/React.js-gray?logo=React)](https://react.dev)
 [![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
@@ -35,14 +34,17 @@ When the Server gives back the result to the Frontend is generated a Tree view o
 [![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://d3js.org)
 
 
-## 🌐 Preview
-
-
-##### 🧮 Diagram:
+## 🧮 Diagram:
 
 <p align="center"> 
   <img alt="SiteMapper" src=".github/diagram.jpg" width="100%">
 </p>
+
+
+## 🌐 Preview
+
+http://project-web-crawler-bsd.vercel.com
+
 
 ## 📦 Installation
 
