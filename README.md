@@ -14,12 +14,11 @@
 ## 📋 Project
 
 In this project was implemented a web crawler that dig into a domain and extract all internal links generating a sitemap with the content.
-On the Frontend you insert the domain, this information is send to the server that crawl the website and generate a list of links.
-The process to crawl the website is made by another application named workers that will pick up the list of founded links in the root page
-and distribute the job with Docker in many threads to minimize the time to find the results.
-For the communication between Workers and Server was used the concept of Pub/Sub using RabbitMQ.
-When the Server gives back the result to the Frontend is generated a Tree view of the results.
-
+On the <strong>"Frontend"</strong> you insert the domain, this information is send to the <strong>"Server"</strong> that crawl the website and generate a list of links.
+The process to dig into the website is made by another application named <strong>"Workers"</strong> that pick up the list of founded links in the root page and distribute the job with Docker in many threads to minimize the time to obtain the results.
+For the job operation between <strong>"Workers"</strong> and <strong>"Server"</strong> was used the concept of PUB/SUB using RabbitMQ.
+When the <strong>"Server"</strong> gives back the result to the <strong>"Frontend"</strong> is generated a Tree view of the results using the library D3.js.
+Click on the button "Export" to generate and download a XML Sitemap.
 
 ## 🚀 Technologies
 
