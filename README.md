@@ -33,10 +33,10 @@ When the Server gives back the result to the Frontend is generated a Tree view o
 [![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
 [![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://www.d3js.org)
 [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-gray?logo=RabbitMQ)](https://www.rabbitmq.com)
-[![Prisma](https://img.shields.io/badge/Prisma-gray?logo=Prisma)](https://www.prisma.io
-[![XML](https://img.shields.io/badge/diagrams.net-gray?logo=diagrams.net)](https://www.npmjs.com/package/xml)
+[![Prisma](https://img.shields.io/badge/Prisma-gray?logo=Prisma)](https://www.prisma.io)
+[![XML](https://img.shields.io/badge/XML-gray?logo=diagrams.net)](https://www.npmjs.com/package/xml)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-gray?logo=PostgreSQL)](https://www.postgresql.org)
-[![Docker](https://img.shields.io/badge/DockerL-gray?logo=Docker)](https://www.docker.com)
+[![Docker](https://img.shields.io/badge/Docker-gray?logo=Docker)](https://www.docker.com)
 
 
 
