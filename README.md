@@ -5,40 +5,37 @@
 
 - 📋 [Project](#-project)
   - 🚀 [Technologies](#-technologies)
+  - 🧮 [Diagram](#-diagram)
   - 📷 [Preview](#-preview)
-- 📦 [Installation](#-instalation)
+- 📦 [Installation](#-installation)
 - ⚖️ [License](#%EF%B8%8F-license)
 - 📫 [Contact](#-contact)
-
 
 ## 📋 Project
 
 In this project was implemented a web crawler that dig into a domain and extract all internal links generating a sitemap with the content.
-On the <strong>"Frontend"</strong> you insert the domain, this information is send to the <strong>"Server"</strong> that crawl the website and generate a list of links.
-The process to dig into the website is made by another application named <strong>"Workers"</strong> that pick up the list of founded links in the root page and distribute the job with Docker in many threads to minimize the time to obtain the results.
-For the job operation between <strong>"Workers"</strong> and <strong>"Server"</strong> was used the concept of PUB/SUB using RabbitMQ.
-When the <strong>"Server"</strong> gives back the result to the <strong>"Frontend"</strong> is generated a Tree view of the results using the library D3.js.
+On the <em>"Frontend"</em> you insert the domain, this information is sent to the <em>"Server"</em> that crawl the website and generate a list of links.
+The process to dig into the website is made by another application named <em>"Workers"</em> that pick up the list of founded links in the root page and distribute the job with Docker in many Threads to minimize the time to obtain the results.
+For the job operation between <em>"Workers"</em> and <em>"Server"</em> was used the concept of PUB/SUB using RabbitMQ.
+When the <em>"Server"</em> gives back the result to the <em>"Frontend"</em> is generated a Tree view of the results using the library D3.js.
 Click on the button "Export" to generate and download a XML Sitemap.
 
 ## 🚀 Technologies
 
 [![React.js](https://img.shields.io/badge/React.js-gray?logo=React)](https://react.dev)
-[![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-gray?logo=TypeScript)](https://typescriptlang.org)
-[![Axios](https://img.shields.io/badge/Axios-gray?logo=Axios)](https://axios-http.com)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
-[![Puppeteer](https://img.shields.io/badge/Puppeteer-gray?logo=Puppeteer)](https://pptr.dev)
-[![NestJS](https://img.shields.io/badge/NestJS-gray?logo=NestJS)](https://nestjs.com)
 [![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
-[![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://www.d3js.org)
-[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-gray?logo=RabbitMQ)](https://www.rabbitmq.com)
+[![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
+[![NestJS](https://img.shields.io/badge/NestJS-gray?logo=NestJS)](https://nestjs.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-gray?logo=TypeScript)](https://typescriptlang.org)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
+[![Axios](https://img.shields.io/badge/Axios-gray?logo=Axios)](https://axios-http.com)
 [![Prisma](https://img.shields.io/badge/Prisma-gray?logo=Prisma)](https://www.prisma.io)
-[![XML](https://img.shields.io/badge/XML-gray?logo=diagrams.net)](https://www.npmjs.com/package/xml)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-gray?logo=PostgreSQL)](https://www.postgresql.org)
+[![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://www.d3js.org)
+[![XML](https://img.shields.io/badge/XML-gray?logo=diagrams.net)](https://www.npmjs.com/package/xml)
+[![Puppeteer](https://img.shields.io/badge/Puppeteer-gray?logo=Puppeteer)](https://pptr.dev)
+[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-gray?logo=RabbitMQ)](https://www.rabbitmq.com)
 [![Docker](https://img.shields.io/badge/Docker-gray?logo=Docker)](https://www.docker.com)
-
-
-
 
 ## 🧮 Diagram:
 
@@ -46,11 +43,9 @@ Click on the button "Export" to generate and download a XML Sitemap.
   <img alt="SiteMapper" src=".github/diagram.jpg" width="100%">
 </p>
 
-
 ## 🌐 Preview
 
 http://project-web-crawler.vercel.app
-
 
 ## 📦 Installation
 
@@ -109,11 +104,9 @@ $ npm install
 $ npm run dev
 ```
 
-
 ## ⚖️ License
 
 This project is under license. [MIT](LICENSE).
-
 
 ## 📫 Contact
 
