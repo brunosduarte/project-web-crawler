@@ -13,11 +13,11 @@ services:
     volumes:
       - ./data/pg:/data/postgres
   
-  # rabbitmq:
-  #   image: rabbitmq:3.12-management
-  #   ports:
-  #     - "15672:15672"
-  #     - "5672:5672"
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: "admin"
-  #     RABBITMQ_DEFAULT_PASS: "admin"
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"

@@ -3,4 +3,7 @@ WORKDIR /src
 COPY package*.json ./
 RUN npm install
 COPY . .
-CMD ["node", "dist/app.js"]  # Ensure TypeScript is compiled to JS
+EXPOSE 5431
+EXPOSE 5672
+EXPOSE 15672
+CMD ["node", "dist/src/main.js"]

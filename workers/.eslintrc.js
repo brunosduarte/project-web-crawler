@@ -9,6 +9,7 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    '@enkidevs/eslint-config-backend',
   ],
   root: true,
   env: {

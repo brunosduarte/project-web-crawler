@@ -6,6 +6,7 @@
 - 📋 [Project](#-project)
   - 🚀 [Technologies](#-technologies)
   - 🧮 [Diagram](#-diagram)
+  - 🌐 [Prototype](#-prototype)
   - 📷 [Preview](#-preview)
 - 📦 [Installation](#-installation)
 - ⚖️ [License](#%EF%B8%8F-license)
@@ -18,7 +19,7 @@ On the <em>"Frontend"</em> you insert the domain, this information is sent to th
 The process to dig into the website is made by another application named <em>"Workers"</em> that pick up the list of founded links in the root page and distribute the job with Docker in many Threads to minimize the time to obtain the results.
 For the job operation between <em>"Workers"</em> and <em>"Server"</em> was used the concept of PUB/SUB using RabbitMQ.
 When the <em>"Server"</em> gives back the result to the <em>"Frontend"</em> is generated a Tree view of the results using the library D3.js.
-Click on the button "Export" to generate and download a XML Sitemap.
+Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML file</strong>.
 
 ## 🚀 Technologies
 
@@ -43,9 +44,15 @@ Click on the button "Export" to generate and download a XML Sitemap.
   <img alt="SiteMapper" src=".github/diagram.jpg" width="100%">
 </p>
 
-## 🌐 Preview
+## 🌐 Prototype
 
 http://project-web-crawler.vercel.app
+
+## 📷 Preview
+
+<p align="center"> 
+  <img alt="SiteMapper" src=".github/preview.jpg" width="100%">
+</p>
 
 ## 📦 Installation
 
@@ -114,7 +121,5 @@ by [**Bruno S. Duarte**](https://www.linkedin.com/in/brunosduarte/) 🚀
 
 [git]: https://git-scm.com
 [nodejs]: https://nodejs.org/
-[pnpm]: https://pnpm.io/pt/
 [npm]: https://www.npmjs.com/
-[expressjs]: https://expressjs.com
-[git]: https://git-scm.com
+[pnpm]: https://pnpm.io/pt/
