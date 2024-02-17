@@ -4,15 +4,14 @@ import { IScrapResult } from './entities/IScrapResult';
 export class Scrapper {
   private browserPromise?: Promise<Browser>;
 
-  constructor() {
-
-  }
+  constructor(){}
 
   async end() {
     if(!this.browserPromise) {
       return;
     }
     const browser = await this.getBrowser();
+    console.log('finished',browser)
     await browser.close();
   }
 
@@ -26,6 +25,7 @@ export class Scrapper {
       const foundUrls = await page.evaluate(() => {
         const urlArray = Array.from(document.links).map((link) => link.href);
         const uniqueUrlArray = [...new Set(urlArray)];
+        console.log('uniqueA',uniqueUrlArray)
         return uniqueUrlArray;
       });
       await page.close();
@@ -47,7 +47,22 @@ export class Scrapper {
 
   private async getBrowser(): Promise<Browser> {
     if(!this.browserPromise) {
-      this.browserPromise =  puppeteer.launch();
+      this.browserPromise =  puppeteer.launch({
+        headless: true,
+        timeout: 990000,
+        protocolTimeout: 990000,
+        args: [
+          '--disable-gpu',
+          '--disable-dev-shm-usage',
+          '--disable-setuid-sandbox',
+          '--no-first-run',
+          '--no-sandbox',
+          '--no-zygote',
+          '--deterministic-fetch',
+          '--disable-features=IsolateOrigins',
+          '--disable-site-isolation-trials',
+        ],
+      });
     }
     return await this.browserPromise;
   }

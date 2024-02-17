@@ -9,7 +9,7 @@ export const parsedData = (domain: string, urls: { loc: string; lastmod: string 
   const rootNode: SiteMapNode = { name: domain, children: [] };
 
   urls.forEach(urlObj => {
-    console.log("urlObj",urlObj, urls)
+    //console.log("urlObj",urlObj, urls)
     const pathSegments = urlObj.loc.replace(domain, '').split('/').filter(Boolean);
     let currentNode = rootNode;
 
@@ -28,7 +28,7 @@ export const parsedData = (domain: string, urls: { loc: string; lastmod: string 
       currentNode = childNode;
     });
   });
-  console.log("root",rootNode)
+
   return rootNode;
 };
 

@@ -14,7 +14,8 @@ export class Worker {
   private async worker(task: ITask) {
     console.log('Processing task', task.url);
     const found = await this.store.findNodeByURL(task.url);
-    if(found) {
+    if (found) {
+      console.log('alreadyHave', found);
       return;
     }
     const res = await this.scrapper.scrap(task.url);
@@ -22,11 +23,16 @@ export class Worker {
   
     await Promise.allSettled(res.foundUrls.map(url => this.addToQueue(url)))
   }
-  
+
   async addToQueue(url: string) {
     const found = await this.store.findNodeByURL(url);
-    if(found) {
-      return;
+    if (found)  {
+      console.log('isOnList', url)
+      return
+    }
+    if (!url.startsWith('https://www.enki.com/',0))  {
+      console.log('notDomain', url)
+      return
     }
     console.log('Adding to queue', url);
     await this.queue.add({ url });

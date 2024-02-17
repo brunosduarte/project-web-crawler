@@ -1,0 +1,5 @@
+version: '3'
+services:
+  worker:
+    build: .
+    scale: 5  # Number of worker instances

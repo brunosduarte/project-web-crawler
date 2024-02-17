@@ -1,15 +1,22 @@
+import * as d3 from 'd3';
 import data from '../storage/data.json';
-import { parsedData } from '../utils/parsedData';
+import { parsedData, SiteMapNode } from '../utils/parsedData';
 
-const processData = (data) => {
-  const base = data[0].name;  // assuming, the first entry of data is the parent of all
-  const newData = {
-    name: base,
-    children: [],
-  };
-};
+export interface TreeProps {
+  data: SiteMapNode;
+}
 
-const tree = (treeData) => {
+const width = 1440;
+
+// const processData = (data) => {
+//   const base = data[0].name;  // assuming, the first entry of data is the parent of all
+//   const newData = {
+//     name: base,
+//     children: [],
+//   };
+// };
+
+const treePretty:<TreeProps> = ({ treeData }) => {
   const root = d3.hierarchy(treeData);
   root.dx = 10;
   root.dy = width / (root.height + 1);
@@ -18,7 +25,7 @@ const tree = (treeData) => {
 
 const chart = () => {
   const processedData = parsedData(data);
-  const root = tree(processedData);    
+  const root = treePretty(processedData);    
   let x0 = Infinity;
   let x1 = -x0;
   root.each(d => {
@@ -26,10 +33,14 @@ const chart = () => {
       if (d.x < x0) x0 = d.x;
   });    
   const svg = d3.create("svg")
-      .attr("viewBox", [0, 0, width, x1 - x0 + root.dx * 2]);    const g = svg.append("g")
+      .attr("viewBox", [0, 0, width, x1 - x0 + root.dx * 2]);
+  
+  const g = svg.append("g")
       .attr("font-family", "sans-serif")
       .attr("font-size", 8)
-      .attr("transform", `translate(${root.dy / 3},${root.dx - x0})`);    const link = g.append("g")
+      .attr("transform", `translate(${root.dy / 3},${root.dx - x0})`);
+  
+  const link = g.append("g")
       .attr("fill", "none")
       .attr("stroke", "#555")
       .attr("stroke-opacity", 0.4)
@@ -39,13 +50,17 @@ const chart = () => {
       .join("path")
       .attr("d", d3.linkHorizontal()
           .x(d => d.y)
-          .y(d => d.x));    const node = g.append("g")
+          .y(d => d.x));    
+    
+  const node = g.append("g")
       .attr("stroke-linejoin", "round")
       .attr("stroke-width", 3)
       .selectAll("g")
       .data(root.descendants())
       .join("g")
-      .attr("transform", d => `translate(${d.y},${d.x})`);    node.append("circle")
+      .attr("transform", d => `translate(${d.y},${d.x})`);
+      
+  node.append("circle")
       .attr("fill", d => d.children ? "#555" : "#999")
       .attr("r", 2.5);    node.append("text")
       .attr("dy", "0.31em")
@@ -53,7 +68,7 @@ const chart = () => {
       .attr("text-anchor", d => d.children ? "end" : "start")
       .text(d => d.data.name)
       .clone(true).lower()
-      .attr("stroke", "white");    return svg.node();
+      .attr("stroke", "white");
+      
+  return svg.node();
 }
-
-const width = 1440;

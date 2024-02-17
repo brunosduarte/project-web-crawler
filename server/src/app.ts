@@ -1,4 +1,3 @@
-import { ITask } from './entities/ITask';
 import { INodeStore } from './store/INodeStore';
 import { MemoryNodeStore } from './store/MemoryNodeStore';
 import { Scrapper } from './Scrapper';
@@ -27,5 +26,4 @@ server.start()
   });
 
 
-queue.add({ url: 'http://enki.com' });
-
+queue.add({ url: 'https://www.enki.com/' });

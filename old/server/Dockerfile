@@ -3,5 +3,7 @@ WORKDIR /src
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 3000
-CMD ["npm", "run", "dev"]
+EXPOSE 5431
+EXPOSE 5672
+EXPOSE 15672
+CMD ["node", "dist/src/main.js"]

@@ -2,6 +2,8 @@ import  express, { Request, Response } from 'express';
 import { INodeStore } from './store/INodeStore';
 import { ITaskQueue } from './queue/ITaskQueue';
 
+type ProgressCallback = (progress: number) => void;
+
 export interface IServerOptions {
   port: number;
   store: INodeStore;
@@ -12,6 +14,7 @@ export class Server {
   private server: express.Express;
   private store: INodeStore;
   private queue: ITaskQueue;
+  
   constructor(private options: IServerOptions) {
     this.server = express();
     this.store = options.store;
@@ -21,6 +24,8 @@ export class Server {
       .get('/nodes', this.listNode.bind(this))
       .get('/nodes/:url', this.getNodeByURL.bind(this))
       .get('/queue', this.getQueueStatus.bind(this))
+    const startTime = Date.now();
+    const endTime = startTime + duration;
   }
 
   getPort(): number {
