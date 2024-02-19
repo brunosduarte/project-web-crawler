@@ -41,7 +41,7 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 ## 🧮 Diagram:
 
 <p align="center"> 
-  <img alt="SiteMapper" src=".github/diagram.jpg" width="100%">
+  <img alt="SiteMapper" src=".github/diagram.png" width="100%">
 </p>
 
 ## 🌐 Prototype

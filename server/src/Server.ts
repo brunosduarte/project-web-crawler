@@ -24,8 +24,8 @@ export class Server {
       .get('/nodes', this.listNode.bind(this))
       .get('/nodes/:url', this.getNodeByURL.bind(this))
       .get('/queue', this.getQueueStatus.bind(this))
-    const startTime = Date.now();
-    const endTime = startTime + duration;
+    // const startTime = Date.now();
+    // const endTime = startTime + duration;
   }
 
   getPort(): number {

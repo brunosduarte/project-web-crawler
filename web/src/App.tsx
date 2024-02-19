@@ -12,8 +12,8 @@ import { parsedData } from './utils/parsedData';
 import { Tree } from './components/Tree';
 
 export function App() {
-  const domainData = data['example.com']; // Replace 'data' with your actual variable holding the JSON data
-  const treeData = parsedData('example.com', domainData);
+  const domainData = data['enki.com']; // Replace 'data' with your actual variable holding the JSON data
+  const treeData = parsedData('enkiexample.com', domainData);
   
   const [isLoadingResults, setIsLoadingResults] = useState(false)
   
@@ -33,7 +33,8 @@ export function App() {
     }
   }
   return (
-    <div className='bg-gray-800 w-screen h-screen flex flex-col items-center '>
+    <div className='bg-gray-800 w-screen h-screen flex flex-col items-center '> 
+    <div className='bg-green-200'><Tree data={treeData} /></div>
       <h1 className='font-bold text-white text-6xl mt-40'>SiteMapper</h1>
       <h2 className='text-xs text-gray-200 mt-2'>Generate a complete sitemap of a specific domain</h2>
       <form action="" className='flex flex-col items-center'>
@@ -69,7 +70,7 @@ export function App() {
         isLoadingResults ?
           `Tree`
         :   
-          <Tree data={treeData} />
+         `treeOn` 
         }
       </form>
       
