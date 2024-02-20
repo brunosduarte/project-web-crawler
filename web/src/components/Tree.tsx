@@ -3,20 +3,26 @@ import * as d3 from 'd3';
 import data from '../storage/data.json';
 import { parsedData, SiteMapNode } from '../utils/parsedData';
 
-const domain = 'example.com'
-const domainData = data[domain];
+const domain = 'enki.com'
+const domainData = data[domain] as { loc: string; lastmod: string; }[]; // Update the type of domainData
 
 export interface TreeProps {
   data: SiteMapNode;
 }
+
 const width = 1440;
 
-export const treeCreation = (treeData:any) => {
-  const root = d3.hierarchy(treeData);
+interface CustomHierarchyNode extends d3.HierarchyNode<SiteMapNode> {
+  dx: number;
+  dy: number;
+}
+
+export const treeCreation = (treeData: any) => {
+  const root: CustomHierarchyNode = d3.hierarchy<SiteMapNode>(treeData) as CustomHierarchyNode;
   root.dx = 10;
   root.dy = width / (root.height + 1);
   const treeLayout = d3.tree<SiteMapNode>().size([0, 0]);
-  return d3.tree().nodeSize([root.dx, root.dy])(root);
+  return d3.tree<SiteMapNode>().nodeSize([root.dx, root.dy])(root);
 };
 
 export const Tree: React.FC<TreeProps> = ({ data }) => {
@@ -37,13 +43,13 @@ export const Tree: React.FC<TreeProps> = ({ data }) => {
     
     const svg = d3.select(svgRef.current)
        .attr("viewBox", [0, 0, width, x1 - x0 + root.dx * 2]);
-    svg.selectAll('*').remove(); // Clear SVG before redrawing
+    svg.selectAll('*').remove();
     
     const treeLayout = d3.tree<SiteMapNode>().size([800, 800]);
 
     const g = svg.append("g")
       .attr("font-family", "sans-serif")
-      .attr("font-size", 8)
+      .attr("font-size", 12)
       .attr("transform", `translate(${root.dy / 3},${root.dx - x0})`);
   
     const link = g.append("g")
@@ -71,22 +77,12 @@ export const Tree: React.FC<TreeProps> = ({ data }) => {
       .attr("r", 2.5);    
     
     node.append("text")
-      .attr("dy", "0.31em")
+      .attr("dy", "0.31rem")
       .attr("x", d => d.children ? -6 : 6)
       .attr("text-anchor", d => d.children ? "end" : "start")
       .text(d => d.data.name)
       .clone(true).lower()
-      .attr("stroke", "white");
-
-    // const linkGenerator = d3.linkHorizontal()
-    // .x(node => node.y)
-    // .y(node => node.x);
-        
-    // const links = svg.selectAll('path.link')
-    // .data(treeLayout(root).links())
-    // .enter().append('path')
-    // .attr('class', 'link')
-    // .attr('d', linkGenerator);
+      .attr("stroke", "white")
     
   }, [data]);
 

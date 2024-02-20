@@ -11,11 +11,13 @@ import data from './storage/data.json';
 import { parsedData } from './utils/parsedData';
 import { Tree } from './components/Tree';
 
+const domain = 'enki.com'
+
 export function App() {
-  const domainData = data['enki.com']; // Replace 'data' with your actual variable holding the JSON data
-  const treeData = parsedData('enkiexample.com', domainData);
-  
-  const [isLoadingResults, setIsLoadingResults] = useState(false)
+  const domainData = data[domain];
+  const treeData = parsedData(domain, domainData);
+
+  const [isLoadingResults, setIsLoadingResults] = useState(false);
   
   async function handleGenerateSitemap() {
     setIsLoadingResults(true)
@@ -32,9 +34,9 @@ export function App() {
       setIsLoadingResults(false)
     }
   }
+
   return (
     <div className='bg-gray-800 w-screen h-screen flex flex-col items-center '> 
-    <div className='bg-green-200'><Tree data={treeData} /></div>
       <h1 className='font-bold text-white text-6xl mt-40'>SiteMapper</h1>
       <h2 className='text-xs text-gray-200 mt-2'>Generate a complete sitemap of a specific domain</h2>
       <form action="" className='flex flex-col items-center'>
@@ -45,6 +47,7 @@ export function App() {
           </input>
         </div>
         <div className='flex flex-wrap justify-center align-middle'>
+          <Tree data={treeData} />  
         <button
           type='button'
           className='bg-blue-500 flex justify-center place-items-center m-4 p-2 w-36 rounded-xl hover:bg-blue-600 disabled:bg-blue-800'
@@ -67,13 +70,16 @@ export function App() {
             null
         }        
         { 
-        isLoadingResults ?
+        !isLoadingResults ?
           `Tree`
-        :   
-         `treeOn` 
-        }
+        : 'treeon'
+      }
       </form>
-      
     </div>
   )
 }
+
+
+// <ErrorBoundary fallback={<p>Something went wrong</p>}>
+// <Tree data={treeData} />  
+// </ErrorBoundary>
