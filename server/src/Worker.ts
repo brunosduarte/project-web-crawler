@@ -30,7 +30,7 @@ export class Worker {
       console.log('isOnList', url)
       return
     }
-    if (!url.startsWith('https://www.enki.com/',0))  {
+    if (!url.startsWith('https://www.correios.com.br/',0))  {
       console.log('notDomain', url)
       return
     }

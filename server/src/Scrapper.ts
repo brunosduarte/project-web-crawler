@@ -1,5 +1,10 @@
 import puppeteer, { Browser } from 'puppeteer';
-import { IScrapResult } from './entities/IScrapResult';
+
+interface IScrapResult {
+  rootUrl: string;
+  foundUrls: string[];
+  foundAssets: string[];
+}
 
 export class Scrapper {
   private browserPromise?: Promise<Browser>;
@@ -25,14 +30,13 @@ export class Scrapper {
       const foundUrls = await page.evaluate(() => {
         const urlArray = Array.from(document.links).map((link) => link.href);
         const uniqueUrlArray = [...new Set(urlArray)];
-        console.log('uniqueA',uniqueUrlArray)
         return uniqueUrlArray;
       });
       await page.close();
-        
+      
       return {
         rootUrl: url,
-        // TODO: find assets
+        // TODO: assets
         foundAssets: [],
         foundUrls,        
       };

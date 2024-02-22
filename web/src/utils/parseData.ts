@@ -1,9 +1,6 @@
-export interface SiteMapNode {
-  name: string;
-  children?: SiteMapNode[];
-}
+import { SiteMapNode } from "../types/types";
 
-export const parsedData = (domain: string, urls: { loc: string; lastmod: string }[]): SiteMapNode => {
+export const parseData = (domain: string, urls: { loc: string; lastmod: string }[]): SiteMapNode => {
   const rootNode: SiteMapNode = { name: domain, children: [] };
 
   if (!Array.isArray(urls)) {

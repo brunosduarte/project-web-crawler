@@ -5,8 +5,8 @@ import { ITaskQueue } from './queue/ITaskQueue';
 import { Worker } from './Worker'; 
 import { Server } from './Server';
 
-const store: INodeStore = new MemoryNodeStore();
 const queue: ITaskQueue = new MemoryTaskQueue();
+const store: INodeStore = new MemoryNodeStore();
 
 const worker = new Worker(queue, store);
 const server = new Server({
@@ -25,4 +25,4 @@ server.start()
   });
 
 
-queue.add({ url: 'https://www.enki.com/' });
+queue.add({ url: 'https://www.correios.com.br/' });

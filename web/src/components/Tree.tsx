@@ -1,37 +1,33 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import data from '../storage/data.json';
-import { parsedData, SiteMapNode } from '../utils/parsedData';
 
-const domain = 'enki.com'
-const domainData = data[domain] as { loc: string; lastmod: string; }[]; // Update the type of domainData
+import { CustomHierarchyNode, SiteMapNode, TreeProps } from '../types/types';
 
-export interface TreeProps {
-  data: SiteMapNode;
-}
+const width = 1000;
 
-const width = 1440;
-
-interface CustomHierarchyNode extends d3.HierarchyNode<SiteMapNode> {
-  dx: number;
-  dy: number;
-}
-
-export const treeCreation = (treeData: any) => {
+const treeCreation = (treeData: any) => {
   const root: CustomHierarchyNode = d3.hierarchy<SiteMapNode>(treeData) as CustomHierarchyNode;
   root.dx = 10;
   root.dy = width / (root.height + 1);
-  const treeLayout = d3.tree<SiteMapNode>().size([0, 0]);
   return d3.tree<SiteMapNode>().nodeSize([root.dx, root.dy])(root);
 };
 
-export const Tree: React.FC<TreeProps> = ({ data }) => {
-  const svgRef = useRef(null);
-  
-  const processedData = parsedData(domain, domainData);
-  const root = treeCreation(processedData); 
-  console.log('processedData',processedData);
+export function Tree({ tree }: TreeProps) {
+  const svgRef = useRef<SVGSVGElement>(null);
 
+  useEffect(() => {
+    const svg = d3.select(svgRef.current);
+    const zoomBehavior = d3.zoom()
+      .scaleExtent([0.1, 3])
+      .on('zoom', (event) => {
+        svg.select('g').attr('transform', event.transform);
+      });
+
+    svg.call(zoomBehavior as any);
+  }, []);
+  
+  const root = treeCreation(tree); 
+  
   let x0 = Infinity;
   let x1 = -x0;
   
@@ -42,15 +38,15 @@ export const Tree: React.FC<TreeProps> = ({ data }) => {
     });  
     
     const svg = d3.select(svgRef.current)
-       .attr("viewBox", [0, 0, width, x1 - x0 + root.dx * 2]);
+       .attr("viewBox", [0, 0, width, x1 - x0 + root.x * 2]);
     svg.selectAll('*').remove();
     
-    const treeLayout = d3.tree<SiteMapNode>().size([800, 800]);
+    const treeLayout = d3.tree<SiteMapNode>().size();
 
     const g = svg.append("g")
       .attr("font-family", "sans-serif")
       .attr("font-size", 12)
-      .attr("transform", `translate(${root.dy / 3},${root.dx - x0})`);
+      .attr("transform", `translate(${root.y / 2},${root.x - x0})`);
   
     const link = g.append("g")
       .attr("fill", "none")
@@ -84,14 +80,7 @@ export const Tree: React.FC<TreeProps> = ({ data }) => {
       .clone(true).lower()
       .attr("stroke", "white")
     
-  }, [data]);
+  }, [tree]);   
 
-  // const svg = d3.create("svg")
-  //   .attr("viewBox", [0, 0, width, x1 - x0 + root.dx * 2]);    
-  
-  //     
-
-  return <svg ref={svgRef}></svg>;
+  return <svg ref={svgRef} width={width} height={400} style={{ border: '2px dashed black' }}></svg>;
 };
-
-// width="800" height="800"
