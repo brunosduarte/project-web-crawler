@@ -1,9 +1,8 @@
 import { ITask } from './entities/ITask';
-import { INodeStore } from './store/INodeStore';
-import { MemoryNodeStore } from './store/MemoryNodeStore';
 import { Scrapper } from './Scrapper';
-import { MemoryTaskQueue } from './queue/MemoryTaskQueue';
 import { ITaskQueue } from './queue/ITaskQueue';
+import { INodeStore } from './store/INodeStore';
+import { IScrapResult } from './entities/IScrapResult';
 
 export class Worker {
   private scrapper = new Scrapper();
@@ -13,28 +12,37 @@ export class Worker {
 
   private async worker(task: ITask) {
     console.log('Processing task', task.url);
-    const found = await this.store.findNodeByURL(task.url);
-    if (found) {
-      console.log('alreadyHave', found);
+    const res: IScrapResult = await this.scrapper.scrap(task.url);
+    const nodes = await this.store.listNodes();
+    const existingUrls = nodes.flatMap(node => node[Object.keys(node)[0]].map(detail => detail.loc));
+
+    if (existingUrls.includes(task.url)) {
+      //console.log('URL is already in the task process:', task.url);
       return;
     }
-    const res = await this.scrapper.scrap(task.url);
-    await this.store.saveNode(res);
-  
-    await Promise.allSettled(res.foundUrls.map(url => this.addToQueue(url)))
+    
+    Object.entries(res).forEach(async ([domain, details]) => {
+      await this.store.saveNode(domain, details);
+      details.forEach(detail => {
+        //console.log('includes', detail.loc);
+        this.addToQueue(detail.loc);
+      });
+    });
   }
-
   async addToQueue(url: string) {
-    const found = await this.store.findNodeByURL(url);
-    if (found)  {
-      console.log('isOnList', url)
-      return
+    const nodes = await this.store.listNodes();
+    const existingUrls = nodes.flatMap(node => node[Object.keys(node)[0]].map(detail => detail.loc));
+    
+    // if (existingUrls.includes(url)) {
+    //   console.log('URL is already in the founded links:', url);
+    //   return;
+    // }
+
+    if (!url.includes('microsoft.com/')) {
+        return;
     }
-    if (!url.startsWith('https://www.correios.com.br/',0))  {
-      console.log('notDomain', url)
-      return
-    }
-    console.log('Adding to queue', url);
+
+    //console.log('Adding to queue:', url);
     await this.queue.add({ url });
   }
 }

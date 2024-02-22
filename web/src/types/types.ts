@@ -11,8 +11,12 @@ export interface TreeProps {
   tree: SiteMapNode;
 }
 
+export interface ValueTransformer {
+  (value: number): number;
+}
+
 export interface CustomHierarchyNode extends d3.HierarchyNode<SiteMapNode> {
-  dx: number;
-  dy: number;
+  dx: ValueTransformer;
+  dy: ValueTransformer;
 }
 

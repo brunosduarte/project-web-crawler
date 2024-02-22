@@ -1,7 +1,5 @@
+import { IScrapUrlDetail } from "./IScapUrlDetail";
+
 export interface IScrapResult {
-  rootUrl: string;
-  title: string;
-  lastmod: string;
-  foundUrls: string[];
-  foundAssets: string[];
+  [domain: string]: IScrapUrlDetail[];
 }

@@ -1,5 +1,10 @@
 import puppeteer, { Browser } from 'puppeteer';
-import { IScrapResult } from './entities/IScrapResult';
+
+interface IScrapResult {
+  rootUrl: string;
+  foundUrls: string[];
+  foundAssets: string[];
+}
 
 export class Scrapper {
   private browserPromise?: Promise<Browser>;
@@ -7,46 +12,46 @@ export class Scrapper {
   constructor(){}
 
   async end() {
-    if (!this.browserPromise) {
+    if(!this.browserPromise) {
       return;
     }
     const browser = await this.getBrowser();
-    console.log('finished', browser);
+    console.log('finished',browser)
     await browser.close();
   }
 
-  async scrap(url: string): Promise<IScrapResult> {
+  async scrap(url: string):Promise<IScrapResult> {
     try {
       const browser = await this.getBrowser();
       const page = await browser.newPage();
+    
       await page.goto(url);
-
-      const data = await page.evaluate(() => {
-        const details = Array.from(document.links).map(link => {
-          const loc = link.href;
-          const lastmod = document.lastModified;
-          const title = document.title;
-          //TODO: more assets
-          return { loc, lastmod, title };
-        });
-        return details;
+    
+      const foundUrls = await page.evaluate(() => {
+        const urlArray = Array.from(document.links).map((link) => link.href);
+        const uniqueUrlArray = [...new Set(urlArray)];
+        return uniqueUrlArray;
       });
-      
       await page.close();
-
-      const domain = new URL(url).hostname;
-      const result: IScrapResult = { [domain]: data };
-
-      return result;
-    } catch (e) {
-      console.error('Scraping failed', e);
-      return {};
+      
+      return {
+        rootUrl: url,
+        // TODO: assets
+        foundAssets: [],
+        foundUrls,        
+      };
+    } catch (e) { 
+      return {
+        rootUrl: url,
+        foundAssets: [],
+        foundUrls: [],
+      }
     }
   }
 
   private async getBrowser(): Promise<Browser> {
-    if (!this.browserPromise) {
-      this.browserPromise = puppeteer.launch({
+    if(!this.browserPromise) {
+      this.browserPromise =  puppeteer.launch({
         headless: true,
         timeout: 990000,
         protocolTimeout: 990000,

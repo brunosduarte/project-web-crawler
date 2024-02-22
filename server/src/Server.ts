@@ -1,6 +1,7 @@
 import  express, { Request, Response } from 'express';
 import { INodeStore } from './store/INodeStore';
 import { ITaskQueue } from './queue/ITaskQueue';
+import cors from 'cors';
 
 type ProgressCallback = (progress: number) => void;
 
@@ -17,6 +18,7 @@ export class Server {
   
   constructor(private options: IServerOptions) {
     this.server = express();
+    this.server = this.server.use(cors<Request>())
     this.store = options.store;
     this.queue = options.queue;
     this.server
