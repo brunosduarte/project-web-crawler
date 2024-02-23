@@ -2,19 +2,15 @@ import  express, { Request, Response } from 'express';
 import { INodeStore } from './store/INodeStore';
 import { ITaskQueue } from './queue/ITaskQueue';
 import cors from 'cors';
-import { IScrapDone, IScrapResult } from './entities/IScrapResult';
-import { isNotNil } from './helpers/guards';
 import { GetTree } from './usecases/GetTree';
 import { INode } from './entities/INode';
-
-type ProgressCallback = (progress: number) => void;
 
 export interface IServerOptions {
   port: number;
   store: INodeStore;
   queue: ITaskQueue;
 }
-''
+
 export class Server {
   private server: express.Express;
   private store: INodeStore;

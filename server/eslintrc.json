@@ -1,3 +1,0 @@
-{
-  "extends": ["@enkidevs/eslint-config-backend","plugin:prettier/recommended"]
-}

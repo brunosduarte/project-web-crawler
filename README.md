@@ -26,22 +26,23 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 [![React.js](https://img.shields.io/badge/React.js-gray?logo=React)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
 [![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
-[![NestJS](https://img.shields.io/badge/NestJS-gray?logo=NestJS)](https://nestjs.com)
+[![React Query](https://img.shields.io/badge/React_Query-gray?logo=React_Query)](https://tanstack.com/query/latest)
 [![TypeScript](https://img.shields.io/badge/TypeScript-gray?logo=TypeScript)](https://typescriptlang.org)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
 [![Axios](https://img.shields.io/badge/Axios-gray?logo=Axios)](https://axios-http.com)
-[![Prisma](https://img.shields.io/badge/Prisma-gray?logo=Prisma)](https://www.prisma.io)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-gray?logo=PostgreSQL)](https://www.postgresql.org)
+[![P-Queue](https://img.shields.io/badge/P-Queue-gray?logo=Dask)](https://www.npmjs.com/package/p-queue)
+[![Express](https://img.shields.io/badge/Express-gray?logo=Express)](https://www.expressjs.com)
 [![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://www.d3js.org)
 [![XML](https://img.shields.io/badge/XML-gray?logo=diagrams.net)](https://www.npmjs.com/package/xml)
 [![Puppeteer](https://img.shields.io/badge/Puppeteer-gray?logo=Puppeteer)](https://pptr.dev)
-[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-gray?logo=RabbitMQ)](https://www.rabbitmq.com)
+-
+[![Redis](https://img.shields.io/badge/Redis-gray?logo=Redis)](https://www.redis.io)
 [![Docker](https://img.shields.io/badge/Docker-gray?logo=Docker)](https://www.docker.com)
 
 ## 🧮 Diagram:
 
 <p align="center"> 
-  <img alt="SiteMapper" src=".github/diagram.png" width="100%">
+  <img alt="SiteMapper" src=".github/diagram.svg" width="100%">
 </p>
 
 ## 🌐 Prototype
