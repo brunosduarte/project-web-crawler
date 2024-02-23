@@ -26,7 +26,7 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 [![React.js](https://img.shields.io/badge/React.js-gray?logo=React)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
 [![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
-[![React Query](https://img.shields.io/badge/React_Query-gray?logo=React_Query)](https://tanstack.com/query/latest)
+[![React-Query](https://img.shields.io/badge/React-Query-gray?logo=React-Query)](https://tanstack.com/query/latest)
 [![TypeScript](https://img.shields.io/badge/TypeScript-gray?logo=TypeScript)](https://typescriptlang.org)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
 [![Axios](https://img.shields.io/badge/Axios-gray?logo=Axios)](https://axios-http.com)
@@ -52,12 +52,12 @@ http://project-web-crawler.vercel.app
 ## 📷 Preview
 
 <p align="center"> 
-  <img alt="SiteMapper" src=".github/preview.jpg" width="100%">
+  <img alt="SiteMapper" src=".github/preview.svg" width="100%">
 </p>
 
 ## 📦 Installation
 
-To clone and run this application, you will need [Git][git], [NodeJS v18.17.1][nodejs] or higher + [npm v9.17.1][npm] or higher, and [PNPm 8.7.5][pnpm] installed on your computer. In your terminal, run:
+To clone and run this application, you will need [Git][git], [NodeJS v18.17.1][nodejs] or higher + [npm v9.17.1][npm] or higher installed on your computer. In your terminal, run:
 
 
 ```bash
@@ -123,4 +123,3 @@ by [**Bruno S. Duarte**](https://www.linkedin.com/in/brunosduarte/) 🚀
 [git]: https://git-scm.com
 [nodejs]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
-[pnpm]: https://pnpm.io/pt/
