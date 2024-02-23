@@ -1,9 +1,8 @@
-import { IScrapUrlDetail } from "../entities/IScapUrlDetail";
+import { IScrapResult } from "../entities/IScrapResult";
 
 export interface INodeStore {
-  saveNode(domain: string, details: IScrapUrlDetail[]): Promise<void>;
-  findNodeByURL(url: string): Promise<IScrapUrlDetail | undefined>;
-  listNodes(): Promise<{ [domain: string]: IScrapUrlDetail[] }[]>;
-  countNodes(): Promise<number>;
+  saveResult(data: IScrapResult): Promise<void>;
+  findByURL(url: string): Promise<IScrapResult | undefined>;
+  list(): Promise<IScrapResult[]>;
+  count(): Promise<number>;
 }
-

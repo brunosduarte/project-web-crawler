@@ -1,4 +1,6 @@
 export interface INode {
-  children: INode[];
-  url: string;
+  done: boolean,
+  url: string,
+  title?: string,
+  children?: INode[],
 }

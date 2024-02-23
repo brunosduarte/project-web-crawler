@@ -1,5 +1,7 @@
 import puppeteer, { Browser } from 'puppeteer';
-import { IScrapResult } from './entities/IScrapResult';
+import { IScrapDone, IScrapResult } from './entities/IScrapResult';
+import { isValidURL, sanitizeURL } from './helpers/validators';
+import { isNotNil } from './helpers/guards';
 
 export class Scrapper {
   private browserPromise?: Promise<Browser>;
@@ -11,36 +13,43 @@ export class Scrapper {
       return;
     }
     const browser = await this.getBrowser();
-    console.log('finished', browser);
+    console.log('finished');
+    this.browserPromise = undefined;
     await browser.close();
   }
 
-  async scrap(url: string): Promise<IScrapResult> {
+  async scrap(_url: string): Promise<IScrapDone | undefined> {
+    const url = sanitizeURL(_url);
+    if(!url) {
+      return;
+    }
+    const browser = await this.getBrowser();
+    const page = await browser.newPage();
     try {
-      const browser = await this.getBrowser();
-      const page = await browser.newPage();
       await page.goto(url);
-
-      const data = await page.evaluate(() => {
-        const details = Array.from(document.links).map(link => {
-          const loc = link.href;
-          const lastmod = document.lastModified;
-          const title = document.title;
-          //TODO: more assets
-          return { loc, lastmod, title };
-        });
-        return details;
-      });
       
-      await page.close();
-
-      const domain = new URL(url).hostname;
-      const result: IScrapResult = { [domain]: data };
-
-      return result;
+      const data = await page.evaluate(() => {
+        const title = document.title;
+        const href = document.location.href;
+        const links = Array.from(document.links).map(link => link.href);
+        return { title, links, href }
+      });
+    
+      return {
+        done: true,
+        url,
+        title: data.title,
+        items: data.links
+          .map(sanitizeURL)
+          .filter(isNotNil)
+          .filter(link => link !== url)
+          .map(href => ({ type: 'link', href }))
+      };
     } catch (e) {
       console.error('Scraping failed', e);
-      return {};
+      return undefined;
+    } finally {
+      await page.close();
     }
   }
 

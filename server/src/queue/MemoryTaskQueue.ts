@@ -22,6 +22,10 @@ export class MemoryTaskQueue implements ITaskQueue {
     this.worker = worker;
   }
 
+  onDone(callback: () => void) {
+    this.queue.on('idle', callback);
+  }
+
   async size(): Promise<number> {
     return this.queue.size;
   }

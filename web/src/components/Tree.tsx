@@ -71,9 +71,7 @@ export function Tree({ tree }: TreeProps) {
       .selectAll("path")
       .data(root.links())
       .join("path")
-      .attr("d", d3.linkHorizontal()
-        .x(d => d.y)
-        .y(d => d.x)); 
+      .attr("d", d3.linkHorizontal().x(d => d.y).y(d => d.x) as any); 
 
     const node = g.append("g")
       .attr("stroke-linejoin", "round")

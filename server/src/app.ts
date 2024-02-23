@@ -6,10 +6,11 @@ import { Worker } from './Worker';
 import { Server } from './Server';
 import { INodeStore } from './store/INodeStore';
 
-const queue: ITaskQueue = new MemoryTaskQueue();
+const queue = new MemoryTaskQueue();
 const store: INodeStore = new MemoryNodeStore();
 
 const worker = new Worker(queue, store);
+queue.onDone(() => worker.end());
 const server = new Server({
   port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
   store,
@@ -26,4 +27,4 @@ server.start()
   });
 
 
-queue.add({ url: 'https://www.microsoft.com' });
+queue.add({ url: 'https://www.enki.com' });
