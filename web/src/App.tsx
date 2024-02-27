@@ -11,10 +11,15 @@ import { ProgressBar } from './components/ProgressBar';
 import data from './storage/data.json';
 import { parseData } from './utils/parseData';
 import { exportSitemap } from './utils/exportSitemap';
+import { useMutation } from 'react-query';
+import { getTree, searchCrawlDomain } from './services/api';
 
 export function App() {
   const { data: results, isError, isLoading } = useResults();
   const { data: status } = useStatus()
+  const { mutateAsync: addToScrap } = useMutation({
+    mutationFn: getTree,
+  });
   const [searchDomain, setSearchDomain] = useState('');
   const [isErrorTyping, setErrorTyping] = useState(false);
   const [isErrorMessage, setErrorMessage] = useState();
@@ -49,6 +54,14 @@ export function App() {
             <button
               type='button'
               className='bg-blue-500 flex justify-center place-items-center m-4 p-2 w-36 rounded-xl hover:bg-blue-600 disabled:bg-blue-800'
+              onClick={ async () => {
+                try {
+                  await searchCrawlDomain(searchDomain)
+                  setSearchDomain(searchDomain)
+                } catch (e) {
+                  console.error(e)
+                }
+              }} 
             >
               { !isLoading ? "Generate" : <Loading  /> }
             </button>
@@ -67,9 +80,12 @@ export function App() {
           </div>
         </div>
         <div className='h-full w-full flex flex-col justify-center place-items-center'>
-          <ProgressBar progress={status?.percentDone || 0} />       
+          { 
+            isLoading ?
+              <ProgressBar progress={status?.percentDone || 0} />       
+            :
               <Tree tree={treeData} />  
-
+          }    
         </div>
       </form>
     </div>

@@ -16,8 +16,8 @@
 
 In this project was implemented a web crawler that dig into a domain and extract all internal links generating a sitemap with the content.
 On the <em>"Frontend"</em> you insert the domain, this information is sent to the <em>"Server"</em> that crawl the website and generate a list of links.
-The process to dig into the website is made by another application named <em>"Workers"</em> that pick up the list of founded links in the root page and distribute the job with Docker in many Threads to minimize the time to obtain the results.
-For the job operation between <em>"Workers"</em> and <em>"Server"</em> was used the concept of PUB/SUB using RabbitMQ.
+The process to dig into the website is made on server, spreading the job to <em>"Workers"</em> that pick up the list of founded links in the root page and distribute the job with .
+For the job operation between <em>"Workers"</em> and <em>"Server"</em> was used the concept of 
 When the <em>"Server"</em> gives back the result to the <em>"Frontend"</em> is generated a Tree view of the results using the library D3.js.
 Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML file</strong>.
 
@@ -26,7 +26,7 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 [![React.js](https://img.shields.io/badge/React.js-gray?logo=React)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
 [![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
-[![React-Query](https://img.shields.io/badge/React-Query-gray?logo=React-Query)](https://tanstack.com/query/latest)
+[![Tanstack-Query](https://img.shields.io/badge/React-Query-gray?logo=React-Query)](https://tanstack.com/query/latest)
 [![TypeScript](https://img.shields.io/badge/TypeScript-gray?logo=TypeScript)](https://typescriptlang.org)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
 [![Axios](https://img.shields.io/badge/Axios-gray?logo=Axios)](https://axios-http.com)

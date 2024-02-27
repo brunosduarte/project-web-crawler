@@ -1,7 +1,7 @@
-import { SiteMapNode } from "../types/types";
+import { ISiteMapNode } from "../entities/types";
 
-export const parseData = (domain: string, urls: { loc: string; lastmod: string }[]): SiteMapNode => {
-  const rootNode: SiteMapNode = { name: domain, children: [] };
+export const parseData = (domain: string, urls: { loc: string; lastmod: string }[]): ISiteMapNode => {
+  const rootNode: ISiteMapNode = { name: domain, children: [] };
 
   if (!Array.isArray(urls)) {
     console.error('parsedData function expects \'urls\' to be an array.');

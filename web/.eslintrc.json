@@ -1,3 +1,6 @@
 {
-  "extends": ["@enkidevs/eslint-config-frontend","plugin:prettier/recommended"]
+  "extends": ["@enkidevs/eslint-config-frontend","plugin:prettier/recommended"],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "error"
+  }
 }
