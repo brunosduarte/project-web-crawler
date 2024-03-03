@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { SiteMapUrl } from '../entities/types'; // Add this import statement
+import { useState, useEffect } from 'react';
+import { SiteMapUrl } from '@/entities/types';
 
 
 export function exportSitemap(domain: string) {

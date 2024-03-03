@@ -1,6 +1,18 @@
 {
-  "extends": ["@enkidevs/eslint-config-frontend","plugin:prettier/recommended"],
-  "rules": {
-    "@typescript-eslint/explicit-function-return-type": "error"
-  }
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "@enkidevs/eslint-config-frontend",
+        "prettier"
+    ],
+    "rules": {
+    }
 }
+
+
+// "parserOptions": {
+//     "ecmaVersion": "latest",
+//     "sourceType": "module"
+// },

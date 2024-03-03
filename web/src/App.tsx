@@ -1,18 +1,21 @@
 import { useState } from 'react';
 
-import './styles/global.css';
+import '@/styles/global.css';
 import { MagnifyingGlass } from 'phosphor-react';
 import { useResults, useStatus } from './hooks';
 
-import { Tree } from './components/Tree';
-import { Loading } from './components/Loading';
-import { ProgressBar } from './components/ProgressBar';
+import { Tree } from '@/components/Tree';
+//import dataTree from '@/storage/tree.json';
 
-import data from './storage/data.json';
-import { parseData } from './utils/parseData';
-import { exportSitemap } from './utils/exportSitemap';
+import { Loading } from '@/components/Loading';
+import { ProgressBar } from '@/components/ProgressBar';
+
+
+import data from '@/storage/tree.json';
+import { parsedData } from '@/utils/parsedData';
+import { exportSitemap } from '@/utils/exportSitemap';
 import { useMutation } from 'react-query';
-import { getTree, searchCrawlDomain } from './services/api';
+import { getTree, searchCrawlDomain } from '@/services/api';
 
 export function App() {
   const { data: results, isError, isLoading } = useResults();
@@ -26,12 +29,12 @@ export function App() {
   const [loadedData, setLoadedData] = useState();
   
   const domain = 'enki.com';
-  const domainData = data[domain];
+  //const domainData = data[domain];
+  const treeData = parsedData(data);
 
-  const treeData = parseData(domain, domainData);
 
   return (
-    <div className='overflow-hidden w-full h-full flex flex-col items-center '> 
+    <div className='overflow-y-auto w-full h-full flex flex-col items-center '> 
       <h1 className='font-bold text-white text-6xl mt-40'>SiteMapper</h1>
       <h2 className='text-xs text-gray-200 mt-2'>Generate a complete sitemap of a specific domain</h2>
       <form action="" className='flex flex-col items-center'>
@@ -80,11 +83,12 @@ export function App() {
           </div>
         </div>
         <div className='h-full w-full flex flex-col justify-center place-items-center'>
+          <Tree dataTree={treeData as any} />  
           { 
             isLoading ?
-              <ProgressBar progress={status?.percentDone || 0} />       
+            'h'
             :
-              <Tree tree={treeData} />  
+            <ProgressBar progress={status?.percentDone || 0} />       
           }    
         </div>
       </form>

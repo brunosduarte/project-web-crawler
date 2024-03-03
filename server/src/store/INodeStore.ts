@@ -1,4 +1,4 @@
-import { IScrapResult } from "../entities/IScrapResult";
+import { IScrapResult } from "@/entities/IScrapResult";
 
 export interface INodeStore {
   saveResult(data: IScrapResult): Promise<void>;

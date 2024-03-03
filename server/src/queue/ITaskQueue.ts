@@ -1,4 +1,4 @@
-import { ITask } from "../entities/ITask";
+import { ITask } from "@/entities/ITask";
 
 export type TaskWorker = (task: ITask) => Promise<void>;
 

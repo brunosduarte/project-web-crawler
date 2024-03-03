@@ -6,11 +6,13 @@ export interface SiteMapUrl {
   lastmod: string;
 }
 export interface SiteMapNode {
-  name: string;
+  title: string;
+  url: string;
+  done: boolean;
   children?: SiteMapNode[];
 }
 export interface TreeProps {
-  tree: SiteMapNode;
+  dataTree: SiteMapNode;
 }
 
 export interface CustomHierarchyNode extends d3.HierarchyNode<SiteMapNode> {
@@ -18,7 +20,8 @@ export interface CustomHierarchyNode extends d3.HierarchyNode<SiteMapNode> {
   dy: number;
 }
 
-const width = 1000;
+const height = 400;
+const width = 400;
 
 const treeCreation = (treeData: any) => {
   const root: CustomHierarchyNode = d3.hierarchy<SiteMapNode>(treeData) as CustomHierarchyNode;
@@ -27,21 +30,55 @@ const treeCreation = (treeData: any) => {
   return d3.tree<SiteMapNode>().nodeSize([root.dx, root.dy])(root);
 };
 
-export function Tree({ tree }: TreeProps) {
+export function Tree({ dataTree }: TreeProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  useEffect(() => {
-    const svg = d3.select(svgRef.current);
-    const zoomBehavior = d3.zoom()
-      .scaleExtent([0.1, 3])
-      .on('zoom', (event) => {
-        svg.select('g').attr('transform', event.transform);
-      });
+  let zoom = d3.zoom()
+    .scaleExtent([0.25, 10])
+    .on('zoom', handleZoom);
 
-    svg.call(zoomBehavior as any);
-  }, []);
-  
-  const root = treeCreation(tree); 
+  function handleZoom(e: any){
+    d3.select('svg g')
+      .attr('transform', e.transform);
+  }
+
+  function zoomIn() {
+    d3.select('svg')
+      .transition()
+      .call(zoom.scaleBy as any, 10);
+  }
+
+  function zoomOut() {
+    d3.select('svg')
+      .transition()
+      .call(zoom.scaleBy as any, 0.5);
+  }
+
+  function resetZoom() {
+    d3.select('svg')
+      .transition()
+      .call(zoom.scaleTo as any, 1);
+  }
+
+  function center() {
+    d3.select('svg')
+      .transition()
+      .call(zoom.translateTo as any, 0.5 * width, 0.5 * height);
+  }
+
+  function panLeft() {
+    d3.select('svg')
+      .transition()
+      .call(zoom.translateBy as any, -50, 0);
+  }
+
+  function panRight() {
+    d3.select('svg')
+      .transition()
+      .call(zoom.translateBy as any, 50, 0);
+  }
+
+  const root = treeCreation(dataTree); 
   
   let x0 = Infinity;
   let x1 = -x0;
@@ -56,8 +93,6 @@ export function Tree({ tree }: TreeProps) {
        .attr("viewBox", [0, 0, width, x1 - x0 + root.x * 2]);
     svg.selectAll('*').remove();
     
-    const treeLayout = d3.tree<SiteMapNode>().size();
-
     const g = svg.append("g")
       .attr("font-family", "sans-serif")
       .attr("font-size", 12)
@@ -71,7 +106,7 @@ export function Tree({ tree }: TreeProps) {
       .selectAll("path")
       .data(root.links())
       .join("path")
-      .attr("d", d3.linkHorizontal().x(d => d.y).y(d => d.x) as any); 
+      .attr("d", d3.linkHorizontal().x((d):any => d.y).y((d):any => d.x) as any);
 
     const node = g.append("g")
       .attr("stroke-linejoin", "round")
@@ -89,11 +124,23 @@ export function Tree({ tree }: TreeProps) {
       .attr("dy", "0.31rem")
       .attr("x", d => d.children ? -6 : 6)
       .attr("text-anchor", d => d.children ? "end" : "start")
-      .text(d => d.data.name)
+      .text(d => d.data.title)
       .clone(true).lower()
       .attr("stroke", "white")
     
-  }, [tree]);   
+  }, [dataTree]);   
 
-  return <svg ref={svgRef} width={width} height={400} style={{ border: '2px dashed black' }}></svg>;
+  return (
+    <div className='flex flex-col'>
+      <div className='flex flex-row justify-evenly'>
+        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomIn}>Zoom in</button>
+        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomOut}>Zoom out</button>
+        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={resetZoom}>Reset zoom</button>
+        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={panLeft}>Pan left</button>
+        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={panRight}>Pan right</button>
+        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={center}>Center</button>
+      </div>
+      <svg ref={svgRef} width={width} height={800} style={{ border: '2px dashed black' }}></svg>
+    </div>
+  );
 };
