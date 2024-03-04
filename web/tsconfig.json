@@ -32,7 +32,7 @@
       ]
     }
   },
-  "include": ["src", "test"],
+  "include": ["src", "test", "olds/test"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
 
