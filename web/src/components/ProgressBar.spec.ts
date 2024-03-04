@@ -11,7 +11,5 @@ describe('Loading test', () => {
     const statusText = wrapper.getByDisplayValue(49)
 
     expect(statusText).toBeInTheDocument
-
-
   })
 })

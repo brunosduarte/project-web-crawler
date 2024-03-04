@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { HierarchyPointNode } from 'd3';
 
 export interface SiteMapUrl {
   loc: string;
@@ -18,6 +19,16 @@ export interface TreeProps {
 export interface CustomHierarchyNode extends d3.HierarchyNode<SiteMapNode> {
   dx: number;
   dy: number;
+}
+
+export interface HierarchyPointLink<Datum> {
+  source: HierarchyPointNode<Datum>;
+  target: HierarchyPointNode<Datum>;
+}
+
+export interface NodeData {
+  name: string;
+  children?: NodeData[];
 }
 
 const height = 400;
@@ -88,9 +99,9 @@ export function Tree({ dataTree }: TreeProps) {
       if (d.x > x1) x1 = d.x;
       if (d.x < x0) x0 = d.x;
     });  
-    
+    const height = x1 - x0 + root.x * 2;
     const svg = d3.select(svgRef.current)
-       .attr("viewBox", [0, 0, width, x1 - x0 + root.x * 2]);
+      .attr("viewBox", [0, 0, width, height]);
     svg.selectAll('*').remove();
     
     const g = svg.append("g")
@@ -106,7 +117,13 @@ export function Tree({ dataTree }: TreeProps) {
       .selectAll("path")
       .data(root.links())
       .join("path")
-      .attr("d", d3.linkHorizontal().x((d):any => d.y).y((d):any => d.x) as any);
+      .attr("d", (d) => {
+        const linkGenerator = d3
+          .linkHorizontal<d3.HierarchyPointLink<NodeData>, [number, number]>()
+          .source((d) => [d.source.y, d.source.x])
+          .target((d) => [d.target.y, d.target.x]);
+        return linkGenerator(d as any);
+      });
 
     const node = g.append("g")
       .attr("stroke-linejoin", "round")
@@ -133,12 +150,12 @@ export function Tree({ dataTree }: TreeProps) {
   return (
     <div className='flex flex-col'>
       <div className='flex flex-row justify-evenly'>
-        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomIn}>Zoom in</button>
-        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomOut}>Zoom out</button>
-        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={resetZoom}>Reset zoom</button>
-        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={panLeft}>Pan left</button>
-        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={panRight}>Pan right</button>
-        <button className="bg-blue-500 text-xs p-2 rounded-xl hover:bg-blue-600 disabled:bg-blue-800" onClick={center}>Center</button>
+        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomIn}>Zoom in</button>
+        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomOut}>Zoom out</button>
+        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={resetZoom}>Reset zoom</button>
+        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={panLeft}>Pan left</button>
+        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={panRight}>Pan right</button>
+        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={center}>Center</button>
       </div>
       <svg ref={svgRef} width={width} height={800} style={{ border: '2px dashed black' }}></svg>
     </div>

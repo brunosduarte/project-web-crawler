@@ -1,20 +1,18 @@
 import { useState } from 'react';
+import { useResults, useStatus } from './hooks';
+import { useMutation } from 'react-query';
 
 import '@/styles/global.css';
 import { MagnifyingGlass } from 'phosphor-react';
-import { useResults, useStatus } from './hooks';
 
+import data from '@/storage/tree.json';
 import { Tree } from '@/components/Tree';
+import { parsedData } from '@/utils/parsedData';
 //import dataTree from '@/storage/tree.json';
 
 import { Loading } from '@/components/Loading';
 import { ProgressBar } from '@/components/ProgressBar';
-
-
-import data from '@/storage/tree.json';
-import { parsedData } from '@/utils/parsedData';
 import { exportSitemap } from '@/utils/exportSitemap';
-import { useMutation } from 'react-query';
 import { getTree, searchCrawlDomain } from '@/services/api';
 
 export function App() {
@@ -32,7 +30,6 @@ export function App() {
   //const domainData = data[domain];
   const treeData = parsedData(data);
 
-
   return (
     <div className='overflow-y-auto w-full h-full flex flex-col items-center '> 
       <h1 className='font-bold text-white text-6xl mt-40'>SiteMapper</h1>
@@ -45,13 +42,25 @@ export function App() {
               <input 
                 type="text"
                 id="insert-domain"
-                placeholder="Insert the domain to crawl"
+                placeholder="enki.com"
                 className="border-none border-transparent text-gray-800"
                 value={searchDomain}
                 onChange={event => setSearchDomain(event.target.value)}
               />
             </div>
           </label>
+          
+          <div className='text-xs text-gray-400 mt-1 flex justify-center'>
+            { 
+              isErrorTyping ?
+                <p className='text-red-300'>{isErrorTyping}</p>
+              :
+                isErrorMessage ?
+                  <p className='text-red-300'>{isErrorMessage}</p>
+                :
+                  'Insert the domain to crawl'
+            }
+          </div>
     
           <div className='flex flex-wrap justify-center align-middle'>
             <button
@@ -69,7 +78,7 @@ export function App() {
               { !isLoading ? "Generate" : <Loading  /> }
             </button>
             { 
-              data ?
+              !data ?
                 <button
                     type='button'
                     className='bg-blue-500 flex justify-center place-items-center m-4 p-2 w-36 rounded-xl hover:bg-blue-600 disabled:bg-blue-800'
@@ -82,13 +91,12 @@ export function App() {
             
           </div>
         </div>
-        <div className='h-full w-full flex flex-col justify-center place-items-center'>
-          <Tree dataTree={treeData as any} />  
+        <div className='flex flex-col justify-center place-items-center'>
           { 
             isLoading ?
-            'h'
-            :
             <ProgressBar progress={status?.percentDone || 0} />       
+            :
+            <Tree dataTree={treeData as any} />  
           }    
         </div>
       </form>
