@@ -109,21 +109,21 @@ export function Tree({ dataTree }: TreeProps) {
       .attr("font-size", 12)
       .attr("transform", `translate(${root.y / 2},${root.x - x0})`);
   
-    const link = g.append("g")
-      .attr("fill", "none")
-      .attr("stroke", "#555")
-      .attr("stroke-opacity", 0.4)
-      .attr("stroke-width", 1.5)
-      .selectAll("path")
-      .data(root.links())
-      .join("path")
-      .attr("d", (d) => {
-        const linkGenerator = d3
-          .linkHorizontal<d3.HierarchyPointLink<NodeData>, [number, number]>()
-          .source((d) => [d.source.y, d.source.x])
-          .target((d) => [d.target.y, d.target.x]);
-        return linkGenerator(d as any);
-      });
+    // const link = g.append("g")
+    //   .attr("fill", "none")
+    //   .attr("stroke", "#555")
+    //   .attr("stroke-opacity", 0.4)
+    //   .attr("stroke-width", 1.5)
+    //   .selectAll("path")
+    //   .data(root.links())
+    //   .join("path")
+    //   .attr("d", (d) => {
+    //     const linkGenerator = d3
+    //       .linkHorizontal<d3.HierarchyPointLink<NodeData>, [number, number]>()
+    //       .source((d) => [d.source.y, d.source.x])
+    //       .target((d) => [d.target.y, d.target.x]);
+    //     return linkGenerator(d as any);
+    //   });
 
     const node = g.append("g")
       .attr("stroke-linejoin", "round")

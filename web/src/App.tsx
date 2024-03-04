@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useResults, useStatus } from './hooks';
-import { useMutation } from 'react-query';
+//import { useMutation } from 'react-query';
 
 import '@/styles/global.css';
 import { MagnifyingGlass } from 'phosphor-react';
@@ -13,18 +13,18 @@ import { parsedData } from '@/utils/parsedData';
 import { Loading } from '@/components/Loading';
 import { ProgressBar } from '@/components/ProgressBar';
 import { exportSitemap } from '@/utils/exportSitemap';
-import { getTree, searchCrawlDomain } from '@/services/api';
+//import { searchCrawlDomain } from '@/services/api';
 
 export function App() {
   const { data: results, isError, isLoading } = useResults();
   const { data: status } = useStatus()
-  const { mutateAsync: addToScrap } = useMutation({
-    mutationFn: getTree,
-  });
+  // const { mutateAsync: addToScrap } = useMutation({
+  //   mutationFn: getTree,
+  // });
   const [searchDomain, setSearchDomain] = useState('');
   const [isErrorTyping, setErrorTyping] = useState(false);
   const [isErrorMessage, setErrorMessage] = useState();
-  const [loadedData, setLoadedData] = useState();
+  //const [loadedData, setLoadedData] = useState();
   
   const domain = 'enki.com';
   //const domainData = data[domain];
@@ -68,10 +68,14 @@ export function App() {
               className='bg-blue-500 flex justify-center place-items-center m-4 p-2 w-36 rounded-xl hover:bg-blue-600 disabled:bg-blue-800'
               onClick={ async () => {
                 try {
-                  await searchCrawlDomain(searchDomain)
+                  console.log(results)
+                  //await searchCrawlDomain(searchDomain)
                   setSearchDomain(searchDomain)
-                } catch (e) {
+                } catch (e: any) {
+                  isError
                   console.error(e)
+                  setErrorTyping(e.message)
+                  setErrorMessage(e.message)
                 }
               }} 
             >

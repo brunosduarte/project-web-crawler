@@ -10,18 +10,17 @@ export async function getScrapResults(): Promise<IScrapResult[]> {
   return data;
 }
 
-
 export async function getScrapStatus(): Promise<{ pending: number, total: number, percentDone: number  }> {
   const { data } = await api.get('/queue');
   return data;
 }
 
-export async function searchCrawlDomain(url: string): Promise<{ url: string }> {
-  console.log('')
-  // const startCrawl = await api.post('/domain');
-  // //TODO waiting backend to finish
-  // return startCrawl;
-}
+// export async function searchCrawlDomain(url: string): Promise<{ url: string }> {
+//   console.log('')
+//   // const startCrawl = await api.post('/domain');
+//   // //TODO waiting backend to finish
+//   // return startCrawl;
+// }
 
 export async function getTree(): Promise<{ done: boolean, url: string,  title: string, children: any }> {
   const { data } = await api.get('/tree');

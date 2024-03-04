@@ -2,7 +2,7 @@
 import * as PIXI from 'pixi.js';
 import { HierarchyPointNode, HierarchyPointLink } from 'd3';
 
-export const adaptD3LayoutToPixi = (root: HierarchyPointNode<any>, viewport: PIXI.Container) => {
+export const adaptD3LayoutToPixi = (root: HierarchyPointNode<any>, viewport: any) => {
     const graphics = new PIXI.Graphics();
     viewport.addChild(graphics);
 
