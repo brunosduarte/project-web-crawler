@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
 import { HierarchyPointNode } from 'd3';
+import * as d3 from 'd3';
 
 export interface SiteMapUrl {
   loc: string;
@@ -43,47 +43,54 @@ const treeCreation = (treeData: any) => {
 
 export function Tree({ dataTree }: TreeProps) {
   const svgRef = useRef<SVGSVGElement>(null);
-
+  
   let zoom = d3.zoom()
     .scaleExtent([0.25, 10])
     .on('zoom', handleZoom);
 
   function handleZoom(e: any){
+    e.preventDefault();
     d3.select('svg g')
       .attr('transform', e.transform);
   }
 
-  function zoomIn() {
+  function zoomIn(e: any) {
+    e.preventDefault();
     d3.select('svg')
       .transition()
       .call(zoom.scaleBy as any, 10);
   }
 
-  function zoomOut() {
+  function zoomOut(e: any) {
+    e.preventDefault();
     d3.select('svg')
       .transition()
       .call(zoom.scaleBy as any, 0.5);
   }
 
-  function resetZoom() {
+  function resetZoom(e: any) {
+    e.preventDefault();
     d3.select('svg')
       .transition()
       .call(zoom.scaleTo as any, 1);
   }
 
-  function center() {
+  function center(e: any) {
+    e.preventDefault();
     d3.select('svg')
       .transition()
       .call(zoom.translateTo as any, 0.5 * width, 0.5 * height);
   }
 
-  function panLeft() {
+  function panLeft(e: any) {
+    e.preventDefault();
     d3.select('svg')
       .transition()
       .call(zoom.translateBy as any, -50, 0);
   }
 
-  function panRight() {
+  function panRight(e: any) {
+    e.preventDefault();
     d3.select('svg')
       .transition()
       .call(zoom.translateBy as any, 50, 0);
@@ -150,12 +157,12 @@ export function Tree({ dataTree }: TreeProps) {
   return (
     <div className='flex flex-col'>
       <div className='flex flex-row justify-evenly'>
-        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomIn}>Zoom in</button>
-        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomOut}>Zoom out</button>
-        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={resetZoom}>Reset zoom</button>
-        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={panLeft}>Pan left</button>
-        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={panRight}>Pan right</button>
-        <button className="bg-blue-500 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={center}>Center</button>
+        <button className="bg-blue-500 text-slate-300 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomIn}>Zoom in</button>
+        <button className="bg-blue-500 text-slate-300 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={zoomOut}>Zoom out</button>
+        <button className="bg-blue-500 text-slate-300 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={resetZoom}>Reset zoom</button>
+        <button className="bg-blue-500 text-slate-300 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={panLeft}>Pan left</button>
+        <button className="bg-blue-500 text-slate-300 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={panRight}>Pan right</button>
+        <button className="bg-blue-500 text-slate-300 text-xs p-0.5 rounded-lg hover:bg-blue-600 disabled:bg-blue-800" onClick={center}>Center</button>
       </div>
       <svg ref={svgRef} width={width} height={800} style={{ border: '2px dashed black' }}></svg>
     </div>

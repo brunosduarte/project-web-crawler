@@ -6,15 +6,15 @@
   "main": "src/app.ts",
   "type": "commonjs",
   "scripts": {
-    "dev": "tsx src/app.ts",
+    "dev": "tsx src/server.ts",
     "test": "vitest",
     "lint": "eslint src --ext .ts --fix",
     "test:debug": "node --experimental-vm-modules --inspect-brk node_modules/.bin/jest --injectGlobals false --runInBand --watchAll test/"
   },
   "license": "ISC",
   "dependencies": {
+    "@fastify/cors": "^9.0.1",
     "axios": "^1.6.7",
-    "cors": "^2.8.5",
     "fastify": "^4.26.1",
     "p-queue": "^6.6.2",
     "puppeteer": "^22.0.0",
@@ -29,8 +29,10 @@
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^27.9.0",
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
+    "jest": "^29.7.0",
     "supertest": "^6.3.4",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",

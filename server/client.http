@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:3333
+
+# @queue
+GET {{baseUrl}}/queue
+
+# @tree
+GET {{baseUrl}}/tree
+
+# @treeascii
+GET {{baseUrl}}/tree/ascii

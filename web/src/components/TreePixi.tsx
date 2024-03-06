@@ -1,8 +1,8 @@
 // src/components/TreeVisualization/Tree.tsx
 import { useEffect, useRef } from 'react';
 import * as PIXI from 'pixi.js';
-import { Viewport } from 'pixi-viewport'; // Ensure this named import is correct
 import * as d3 from 'd3';
+import { Viewport } from 'pixi-viewport'; // Ensure this named import is correct
 import { adaptD3LayoutToPixi } from '@/utils/d3PixiAdapter';
 
 export const Tree = () => {
@@ -47,4 +47,3 @@ export const Tree = () => {
 
     return <div ref={pixiContainerRef} className="flex flex-col justify-center align-middle border-dashed border-2 border-gray-600"></div>;
 };
-
