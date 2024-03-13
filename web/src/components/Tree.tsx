@@ -49,48 +49,41 @@ export function Tree({ dataTree }: TreeProps) {
     .on('zoom', handleZoom);
 
   function handleZoom(e: any){
-    e.preventDefault();
     d3.select('svg g')
       .attr('transform', e.transform);
   }
 
-  function zoomIn(e: any) {
-    e.preventDefault();
+  function zoomIn() {
     d3.select('svg')
       .transition()
       .call(zoom.scaleBy as any, 10);
   }
 
-  function zoomOut(e: any) {
-    e.preventDefault();
+  function zoomOut() {
     d3.select('svg')
       .transition()
       .call(zoom.scaleBy as any, 0.5);
   }
 
-  function resetZoom(e: any) {
-    e.preventDefault();
+  function resetZoom() {
     d3.select('svg')
       .transition()
       .call(zoom.scaleTo as any, 1);
   }
 
-  function center(e: any) {
-    e.preventDefault();
+  function center() {
     d3.select('svg')
       .transition()
       .call(zoom.translateTo as any, 0.5 * width, 0.5 * height);
   }
 
-  function panLeft(e: any) {
-    e.preventDefault();
+  function panLeft() {
     d3.select('svg')
       .transition()
       .call(zoom.translateBy as any, -50, 0);
   }
 
-  function panRight(e: any) {
-    e.preventDefault();
+  function panRight() {
     d3.select('svg')
       .transition()
       .call(zoom.translateBy as any, 50, 0);

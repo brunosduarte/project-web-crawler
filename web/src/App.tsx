@@ -6,11 +6,11 @@ import '@/styles/global.css';
 import { MagnifyingGlass } from 'phosphor-react';
 
 import dataJSON from '@/storage/tree.json';
-//import { Tree } from '@/components/Tree';
-//import { parseData } from '@/utils/parseData';
+import { Tree } from '@/components/Tree';
+import { parseData } from '@/utils/parseData';
 
-import { Loading } from '@/components/Loading';
-import { ProgressBar } from '@/components/ProgressBar';
+//import { Loading } from '@/components/Loading';
+//import { ProgressBar } from '@/components/ProgressBar';
 import { generateSitemapXml, downloadSitemap, extractUrls  } from '@/utils/generateSitemap';
 import { crawlURL } from './services/api';
 //import { searchCrawlDomain } from '@/services/api';
@@ -25,7 +25,7 @@ export function App() {
   const [isErrorTyping, setErrorTyping] = useState(false);
   const [isErrorMessage, setErrorMessage] = useState();
   
-  //const treeData = parseData(dataJSON);
+  const treeData = parseData(dataJSON);
 
   const regexDomain = '/(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/'
   // ^((http|https)://)?([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}$';
@@ -111,6 +111,7 @@ export function App() {
           </div>
         </div>
         <div className='flex flex-col justify-center place-items-center'>
+          <Tree dataTree={treeData as any} />
           {/* { 
             isLoading ?
               <ProgressBar progress={(status as any)?.percentDone || 0} />       

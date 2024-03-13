@@ -1,6 +1,7 @@
 import axios from "axios";
 //import * { AxiosResponse }as sisyphus from '@enkidevs/axios-sisyphus';
 import { IScrapResult } from "@/entities/IScrapResult";
+import { a } from "vitest/dist/suite-UrZdHRff";
 
 // type Config<R = any> = {
 //   retries?: number;
@@ -26,6 +27,12 @@ import { IScrapResult } from "@/entities/IScrapResult";
 //sisyphus.get(config as any, axiosConfig);
 //sisyphus.post(config as any, axiosConfig);
 
+let axiosConfig = {
+  headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      "Access-Control-Allow-Origin": "*",
+  }
+};
 
 const api = axios.create({
   baseURL: 'http://localhost:3000'
@@ -43,9 +50,11 @@ const api = axios.create({
 
 export async function crawlURL(url: string) {
   const sendURL = await api.post('/domain',{
-    domain: url
+    headers: {
+      domain: url
+    }
   });
-  console.log('send', url);
+  console.log(sendURL);
   // //TODO waiting backend to finish
   return sendURL;
 }
