@@ -1,11 +1,11 @@
 @baseUrl = http://localhost:3000
 
 # @name sendURL
-POST http://localhost:3000/domain
+POST {{baseUrl}}/domain
 Content-Type: application/json
 
 {
-  "dominio": "https://brunosduarte.dev.br"
+  "testando": "https://brunosduarte.dev.br",
 }
 
 

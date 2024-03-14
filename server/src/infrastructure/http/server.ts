@@ -6,6 +6,7 @@ import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { GetTreeUseCase } from '@/application/use-cases/GetTreeUseCase';
 import { queue } from '@/infrastructure/app';
+import { domainToASCII } from 'url';
 
 export interface IServerOptions {
   port: number;
@@ -20,8 +21,10 @@ export class Server {
   
   constructor(private options: IServerOptions) {
     this.server = express();
-    this.server.use(cors())
-    // this.server.use(bodyParser.json());
+    this.server.use(cors({
+      origin: [`http://localhost:${this.options.port}`],
+    }))
+    //this.server.use(bodyParser.json());
     this.store = options.store;
     this.queue = options.queue;
     this.server
@@ -52,12 +55,13 @@ export class Server {
 
   async postDomain(req: Request, res: Response) {
     try {
-      const domain  = req;
+      const domain  = req.parse(req.params.domain);
       // if (typeof domain !== 'string' || domain.trim() === '') {
       //   res.status(400).json({ status: 'error', message: 'Invalid data format' });
       //   return;
       // }
-      console.log('domain',domain);
+      //console.log('domain',domain);
+      console.log('res',domain);
       res.status(200).json({ status: 'success', message: 'Starting crawl' });
       queue.add({ url: domain });
     } catch (e) {
