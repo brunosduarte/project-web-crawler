@@ -1,19 +1,19 @@
 @baseUrl = http://localhost:3000
 
-# @name sendURL
+
+### Post
 POST {{baseUrl}}/domain
 Content-Type: application/json
 
 {
-  "testando": "https://brunosduarte.dev.br",
+  "domain":"https://brunosduarte.dev.br"
 }
 
-
-# @queue
+### @queue
 GET {{baseUrl}}/queue
 
-# @tree
+### @tree
 GET {{baseUrl}}/tree
 
-# @treeascii
+### @treeascii
 GET {{baseUrl}}/tree/ascii

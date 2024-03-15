@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useResults, useStatus } from './hooks';
-//import { useMutation } from 'react-query';
+import { useMutation } from 'react-query';
 
 import '@/styles/global.css';
 import { MagnifyingGlass } from 'phosphor-react';
@@ -9,21 +9,21 @@ import dataJSON from '@/storage/tree.json';
 import { Tree } from '@/components/Tree';
 import { parseData } from '@/utils/parseData';
 
-//import { Loading } from '@/components/Loading';
-//import { ProgressBar } from '@/components/ProgressBar';
+import { Loading } from '@/components/Loading';
+import { ProgressBar } from '@/components/ProgressBar';
 import { generateSitemapXml, downloadSitemap, extractUrls  } from '@/utils/generateSitemap';
 import { crawlURL } from './services/api';
-//import { searchCrawlDomain } from '@/services/api';
+import { getTree } from '@/services/api';
 
 export function App() {
-  //const { data: results, isError, isLoading } = useResults();
-  //const { data: status } = useStatus()
-  //const { mutateAsync: addToScrap } = useMutation({
-  //   mutationFn: getTree,
-  // });
+  const { data: results, isError, isFetching, isFetched } = useResults();
+  const { data: status } = useStatus()
+  const { mutateAsync: addToScrap } = useMutation({
+    mutationFn: getTree,
+  });
   const [searchDomain, setSearchDomain] = useState('');
   const [isErrorTyping, setErrorTyping] = useState(false);
-  const [isErrorMessage, setErrorMessage] = useState();
+  const [isErrorMessage, setErrorMessage] = useState('');
   
   const treeData = parseData(dataJSON);
 
@@ -81,43 +81,41 @@ export function App() {
               className='bg-blue-500 text-slate-300 flex justify-center place-items-center m-4 p-2 w-36 rounded-xl hover:bg-blue-600 disabled:bg-blue-800'
               onClick={async () => {
                 try {
-                  //console.log(results)
-                  await crawlURL(searchDomain)
-                  setSearchDomain(searchDomain)
+                  if (searchDomain) {
+                    console.log(results)
+                    await crawlURL(searchDomain)
+                    setSearchDomain(searchDomain)
+                  }
+                  setErrorMessage("Insert the domain to crawl")
                 } catch (e: any) {
-                  //isError
+                  isError
                   console.error(e)
                   setErrorTyping(e.message)
                   setErrorMessage(e.message)
                 }
               }} 
             >
-             {/* { !isLoading ? "Generate" : <Loading  /> } */}
+              { !isFetching ? "Generate" : <Loading  /> }
             </button>
-                
-            <button
-              type='button'
-              className='bg-blue-500 text-slate-300 flex justify-center place-items-center m-4 p-2 w-36 rounded-xl hover:bg-blue-600 disabled:bg-blue-800'
-              onClick={exportSitemap}
-            >
-              Export XML
-            </button>
-            {/* { 
-              data ?
-              :
-                null
-            }             */}
-            
+            { isFetched &&
+                <button
+                  type='button'
+                  className='bg-blue-500 text-slate-300 flex justify-center place-items-center m-4 p-2 w-36 rounded-xl hover:bg-blue-600 disabled:bg-blue-800'
+                  onClick={exportSitemap}
+                >
+                  Export XML
+                </button>
+            }    
           </div>
         </div>
         <div className='flex flex-col justify-center place-items-center'>
-          <Tree dataTree={treeData as any} />
-          {/* { 
-            isLoading ?
+          { 
+            isFetching ?
               <ProgressBar progress={(status as any)?.percentDone || 0} />       
             :
-              ''//<Tree dataTree={treeData as any} />  
-          }     */}
+            isFetched &&
+              <Tree dataTree={treeData as any} />  
+          }    
         </div>
       </form>
     </div>

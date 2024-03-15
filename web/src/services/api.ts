@@ -1,7 +1,6 @@
 import axios from "axios";
 //import * { AxiosResponse }as sisyphus from '@enkidevs/axios-sisyphus';
 import { IScrapResult } from "@/entities/IScrapResult";
-import { a } from "vitest/dist/suite-UrZdHRff";
 
 // type Config<R = any> = {
 //   retries?: number;
@@ -38,24 +37,21 @@ const api = axios.create({
   baseURL: 'http://localhost:3000'
 })
 
-// export async function getScrapResults(): Promise<IScrapResult[]> {
-//   const { data } = await api.get('/nodes');
-//   return data;
-// }
+export async function getScrapResults(): Promise<IScrapResult[]> {
+  const { data } = await api.get('/nodes');
+  return data;
+}
 
-// export async function getScrapStatus(): Promise<{ pending: number, total: number, percentDone: number  }> {
-//   const { data } = await api.get('/queue');
-//   return data;
-// }
+export async function getScrapStatus(): Promise<{ pending: number, total: number, percentDone: number  }> {
+  const { data } = await api.get('/queue');
+  return data;
+}
 
 export async function crawlURL(url: string) {
   const sendURL = await api.post('/domain',{
-    headers: {
-      domain: url
-    }
+    domain: url
   });
-  console.log(sendURL);
-  // //TODO waiting backend to finish
+  //TODO waiting backend to finish
   return sendURL;
 }
 

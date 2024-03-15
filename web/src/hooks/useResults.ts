@@ -5,6 +5,6 @@ export function useResults() {
   return useQuery({
     queryFn: getScrapResults,
     queryKey: ['getScrapResults'],
-    retry: 1,
+    retry: 3,
   })
 }

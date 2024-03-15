@@ -1,4 +1,4 @@
-import { InMemoryNodeStore } from '@/infrastructure/storage/InMemoryNodeStore';
+import { InMemoryNodeStore } from '@/infrastructure/store/InMemoryNodeStore';
 import { InMemoryTaskQueue } from '@/infrastructure/queue/InMemoryTaskQueue';
 import { WorkerService } from '@/infrastructure/services/WorkerService'; 
 import { Server } from '@/infrastructure/http/server';
