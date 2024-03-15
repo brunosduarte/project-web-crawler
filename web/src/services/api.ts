@@ -26,12 +26,12 @@ import { IScrapResult } from "@/entities/IScrapResult";
 //sisyphus.get(config as any, axiosConfig);
 //sisyphus.post(config as any, axiosConfig);
 
-let axiosConfig = {
-  headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-      "Access-Control-Allow-Origin": "*",
-  }
-};
+// let axiosConfig = {
+//   headers: {
+//       'Content-Type': 'application/json;charset=UTF-8',
+//       "Access-Control-Allow-Origin": "*",
+//   }
+// };
 
 const api = axios.create({
   baseURL: 'http://localhost:3000'

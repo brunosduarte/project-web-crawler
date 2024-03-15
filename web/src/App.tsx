@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useResults, useStatus } from './hooks';
 import { useMutation } from 'react-query';
 
@@ -18,9 +18,9 @@ import { getTree } from '@/services/api';
 export function App() {
   const { data: results, isError, isFetching, isFetched } = useResults();
   const { data: status } = useStatus()
-  const { mutateAsync: addToScrap } = useMutation({
-    mutationFn: getTree,
-  });
+  // const { mutateAsync: addToScrap } = useMutation({
+  //   mutationFn: getTree,
+  // });
   const [searchDomain, setSearchDomain] = useState('');
   const [isErrorTyping, setErrorTyping] = useState(false);
   const [isErrorMessage, setErrorMessage] = useState('');
