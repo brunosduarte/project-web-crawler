@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useResults, useStatus } from './hooks';
-import { useMutation } from 'react-query';
+//import { useMutation } from 'react-query';
 
 import '@/styles/global.css';
 import { MagnifyingGlass } from 'phosphor-react';
@@ -13,7 +13,7 @@ import { Loading } from '@/components/Loading';
 import { ProgressBar } from '@/components/ProgressBar';
 import { generateSitemapXml, downloadSitemap, extractUrls  } from '@/utils/generateSitemap';
 import { crawlURL } from './services/api';
-import { getTree } from '@/services/api';
+//import { getTree } from '@/services/api';
 
 export function App() {
   const { data: results, isError, isFetching, isFetched } = useResults();
