@@ -19,7 +19,7 @@ export class ScrapperService {
     await browser.close();
   }
 
-  async scrap(_url: string): Promise<IScrapDone | unknown> {
+  async scrap(_url: string | URL): Promise<IScrapDone | any> {
     const url = sanitizeURL(_url);
     if(!url) {
       return;
@@ -31,6 +31,7 @@ export class ScrapperService {
       await page.setRequestInterception(true);
       page.on('request', interceptedRequest => {
         if (interceptedRequest.isInterceptResolutionHandled()) return;
+        // interceptedRequest.abort('failed');
         if (
           interceptedRequest.url().endsWith('.png') ||
           interceptedRequest.url().endsWith('.jpg') ||

@@ -1,3 +1,3 @@
 export interface ITask {
-  url: string | unknown;
+  url: string | void;
 }

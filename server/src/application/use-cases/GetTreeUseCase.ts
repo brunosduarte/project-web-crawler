@@ -28,7 +28,7 @@ export class GetTreeUseCase {
     const children = isConsumed 
       ? undefined 
       : node.items
-        .map(item => {
+        .map((item: { href: string; }) => {
           const child = this.map.get(item.href);
           const isParent = child?.url === node.url;
           if(!child || isParent) {

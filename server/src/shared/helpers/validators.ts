@@ -1,4 +1,4 @@
-export const isValidURL = (href: string): boolean  => {
+export const isValidURL = (href: string | URL): boolean  => {
   try {
     new URL(href)
     return true;
@@ -7,7 +7,7 @@ export const isValidURL = (href: string): boolean  => {
   }
 }
 
-export const sanitizeURL = (href: string): string | undefined => {
+export const sanitizeURL = (href: string | URL): string | void => {
   try {
     const url = new URL(href)
     url.hash = '';

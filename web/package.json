@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@enkidevs/eslint-config-frontend": "^11.0.0",
+    "@rocketseat/eslint-config": "^2.2.2",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
@@ -48,6 +49,7 @@
     "happy-dom": "^13.6.2",
     "postcss": "^8.4.21",
     "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.2.4",
     "typescript": "^5.3.3",
     "vite": "^4.0.0",
