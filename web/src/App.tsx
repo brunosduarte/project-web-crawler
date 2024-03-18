@@ -7,6 +7,7 @@ import { MagnifyingGlass } from 'phosphor-react'
 import { useCallback, useState } from 'react'
 
 import { Tree } from '@/components/Tree'
+import { crawlURL } from '@/services/api'
 import dataJSON from '@/storage/tree.json'
 // import { Loading } from '@/components/Loading'
 // import { ProgressBar } from '@/components/ProgressBar'
@@ -16,7 +17,6 @@ import {
   generateSitemapXml,
 } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
-// import { crawlURL } from './services/api';
 // import { getTree } from '@/services/api';
 
 export function App() {
@@ -96,6 +96,8 @@ export function App() {
               onClick={async () => {
                 try {
                   if (searchDomain) {
+                    await crawlURL(searchDomain)
+                    setSearchDomain(searchDomain)
                     // startCrawling()
                     // console.log(results)
                   }

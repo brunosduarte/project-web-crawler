@@ -11,7 +11,7 @@ export class WorkerService {
   }
 
   private async worker({ url }: ITask) {
-    console.log('Processing task', url);
+    console.log('Processing: ', url);
     const found = await this.store.findByURL(url);
     if(found?.done) {
       return;
@@ -24,9 +24,9 @@ export class WorkerService {
 
     await this.store.saveResult(res);
     const links = res.items
-      ?.filter(item => item.type === 'link')
-      .filter(item => isSameDomain(item.href, res.url))
-      .map(item => item.href);
+      ?.filter((item: { type: string; }) => item.type === 'link')
+      .filter((item: { href: string | undefined; }) => isSameDomain(item.href, res.url))
+      .map((item: { href: any; }) => item.href);
 
     const uniqueLinks = Array.from(new Set(links));
     
@@ -35,7 +35,7 @@ export class WorkerService {
     await Promise.all(tasks);
   }
 
-  async addToQueue(url: string) {
+  async addToQueue(url: string | any) {
     if(!isValidURL(url)) {
       return;
     }

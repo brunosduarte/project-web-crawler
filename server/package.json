@@ -3,6 +3,8 @@
   "author": "Bruno S. Duarte",
   "version": "0.0.1",
   "description": "Generate a complete sitemap of a specific domain",
+  "private": true,
+  "license": "MIT",
   "main": "src/infrastructure/app.ts",
   "type": "commonjs",
   "scripts": {
@@ -13,7 +15,6 @@
     "test:watch": "vitest",
     "test:debug": "node --experimental-vm-modules --inspect-brk node_modules/.bin/jest --injectGlobals false --runInBand --watchAll test/"
   },
-  "license": "ISC",
   "dependencies": {
     "axios": "^1.6.7",
     "cors": "^2.8.5",

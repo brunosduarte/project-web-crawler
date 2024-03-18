@@ -7,7 +7,6 @@ import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { GetTreeUseCase } from '@/application/use-cases/GetTreeUseCase';
 import { queue } from '@/infrastructure/app';
 
-
 export interface IServerOptions {
   port: number;
   store: INodeStore;

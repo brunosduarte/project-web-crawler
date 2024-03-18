@@ -8,12 +8,14 @@ export class InMemoryTaskQueue implements ITaskQueue {
     concurrency: 10,
   });
 
-  constructor(){}
+  constructor(){
+    this.queue.clear();
+  }
 
   async add(task: ITask): Promise<void> {
     const worker = this.worker;
     if(!worker) {
-      throw new Error ('missing worker');
+      throw new Error ('Missing worker');
     }
     this.queue.add(() => worker(task));
   }

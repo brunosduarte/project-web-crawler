@@ -27,24 +27,6 @@ export class ScrapperService {
     const browser = await this.getBrowser();
     const page = await browser.newPage();
     try {
-      await page.setViewport({width: 1920, height: 1080});
-      await page.setRequestInterception(true);
-      page.on('request', interceptedRequest => {
-        if (interceptedRequest.isInterceptResolutionHandled()) return;
-        // interceptedRequest.abort('failed');
-        if (
-          interceptedRequest.url().endsWith('.png') ||
-          interceptedRequest.url().endsWith('.jpg') ||
-          interceptedRequest.url().endsWith('.svg') ||
-          interceptedRequest.url().endsWith('.pdf') ||
-          interceptedRequest.url().endsWith('.csv') ||
-          interceptedRequest.url().endsWith('.zip') ||
-          interceptedRequest.url().endsWith('.exe') ||
-          interceptedRequest.url().endsWith('.bat')
-          )
-            interceptedRequest.abort();
-        else interceptedRequest.continue();
-      });  
       await page.goto(url);
       const data = await page.evaluate(() => {
         const title = document.title;
@@ -75,18 +57,18 @@ export class ScrapperService {
     if (!this.browserPromise) {
       this.browserPromise = puppeteer.launch({
         headless: 'shell',
-        timeout: 990000,
-        protocolTimeout: 990000,
+        ignoreHTTPSErrors: true,
+        defaultViewport: null,
+        ignoreDefaultArgs: ['--enable-automation'],
         args: [
-          '--disable-gpu',
-          '--disable-dev-shm-usage',
-          '--disable-setuid-sandbox',
-          '--no-first-run',
           '--no-sandbox',
           '--no-zygote',
-          '--deterministic-fetch',
-          '--disable-features=IsolateOrigins',
-          '--disable-site-isolation-trials',
+          '--disable-setuid-sandbox',
+          '--disable-infobars',
+          '--disable-gpu=False',
+          '--enable-webgl',
+          '--window-size=1600,900',
+          '--start-maximized',
         ],
       });
     }

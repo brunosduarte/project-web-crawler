@@ -1,8 +1,8 @@
 {
   "name": "@project-web-crawler/web",
   "author": "Bruno S. Duarte",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Generate a complete sitemap of a specific domain",
   "private": true,
   "license": "MIT",
   "type": "module",

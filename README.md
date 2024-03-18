@@ -23,19 +23,22 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 
 ## 🚀 Technologies
 
-[![React.js](https://img.shields.io/badge/React.js-gray?logo=React)](https://react.dev)
-[![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
-[![Vitest](https://img.shields.io/badge/Vitest-gray?logo=Vitest)](https://vitest.dev)
-[![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
-[![Tanstack-Query](https://img.shields.io/badge/React-Query-gray?logo=React-Query)](https://tanstack.com/query/latest)
 [![TypeScript](https://img.shields.io/badge/TypeScript-gray?logo=TypeScript)](https://typescriptlang.org)
+[![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
+[![React.js](https://img.shields.io/badge/React.js-gray?logo=React)](https://react.dev)
+[![Express](https://img.shields.io/badge/Express-gray?logo=Express)](https://www.expressjs.com)
+[![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
+[![Tanstack-Query](https://img.shields.io/badge/ReactQuery-gray?logo=React-Query)](https://tanstack.com/query/latest)
+[![AxiosSisyphus](https://img.shields.io/badge/Axios-gray?logo=Axios)](https://axios-http.com)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
-[![Axios](https://img.shields.io/badge/Axios-gray?logo=Axios)](https://axios-http.com)
-[![P-Queue](https://img.shields.io/badge/P-Queue-gray?logo=Dask)](https://www.npmjs.com/package/p-queue)
-[![Fastify](https://img.shields.io/badge/Fastify-gray?logo=Fastify)](https://www.fastify.dev)
 [![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://www.d3js.org)
+[![Pixi.js](https://img.shields.io/badge/Pixi.js-gray?logo=Proton)](https://www.pixijs.com)
 [![XML](https://img.shields.io/badge/XML-gray?logo=diagrams.net)](https://www.npmjs.com/package/xml)
+[![PQueue](https://img.shields.io/badge/PQueue-gray?logo=Dask)](https://www.npmjs.com/package/p-queue)
 [![Puppeteer](https://img.shields.io/badge/Puppeteer-gray?logo=Puppeteer)](https://pptr.dev)
+[![Vitest](https://img.shields.io/badge/Vitest-gray?logo=Vitest)](https://vitest.dev)
+[![Playwright](https://img.shields.io/badge/Playwright-gray?logo=Playwright)](https://playwright.dev)
+[![TestingLibrary](https://img.shields.io/badge/TestingLibrary-gray?logo=Testing-Library)](https://testing-library.com)
 
 - Future implementations
 [![Redis](https://img.shields.io/badge/Redis-gray?logo=Redis)](https://www.redis.io)
