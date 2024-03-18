@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useState } from 'react'
 // import { useResults, useStatus } from './hooks';
 // import { useMutation } from 'react-query';
-
 import '@/styles/global.css'
+
 import { MagnifyingGlass } from 'phosphor-react'
+import { useCallback, useState } from 'react'
 
-import dataJSON from '@/storage/tree.json'
 import { Tree } from '@/components/Tree'
-import { parseData } from '@/utils/parseData'
-
+import dataJSON from '@/storage/tree.json'
 // import { Loading } from '@/components/Loading'
 // import { ProgressBar } from '@/components/ProgressBar'
 import {
-  generateSitemapXml,
   downloadSitemap,
   extractUrls,
+  generateSitemapXml,
 } from '@/utils/generateSitemap'
+import { parseData } from '@/utils/parseData'
 // import { crawlURL } from './services/api';
 // import { getTree } from '@/services/api';
 

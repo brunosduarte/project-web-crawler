@@ -1,8 +1,8 @@
-// src/components/TreeVisualization/Tree.tsx
-import { useEffect, useRef } from 'react'
-import * as PIXI from 'pixi.js'
 import * as d3 from 'd3'
-import { Viewport } from 'pixi-viewport' // Ensure this named import is correct
+import * as PIXI from 'pixi.js'
+import { Viewport } from 'pixi-viewport'
+import { useEffect, useRef } from 'react'
+
 import { adaptD3LayoutToPixi } from '@/utils/d3PixiAdapter'
 
 export const Tree = () => {
@@ -26,8 +26,8 @@ export const Tree = () => {
       events: app.renderer.events,
       // screenWidth: 800,
       // screenHeight: 600,
-      // worldWidth: 1600, // Adjust based on your content size
-      // worldHeight: 1200, // Adjust based on your content size
+      // worldWidth: 1600,
+      // worldHeight: 1200,
       // interaction: app.renderer.plugins.interaction,
     })
 
@@ -41,7 +41,7 @@ export const Tree = () => {
         const treeLayout = d3.tree().size([600, 1200])
         treeLayout(root)
 
-        adaptD3LayoutToPixi(root as never, viewport) // Ensure this function correctly adds content to the viewport
+        adaptD3LayoutToPixi(root as never, viewport)
       })
   }, [])
 

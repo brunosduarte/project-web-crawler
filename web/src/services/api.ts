@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 // import * { AxiosResponse }as sisyphus from '@enkidevs/axios-sisyphus';
 import { IScrapResult } from '@/entities/IScrapResult'
 

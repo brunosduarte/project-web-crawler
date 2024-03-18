@@ -1,9 +1,9 @@
 {
   "name": "@project-web-crawler/server",
   "author": "Bruno S. Duarte",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/app.ts",
+  "version": "0.0.1",
+  "description": "Generate a complete sitemap of a specific domain",
+  "main": "src/infrastructure/app.ts",
   "type": "commonjs",
   "scripts": {
     "dev": "tsx watch src/infrastructure/app.ts",

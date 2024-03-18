@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from 'react'
 import { HierarchyPointNode } from 'd3'
 import * as d3 from 'd3'
+import { useEffect, useRef } from 'react'
 
 export interface SiteMapUrl {
   loc: string

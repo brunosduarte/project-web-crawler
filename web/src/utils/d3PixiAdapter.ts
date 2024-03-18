@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/utils/d3PixiAdapter.ts
+import { HierarchyPointLink, HierarchyPointNode } from 'd3'
 import * as PIXI from 'pixi.js'
-import { HierarchyPointNode, HierarchyPointLink } from 'd3'
 
 export const adaptD3LayoutToPixi = (
   root: HierarchyPointNode<any>,

@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query'
+
 import { getScrapStatus } from '@/services/api'
 
 export function useStatus() {
