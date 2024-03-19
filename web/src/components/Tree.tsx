@@ -72,7 +72,7 @@ export function Tree({ dataTree }: TreeProps) {
     })
     const svg = d3
       .select(svgRef.current)
-      .attr('viewBox', [10, 10, width, x1 - x0 + root.x * 10])
+      .attr('viewBox', [50, 50, width, x1 - x0 + root.x * 10])
     svg.selectAll('*').remove()
 
     const g = svg
@@ -128,7 +128,7 @@ export function Tree({ dataTree }: TreeProps) {
       ref={svgRef}
       width={width}
       height={height}
-      style={{ border: '2px dashed black' }}
+      style={{ border: '2px dashed gray' }}
     ></svg>
   )
 }
