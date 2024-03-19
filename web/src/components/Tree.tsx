@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HierarchyPointNode } from 'd3'
@@ -11,9 +12,9 @@ export interface HierarchyPointLink<Datum> {
   source: HierarchyPointNode<Datum>
   target: HierarchyPointNode<Datum>
 }
-
-const height = 500
-const width = 1800
+let { innerWidth: widthMax, innerHeight: heightMax } = window
+const height = heightMax - 340
+const width = widthMax - 20
 
 const treeCreation = (treeData: ISiteMapNode) => {
   const root: ICustomHierarchyNode = d3.hierarchy<ISiteMapNode>(
@@ -31,7 +32,7 @@ export function Tree({ dataTree }: ITreeProps) {
     const svg = d3.select(svgRef.current)
     const zoomBehavior = d3
       .zoom()
-      .scaleExtent([2, 200])
+      .scaleExtent([2, 400])
       .on('zoom', (event) => {
         svg.select('g').attr('transform', event.transform)
       })
@@ -57,8 +58,8 @@ export function Tree({ dataTree }: ITreeProps) {
     const g = svg
       .append('g')
       .attr('font-family', 'sans-serif')
-      .attr('font-size', 10)
-      .attr('transform', `translate(${root.y},${root.x - x0})`)
+      .attr('font-size', 16)
+      .attr('transform', `translate(${root.y / 2},${root.x - x0})`)
 
     const link = g
       .append('g')
@@ -93,8 +94,8 @@ export function Tree({ dataTree }: ITreeProps) {
 
     node
       .append('text')
-      .attr('dy', '1rem')
-      .attr('x', (d) => (d.children ? -5 : 5))
+      .attr('dy', '2rem')
+      .attr('x', (d) => (d.children ? -10 : 10))
       .attr('text-anchor', (d) => (d.children ? 'end' : 'start'))
       .text((d) => d.data.url)
       .clone(true)

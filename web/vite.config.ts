@@ -17,6 +17,9 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.ts'],
     environment: 'happy-dom',
   },
+  build: {
+    chunkSizeWarningLimit: 1600,
+  },
 } as UserConfig & {
   test: InlineConfig
 })
