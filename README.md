@@ -91,10 +91,10 @@ $ npm run dev
 # Got to the repository
 $ cd web
 
-# Install dependencies
+# Install the dependencies
 $ npm install
 
-# Execute
+# Start the application 
 $ npm run dev
 ```
 
