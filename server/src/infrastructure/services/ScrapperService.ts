@@ -65,7 +65,7 @@ export class ScrapperService {
           '--no-zygote',
           '--disable-setuid-sandbox',
           '--disable-infobars',
-          '--disable-gpu=False',
+          '--enable-gpu',
           '--enable-webgl',
           '--window-size=1600,900',
           '--start-maximized',

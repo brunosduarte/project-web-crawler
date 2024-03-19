@@ -3,4 +3,6 @@ version: '3'
 services:
   worker:
     build: .
-    scale: 5
+    ports:
+      - "3000:3000"
+    command: yarn start

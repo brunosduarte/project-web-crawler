@@ -12,7 +12,7 @@ export interface HierarchyPointLink<Datum> {
   source: HierarchyPointNode<Datum>
   target: HierarchyPointNode<Datum>
 }
-let { innerWidth: widthMax, innerHeight: heightMax } = window
+const { innerWidth: widthMax, innerHeight: heightMax } = window
 const height = heightMax - 340
 const width = widthMax - 20
 
