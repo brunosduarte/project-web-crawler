@@ -29,7 +29,7 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 [![Express](https://img.shields.io/badge/Express-gray?logo=Express)](https://www.expressjs.com)
 [![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
 [![Tanstack-Query](https://img.shields.io/badge/ReactQuery-gray?logo=React-Query)](https://tanstack.com/query/latest)
-[![AxiosSisyphus](https://img.shields.io/badge/Axios-gray?logo=Axios)](https://axios-http.com)
+[![AxiosSisyphus](https://img.shields.io/badge/AxiosSisyphus-gray?logo=Blazor)](https://www.npmjs.com/package/@enkidevs/axios-sisyphus)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
 [![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://www.d3js.org)
 [![Pixi.js](https://img.shields.io/badge/Pixi.js-gray?logo=Proton)](https://www.pixijs.com)
@@ -52,7 +52,7 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 
 ## 🌐 Prototype
 
-http://project-web-crawler.vercel.app
+https://sitemapper.net
 
 ## 📷 Preview
 
@@ -62,7 +62,7 @@ http://project-web-crawler.vercel.app
 
 ## 📦 Installation
 
-To clone and run this application, you will need [Git][git], [NodeJS v18.17.1][nodejs] or higher + [npm v9.17.1][npm] or higher installed on your computer. In your terminal, run:
+To clone and run this application, you will need [Git][git], [NodeJS][nodejs] and [npm][npm] installed on your computer. In your terminal, run:
 
 
 ```bash

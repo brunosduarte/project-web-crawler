@@ -26,11 +26,11 @@ export class Server {
     this.queue = options.queue;
     this.server
       .post('/domain', this.postDomain.bind(this))
-      .get('/nodes/count', this.countNodes.bind(this))
       .get('/nodes', this.listNode.bind(this))
+      .get('/nodes/count', this.countNodes.bind(this))
+      .get('/nodes/:url', this.getNodeByURL.bind(this))
       .get('/tree', this.getTree.bind(this))
       .get('/tree/ascii', this.getTreeASCII.bind(this))
-      .get('/nodes/:url', this.getNodeByURL.bind(this))
       .get('/queue', this.getQueueStatus.bind(this))
   }
 
@@ -61,6 +61,39 @@ export class Server {
     }
   }
 
+  
+  private async getTree(req: Request, res: Response): Promise<void> {
+    try {
+      const usecase = new GetTreeUseCase(this.store);
+      res.send(await usecase.execute());
+    } catch (e) {
+      console.error('Server.getTree', e);
+      // TODO: handle errors with middleware
+      res.status(500).send();
+    }
+  }
+  
+  private async getTreeASCII(req: Request, res: Response): Promise<void> {
+    try {
+      const usecase = new GetTreeUseCase(this.store);
+      const tree = await usecase.execute();
+      const iterateNode = (node: Partial<INode>, dept = 0): string => {
+        if(!node.url) {
+          return ''
+        }
+        const header = `${''.padStart(dept, '-')} ${node.url}\n`;
+        const body = node.children?.map(child => iterateNode(child, dept + 1)).join('\n') || '';
+        return header + body;
+      }
+      
+      res.setHeader('Content-Type', 'text/plain').send(iterateNode(tree, 0));
+    } catch (e) {
+      console.error('Server.getTree', e);
+      // TODO: handle errors with middleware
+      res.status(500).send();
+    }
+  }
+  
   private async listNode(req: Request, res: Response): Promise<void> {
     try {
       res.send(await this.store.list())
@@ -84,39 +117,7 @@ export class Server {
       res.status(500).send();
     }
   }
-
-  private async getTree(req: Request, res: Response): Promise<void> {
-    try {
-      const usecase = new GetTreeUseCase(this.store);
-      res.send(await usecase.execute());
-    } catch (e) {
-      console.error('Server.getTree', e);
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
-  }
-
-  private async getTreeASCII(req: Request, res: Response): Promise<void> {
-    try {
-      const usecase = new GetTreeUseCase(this.store);
-      const tree = await usecase.execute();
-      const iterateNode = (node: Partial<INode>, dept = 0): string => {
-        if(!node.url) {
-          return ''
-        }
-        const header = `${''.padStart(dept, '-')} ${node.url}\n`;
-        const body = node.children?.map(child => iterateNode(child, dept + 1)).join('\n') || '';
-        return header + body;
-      }
-
-      res.setHeader('Content-Type', 'text/plain').send(iterateNode(tree, 0));
-    } catch (e) {
-      console.error('Server.getTree', e);
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
-  }
-
+  
   private async countNodes(req: Request, res: Response): Promise<void> {
     try {
       const count = await this.store.count();
