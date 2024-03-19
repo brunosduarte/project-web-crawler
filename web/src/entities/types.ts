@@ -1,21 +1,24 @@
-export interface SiteMapUrl {
+import { ISiteMapNode } from './ISitemapNode'
+
+export interface ISiteMapUrl {
   loc: string
   lastmod: string
 }
-export interface ISiteMapNode {
+
+export interface ICustomHierarchyNode extends d3.HierarchyNode<ISiteMapNode> {
+  dx: number
+  dy: number
+}
+
+export interface INodeData {
   name: string
-  children?: ISiteMapNode[]
+  children?: INodeData[]
 }
 
 export interface ITreeProps {
-  tree: ISiteMapNode
+  dataTree: ISiteMapNode
 }
 
 export interface IValueTransformer {
   (value: number): number
-}
-
-export interface ICustomHierarchyNode extends d3.HierarchyNode<ISiteMapNode> {
-  dx: IValueTransformer
-  dy: IValueTransformer
 }

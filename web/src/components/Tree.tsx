@@ -4,55 +4,34 @@ import { HierarchyPointNode } from 'd3'
 import * as d3 from 'd3'
 import { useEffect, useRef } from 'react'
 
-export interface SiteMapUrl {
-  loc: string
-  lastmod: string
-}
-export interface SiteMapNode {
-  title: string
-  url: string
-  done: boolean
-  children?: SiteMapNode[] | never
-}
-export interface TreeProps {
-  dataTree: SiteMapNode
-}
-
-export interface CustomHierarchyNode extends d3.HierarchyNode<SiteMapNode> {
-  dx: number
-  dy: number
-}
+import { ISiteMapNode } from '@/entities/ISitemapNode'
+import { ICustomHierarchyNode, INodeData, ITreeProps } from '@/entities/types'
 
 export interface HierarchyPointLink<Datum> {
   source: HierarchyPointNode<Datum>
   target: HierarchyPointNode<Datum>
 }
 
-export interface NodeData {
-  name: string
-  children?: NodeData[]
-}
-
 const height = 500
 const width = 1800
 
-const treeCreation = (treeData: SiteMapNode) => {
-  const root: CustomHierarchyNode = d3.hierarchy<SiteMapNode>(
+const treeCreation = (treeData: ISiteMapNode) => {
+  const root: ICustomHierarchyNode = d3.hierarchy<ISiteMapNode>(
     treeData,
-  ) as CustomHierarchyNode
+  ) as ICustomHierarchyNode
   root.dx = 50
   root.dy = width
-  return d3.tree<SiteMapNode>().nodeSize([root.dx, root.dy])(root)
+  return d3.tree<ISiteMapNode>().nodeSize([root.dx, root.dy])(root)
 }
 
-export function Tree({ dataTree }: TreeProps) {
+export function Tree({ dataTree }: ITreeProps) {
   const svgRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
     const svg = d3.select(svgRef.current)
     const zoomBehavior = d3
       .zoom()
-      .scaleExtent([0.5, 200])
+      .scaleExtent([2, 200])
       .on('zoom', (event) => {
         svg.select('g').attr('transform', event.transform)
       })
@@ -79,12 +58,12 @@ export function Tree({ dataTree }: TreeProps) {
       .append('g')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 10)
-      .attr('transform', `translate(${root.y / 2},${root.x - x0})`)
+      .attr('transform', `translate(${root.y},${root.x - x0})`)
 
     const link = g
       .append('g')
       .attr('fill', 'none')
-      .attr('stroke', '#fffaaa')
+      .attr('stroke', '#d8d5af')
       .attr('stroke-opacity', 0.5)
       .attr('stroke-width', 1.5)
       .selectAll('path')
@@ -92,7 +71,7 @@ export function Tree({ dataTree }: TreeProps) {
       .join('path')
       .attr('d', (d) => {
         const linkGenerator = d3
-          .linkHorizontal<d3.HierarchyPointLink<NodeData>, [number, number]>()
+          .linkHorizontal<d3.HierarchyPointLink<INodeData>, [number, number]>()
           .source((d) => [d.source.y, d.source.x])
           .target((d) => [d.target.y, d.target.x])
         return linkGenerator(d as any)
@@ -109,7 +88,7 @@ export function Tree({ dataTree }: TreeProps) {
 
     node
       .append('circle')
-      .attr('fill', (d) => (d.children ? '#555' : '#999'))
+      .attr('fill', (d) => (d.children ? '#555' : '#fff'))
       .attr('r', 1)
 
     node
@@ -128,7 +107,7 @@ export function Tree({ dataTree }: TreeProps) {
       ref={svgRef}
       width={width}
       height={height}
-      style={{ border: '2px dashed gray' }}
+      style={{ border: '2px dashed #555' }}
     ></svg>
   )
 }

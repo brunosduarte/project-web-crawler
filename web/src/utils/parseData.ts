@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ITreeNode } from '@/entities/ITreeNode'
 
-export const parseData = (data: any): ITreeNode => {
+export const parseData = (data: JSON | any): ITreeNode => {
   if (!data || typeof data !== 'object') {
     console.error('Invalid data format.')
     return { name: 'root', children: [] }

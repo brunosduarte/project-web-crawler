@@ -1,6 +1,6 @@
 export interface ISiteMapNode {
-  done: boolean
-  url: string
   title: string
-  children?: ISiteMapNode[]
+  url: string
+  done: boolean
+  children?: ISiteMapNode[] | never
 }

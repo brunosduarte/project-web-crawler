@@ -9,10 +9,10 @@ import { useState } from 'react'
 import { Tree } from '@/components/Tree'
 import { crawlURL } from '@/services/api'
 import dataJSON from '@/storage/tree.json'
-// import { Loading } from '@/components/Loading'
-// import { ProgressBar } from '@/components/ProgressBar'
 import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
+// import { Loading } from '@/components/Loading'
+// import { ProgressBar } from '@/components/ProgressBar'
 // import { getTree } from '@/services/api';
 
 export function App() {
@@ -42,7 +42,7 @@ export function App() {
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
-      <h1 className="mt-40 text-6xl font-bold text-white">SiteMapper</h1>
+      <h1 className="mt-20 text-6xl font-bold text-white">SiteMapper</h1>
       <h2 className="mt-2 text-xs text-gray-200">
         Generate a complete sitemap of a specific domain
       </h2>
@@ -105,7 +105,9 @@ export function App() {
             <button
               type="button"
               className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 hover:bg-blue-600 disabled:bg-blue-800"
-              onClick={exportSitemap}
+              onClick={() => {
+                exportSitemap(dataJSON)
+              }}
             >
               Export XML
             </button>

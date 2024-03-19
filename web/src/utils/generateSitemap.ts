@@ -1,13 +1,6 @@
-import dataJSON from '@/storage/tree.json'
+import { ISiteMapNode } from '@/entities/ISitemapNode'
 
-interface SiteMapNode {
-  done: boolean
-  url: string
-  title: string
-  children?: SiteMapNode[]
-}
-
-export function extractUrls(node: SiteMapNode, urls: string[] = []): string[] {
+export function extractUrls(node: ISiteMapNode, urls: string[] = []): string[] {
   if (node.done) {
     urls.push(node.url)
   }
@@ -38,8 +31,9 @@ export function downloadSitemap(xmlContent: string, domain: string) {
   document.body.removeChild(link)
 }
 
-export function exportSitemap() {
-  const urls = extractUrls(dataJSON as never)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function exportSitemap(data: JSON | any) {
+  const urls = extractUrls(data)
   const xmlContent = generateSitemapXml(urls)
   downloadSitemap(xmlContent, 'domain')
 }

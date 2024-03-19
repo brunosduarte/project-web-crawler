@@ -32,7 +32,6 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 [![AxiosSisyphus](https://img.shields.io/badge/AxiosSisyphus-gray?logo=Blazor)](https://www.npmjs.com/package/@enkidevs/axios-sisyphus)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
 [![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://www.d3js.org)
-[![Pixi.js](https://img.shields.io/badge/Pixi.js-gray?logo=Proton)](https://www.pixijs.com)
 [![XML](https://img.shields.io/badge/XML-gray?logo=diagrams.net)](https://www.npmjs.com/package/xml)
 [![PQueue](https://img.shields.io/badge/PQueue-gray?logo=Dask)](https://www.npmjs.com/package/p-queue)
 [![Puppeteer](https://img.shields.io/badge/Puppeteer-gray?logo=Puppeteer)](https://pptr.dev)
@@ -67,7 +66,7 @@ To clone and run this application, you will need [Git][git], [NodeJS][nodejs] an
 
 ```bash
 # Cloning repo
-$ git clone https://github.com/sagelabs/bruno-duarte-interview.git site-mapper
+$ git clone https://github.com/sagelabs/bruno-duarte-interview.git sitemapper
 ```
 
 ```bash
@@ -85,24 +84,6 @@ $ npm run dev
 # Note: After running the command above, the API will be available at http://localhost:3000
 
 ```
-
-
-```bash
-# Workers
-
-# Go to the repository
-$ cd workers
-
-# Install the dependencies
-$ npm install
-
-# Run the API
-$ npm run dev
-
-# Note: After running the command above, the API will be available at http://localhost:3001
-
-```
-
 
 ```bash
 # Frontend

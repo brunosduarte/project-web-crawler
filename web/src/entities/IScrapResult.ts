@@ -15,4 +15,4 @@ export interface IScrapDone {
   title: string
   items: IScrapItem[]
 }
-export type IScrapResult = IScrapPending | IScrapDone
+export type IScrapResult = IScrapPending | IScrapDone | void
