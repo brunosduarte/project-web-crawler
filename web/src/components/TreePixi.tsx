@@ -10,12 +10,12 @@ export const Tree = () => {
 
   useEffect(() => {
     const app = new PIXI.Application({
-      width: 1200,
+      width: 600,
       height: 600,
       backgroundColor: 0xffffff,
       backgroundAlpha: 0,
-      resolution: window.devicePixelRatio || 1,
-      autoDensity: true,
+      resolution: 1000,
+      autoDensity: false,
     })
 
     if (pixiContainerRef.current) {
@@ -38,7 +38,7 @@ export const Tree = () => {
       .then((response) => response.json())
       .then((data) => {
         const root = d3.hierarchy(data)
-        const treeLayout = d3.tree().size([600, 1200])
+        const treeLayout = d3.tree().size([600, 600])
         treeLayout(root)
 
         adaptD3LayoutToPixi(root as never, viewport)

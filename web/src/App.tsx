@@ -4,18 +4,14 @@
 import '@/styles/global.css'
 
 import { MagnifyingGlass } from 'phosphor-react'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 
 import { Tree } from '@/components/Tree'
 import { crawlURL } from '@/services/api'
 import dataJSON from '@/storage/tree.json'
 // import { Loading } from '@/components/Loading'
 // import { ProgressBar } from '@/components/ProgressBar'
-import {
-  downloadSitemap,
-  extractUrls,
-  generateSitemapXml,
-} from '@/utils/generateSitemap'
+import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
 // import { getTree } from '@/services/api';
 
@@ -40,16 +36,9 @@ export function App() {
   //   setSearchDomain(searchDomain)
   // }, []);
 
-  const exportSitemap = useCallback(() => {
-    try {
-      const urls = extractUrls(dataJSON as never)
-      const xmlContent = generateSitemapXml(urls)
-      downloadSitemap(xmlContent, 'domain')
-    } catch (e: any) {
-      // Change the type annotation to 'any'
-      setErrorMessage(e.message)
-    }
-  }, [])
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+  }
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
@@ -57,7 +46,7 @@ export function App() {
       <h2 className="mt-2 text-xs text-gray-200">
         Generate a complete sitemap of a specific domain
       </h2>
-      <form action="" className="flex flex-col items-center">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <div className="flex w-fit flex-col justify-center align-middle">
           <label
             htmlFor="insert-domain"
@@ -91,7 +80,7 @@ export function App() {
 
           <div className="flex flex-wrap justify-center align-middle">
             <button
-              type="button"
+              type="submit"
               className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 hover:bg-blue-600 disabled:bg-blue-800"
               onClick={async () => {
                 try {
@@ -110,6 +99,7 @@ export function App() {
                 }
               }}
             >
+              Generate
               {/* { !isFetching ? "Generate" : <Loading  /> } */}
             </button>
             <button

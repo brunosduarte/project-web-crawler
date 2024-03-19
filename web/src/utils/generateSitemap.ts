@@ -1,3 +1,5 @@
+import dataJSON from '@/storage/tree.json'
+
 interface SiteMapNode {
   done: boolean
   url: string
@@ -34,4 +36,10 @@ export function downloadSitemap(xmlContent: string, domain: string) {
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
+}
+
+export function exportSitemap() {
+  const urls = extractUrls(dataJSON as never)
+  const xmlContent = generateSitemapXml(urls)
+  downloadSitemap(xmlContent, 'domain')
 }

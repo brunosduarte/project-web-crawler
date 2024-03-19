@@ -13,7 +13,7 @@ export const adaptD3LayoutToPixi = (
   // Function to draw links
   const drawLink = (link: HierarchyPointLink<any>) => {
     const { source, target } = link
-    graphics.lineStyle(1, 0x223355) // Adjust line style as needed
+    graphics.lineStyle(0.5, 0x223355) // Adjust line style as needed
     graphics.moveTo(source.x, source.y)
     graphics.lineTo(target.x, target.y)
 
@@ -21,11 +21,11 @@ export const adaptD3LayoutToPixi = (
     const labelText = `${source.data.url}` // Customize label text as needed
     const text = new PIXI.Text(labelText, {
       fontFamily: 'sans-serif',
-      fontSize: 10,
+      fontSize: 8,
       fill: 0xfff,
       align: 'center',
     })
-    text.position.set((source.x + target.x) * 2, (source.y + target.y) * 2)
+    text.position.set((source.x + target.x) / 2, (source.y + target.y) / 2)
     viewport.addChild(text)
   }
 
@@ -35,7 +35,7 @@ export const adaptD3LayoutToPixi = (
   // Draw nodes
   root.descendants().forEach((node) => {
     graphics.beginFill(0x223355)
-    graphics.drawCircle(node.x, node.y, 0.05)
+    graphics.drawCircle(node.x, node.y, 0.5)
     graphics.endFill()
   })
 }
