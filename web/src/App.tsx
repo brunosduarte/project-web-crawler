@@ -123,6 +123,9 @@ export function App() {
             isFetched &&
               <Tree dataTree={treeData as any} />  
           }     */}
+          <p className="text-xs text-slate-300">
+            Click, zoom in and drag to view in detail
+          </p>
           <Tree dataTree={treeData as ISiteMapNode} />
         </div>
       </form>
