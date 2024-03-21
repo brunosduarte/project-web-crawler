@@ -123,8 +123,8 @@ export function App() {
             isFetched &&
               <Tree dataTree={treeData as any} />  
           }     */}
-          <p className="text-xs text-slate-300">
-            Click, zoom in and drag to view in detail
+          <p className="text-xs text-gray-500">
+            Click inside the dashed area, zoom in and drag to view in detail
           </p>
           <Tree dataTree={treeData as ISiteMapNode} />
         </div>
