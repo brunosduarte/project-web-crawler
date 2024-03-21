@@ -11,8 +11,7 @@
     "dev": "tsx watch src/infrastructure/app.ts",
     "start": "node --env-file=.env --import=tsx --watch ./src/infrastructure/app.ts",
     "lint": "eslint src --ext .ts --fix",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "vitest",
     "test:debug": "node --experimental-vm-modules --inspect-brk node_modules/.bin/jest --injectGlobals false --runInBand --watchAll test/"
   },
   "dependencies": {

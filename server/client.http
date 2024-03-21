@@ -1,12 +1,12 @@
-@baseUrl = http://localhost:3000
-
+@baseUrlLocal = http://localhost:3000/
+@baseUrl = https://server-twva7shmeq-uc.a.run.app/
 
 ### Post
 POST {{baseUrl}}/domain
 Content-Type: application/json
 
 {
-  "domain":"https://www.microsoft.com/"
+  "domain":"https://www.enki.com/"
 }
 
 ### @queue

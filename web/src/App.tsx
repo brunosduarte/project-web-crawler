@@ -11,6 +11,8 @@ import { crawlURL } from '@/services/api'
 import dataJSON from '@/storage/tree.json'
 import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
+
+import { ISiteMapNode } from './entities/ISitemapNode'
 // import { Loading } from '@/components/Loading'
 // import { ProgressBar } from '@/components/ProgressBar'
 // import { getTree } from '@/services/api';
@@ -121,7 +123,7 @@ export function App() {
             isFetched &&
               <Tree dataTree={treeData as any} />  
           }     */}
-          <Tree dataTree={treeData as any} />
+          <Tree dataTree={treeData as ISiteMapNode} />
         </div>
       </form>
     </div>
