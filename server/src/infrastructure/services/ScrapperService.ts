@@ -53,7 +53,7 @@ export class ScrapperService {
     }
   }
 
-  private async getBrowser(): Promise<Browser> {
+  public async getBrowser(): Promise<Browser> {
     if (!this.browserPromise) {
       this.browserPromise = puppeteer.launch({
         headless: 'shell',

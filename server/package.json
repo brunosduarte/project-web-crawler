@@ -6,7 +6,6 @@
   "private": true,
   "license": "MIT",
   "main": "src/infrastructure/app.ts",
-  "type": "commonjs",
   "scripts": {
     "dev": "tsx watch src/infrastructure/app.ts",
     "start": "node --env-file=.env --import=tsx --watch ./src/infrastructure/app.ts",
