@@ -1,2 +1,11 @@
+# Dependencies
 node_modules
+
+# Environment
+.env
+
+# IDE
 .vscode
+
+# Tests
+coverage
