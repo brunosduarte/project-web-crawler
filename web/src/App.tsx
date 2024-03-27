@@ -7,7 +7,7 @@ import { MagnifyingGlass } from 'phosphor-react'
 import { useState } from 'react'
 
 import { Tree } from '@/components/Tree'
-import { crawlURL } from '@/services/api'
+import { sendURL } from '@/services/api'
 import dataJSON from '@/storage/tree.json'
 import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
@@ -87,7 +87,7 @@ export function App() {
               onClick={async () => {
                 try {
                   if (searchDomain) {
-                    await crawlURL(searchDomain)
+                    await sendURL(searchDomain)
                     setSearchDomain(searchDomain)
                     // startCrawling()
                     // console.log(results)
@@ -123,10 +123,7 @@ export function App() {
             isFetched &&
               <Tree dataTree={treeData as any} />  
           }     */}
-          <p className="text-xs text-gray-500">
-            Click inside the dashed area, zoom in and drag to view in detail
-          </p>
-          <Tree dataTree={treeData as ISiteMapNode} />
+          {/* <Tree dataTree={treeData as ISiteMapNode} /> */}
         </div>
       </form>
     </div>

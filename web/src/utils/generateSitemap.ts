@@ -35,5 +35,6 @@ export function downloadSitemap(xmlContent: string, domain: string) {
 export function exportSitemap(data: JSON | any) {
   const urls = extractUrls(data)
   const xmlContent = generateSitemapXml(urls)
-  downloadSitemap(xmlContent, 'domain')
+  const domain = new URL(data.url).host
+  downloadSitemap(xmlContent, domain)
 }

@@ -16,11 +16,10 @@ export async function getScrapStatus(): Promise<{
   return data
 }
 
-export async function crawlURL(url: string) {
+export async function sendURL(url: string) {
   const sendURL = await api.post('/domain', {
     domain: url,
   })
-  // TODO waiting backend to finish
   return sendURL
 }
 

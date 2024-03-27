@@ -6,6 +6,6 @@ export function useStatus() {
   return useQuery({
     queryFn: getScrapStatus,
     queryKey: ['getScrapStatus'],
-    // refetchInterval: 100000,
+    // refetchInterval: 10 * 1000,
   })
 }

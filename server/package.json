@@ -8,7 +8,7 @@
   "main": "src/infrastructure/app.ts",
   "scripts": {
     "dev": "tsx watch src/infrastructure/app.ts",
-    "start": "node --env-file=.env --import=tsx --watch ./src/infrastructure/app.ts",
+    "start": "node --import=tsx --watch ./src/infrastructure/app.ts",
     "lint": "eslint src --ext .ts --fix",
     "test": "vitest run",
     "test:ui": "vitest --ui",

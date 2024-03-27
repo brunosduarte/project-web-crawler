@@ -1,0 +1,11 @@
+
+2024-03-21 11:37:14.289 BRT
+2024-03-21 11:46:29.121 BRT
+
+14:44:05
+14:49:50
+
+-Repeat process
+-Clear InMemory before scrap
+-Unknown error on scraping
+-No repeated links

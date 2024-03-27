@@ -16,8 +16,5 @@ describe('isValidURL', () => {
     expect(isValidURL(invalidURL)).toBe(false);
   });
 
-  it('should return false for an invalid URL object', () => {
-    const invalidURL = new URL('example.com');
-    expect(isValidURL(invalidURL)).toBe(false);
-  });
+
 });

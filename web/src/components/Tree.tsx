@@ -104,11 +104,16 @@ export function Tree({ dataTree }: ITreeProps) {
   }, [dataTree])
 
   return (
-    <svg
-      ref={svgRef}
-      width={width}
-      height={height}
-      style={{ border: '2px dashed #555' }}
-    ></svg>
+    <>
+      <p className="text-xs text-gray-500">
+        Click inside the dashed area, zoom in and drag to view in detail
+      </p>
+      <svg
+        ref={svgRef}
+        width={width}
+        height={height}
+        style={{ border: '2px dashed #555' }}
+      ></svg>
+    </>
   )
 }

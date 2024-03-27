@@ -13,8 +13,7 @@ export class ScrapperService {
       return;
     }
     const browser = await this.getBrowser();
-    console.log('finished');
-    
+    console.log('Finished!');
     this.browserPromise = undefined;
     await browser.close();
   }
