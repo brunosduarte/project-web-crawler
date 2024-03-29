@@ -1,42 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { useResults, useStatus } from './hooks';
-// import { useMutation } from 'react-query';
 import '@/styles/global.css'
 
 import { MagnifyingGlass } from 'phosphor-react'
 import { useState } from 'react'
 
-import { Tree } from '@/components/Tree'
-import { sendURL } from '@/services/api'
+import { Loading } from '@/components/Loading'
+import { ProgressBar } from '@/components/ProgressBar'
+// import { Tree } from '@/components/Tree'
 import dataJSON from '@/storage/tree.json'
 import { exportSitemap } from '@/utils/generateSitemap'
-import { parseData } from '@/utils/parseData'
 
-import { ISiteMapNode } from './entities/ISitemapNode'
-// import { Loading } from '@/components/Loading'
-// import { ProgressBar } from '@/components/ProgressBar'
-// import { getTree } from '@/services/api';
+// import { parseData } from '@/utils/parseData'
+// import { ISiteMapNode } from './entities/ISitemapNode'
+import { useMutate, useResults, useStatus } from './hooks'
 
 export function App() {
   const [searchDomain, setSearchDomain] = useState('')
   const [isErrorTyping, setErrorTyping] = useState(false)
   const [isErrorMessage, setErrorMessage] = useState('')
 
-  const treeData = parseData(dataJSON)
+  // const treeData = parseData(dataJSON)
+  const { data: results, isFetching } = useResults()
+  const { data: status } = useStatus()
+  const { mutate: sendURL } = useMutate()
 
   // const regexDomain =
   //   /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/
   // ^((http|https)://)?([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}$';
-
-  // const startCrawling = useCallback(async () => {
-  //   const { data: results, isError, isFetching, isFetched } = useResults();
-  //   const { data: status } = useStatus()
-  //   // const { mutateAsync: addToScrap } = useMutation({
-  //   //   mutationFn: getTree,
-  //   // });
-  //   await crawlURL(searchDomain)
-  //   setSearchDomain(searchDomain)
-  // }, []);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -87,10 +77,9 @@ export function App() {
               onClick={async () => {
                 try {
                   if (searchDomain) {
-                    await sendURL(searchDomain)
+                    sendURL(searchDomain)
                     setSearchDomain(searchDomain)
-                    // startCrawling()
-                    // console.log(results)
+                    console.log(results)
                   }
                   setErrorMessage('Insert the domain to crawl')
                 } catch (e: any) {
@@ -101,8 +90,7 @@ export function App() {
                 }
               }}
             >
-              Generate
-              {/* { !isFetching ? "Generate" : <Loading  /> } */}
+              {isFetching ? <Loading /> : 'Generate'}
             </button>
             <button
               type="button"
@@ -116,16 +104,16 @@ export function App() {
           </div>
         </div>
         <div className="flex flex-col place-items-center justify-center">
-          {/* { 
-            isFetching ?
-              <ProgressBar progress={(status as any)?.percentDone || 0} />       
-            :
-            isFetched &&
-              <Tree dataTree={treeData as any} />  
-          }     */}
-          {/* <Tree dataTree={treeData as ISiteMapNode} /> */}
+          {isFetching ? (
+            <ProgressBar progress={(status as any)?.percentDone || 0} />
+          ) : (
+            <p>fetched!</p>
+          )}
         </div>
       </form>
     </div>
   )
 }
+
+// <ProgressBar progress={(status as any)?.percentDone || 0} />
+// isFetched && <Tree dataTree={treeData as ISiteMapNode} />}

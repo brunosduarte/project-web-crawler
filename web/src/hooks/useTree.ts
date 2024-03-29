@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-import { getTree } from '@/services/api'
+import { getTree } from '@/services/getTree'
 
 export function useTree() {
   return useQuery({

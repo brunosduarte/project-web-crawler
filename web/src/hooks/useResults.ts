@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-import { getScrapResults } from '@/services/api'
+import { getScrapResults } from '@/services/getScrapResults'
 
 export function useResults() {
   return useQuery({
