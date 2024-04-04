@@ -1,14 +1,10 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
-
-import { PostController } from '@/infrastructure/http/controllers/PostController';
-import { NodeController } from '@/infrastructure/http/controllers/NodeController';
-import { TreeController } from '@/infrastructure/http/controllers/TreeController';
-import { QueueController } from '@/infrastructure/http/controllers/QueueController';
+import { PostController, NodeController, TreeController, QueueController } from '@/infrastructure/http/controllers';
 
 export interface IServerOptions {
   port: number;

@@ -8,7 +8,7 @@ export class ScrapperService {
 
   constructor(){}
   
-  async scrap(_url: string | URL): Promise<IScrapDone | undefined> {
+  async scrap(_url: string | URL): Promise<IScrapResult> {
     const url = sanitizeURL(_url);
     if(!url) {
       return;

@@ -3,10 +3,11 @@ import { Request, Response } from 'express';
 import { INode } from '@/domain/entities/INode';
 import { InMemoryNodeStore } from '@/infrastructure/store/InMemoryNodeStore';
 import { GetTreeUseCase } from '@/application/use-cases/GetTreeUseCase';
+import { INodeStore } from '@/application/interfaces/INodeStore';
 
 export class TreeController {
   
-  constructor(public store: InMemoryNodeStore = new InMemoryNodeStore()) {}
+  constructor(public store: INodeStore = new InMemoryNodeStore()) {}
 
   public async getTree(req: Request, res: Response): Promise<void> {
     try {

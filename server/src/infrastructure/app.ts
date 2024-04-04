@@ -1,8 +1,8 @@
+import { INodeStore } from '@/application/interfaces/INodeStore';
 import { InMemoryNodeStore } from '@/infrastructure/store/InMemoryNodeStore';
 import { InMemoryTaskQueue } from '@/infrastructure/queue/InMemoryTaskQueue';
 import { WorkerService } from '@/infrastructure/services/WorkerService'; 
 import { Server } from '@/infrastructure/http/server';
-import { INodeStore } from '@/application/interfaces/INodeStore';
 
 export const queue = new InMemoryTaskQueue();
 export const store: INodeStore = new InMemoryNodeStore();

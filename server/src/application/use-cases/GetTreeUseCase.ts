@@ -1,6 +1,6 @@
+import { isNotNil } from "@/shared/helpers/guards"
 import { INode } from "@/domain/entities/INode";
 import { IScrapResult } from "@/domain/entities/IScrapResult";
-import { isNotNil } from "@/shared/helpers/guards"
 import { INodeStore } from "@/application/interfaces/INodeStore";
 
 export class GetTreeUseCase {
