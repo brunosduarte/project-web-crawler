@@ -8,7 +8,9 @@ export const queue = new InMemoryTaskQueue();
 export const store: INodeStore = new InMemoryNodeStore();
 
 export const worker = new WorkerService(queue, store);
+
 queue.onDone(() => worker.end());
+
 const server = new Server({
   port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
   store,
@@ -20,7 +22,7 @@ server.start()
     console.log(`Listening on port ${server.getPort()}`)
   })
   .catch((err: { message: unknown; }) => {
-    console.error("Failed to start server:", err?.message);
+    console.error("Failed to start server: ", err?.message);
     process.exit(1);
   });
 

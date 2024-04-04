@@ -1,7 +1,7 @@
 import { ITask } from '@/domain/valueObjects/ITask';
-import { ScrapperService } from '@/infrastructure/services/ScrapperService';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { INodeStore } from '@/application/interfaces/INodeStore';
+import { ScrapperService } from '@/infrastructure/services/ScrapperService';
 import { isSameDomain, isValidURL } from '@/shared/helpers/validators';
 
 export class WorkerService {
@@ -35,7 +35,7 @@ export class WorkerService {
     await Promise.all(tasks);
   }
 
-  async addToQueue(url: string | any) {
+  async addToQueue(url: string) {
     if(!isValidURL(url)) {
       return;
     }

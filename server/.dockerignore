@@ -9,3 +9,9 @@ node_modules
 
 # Tests
 coverage
+
+dist
+Dockerfile
+.git*
+.dockerignore
+.gitignore

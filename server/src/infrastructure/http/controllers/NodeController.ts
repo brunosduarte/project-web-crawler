@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { INodeStore } from '@/application/interfaces/INodeStore';
-import { INode } from '@/domain/entities/INode';
 
 export class NodeController {
   constructor(private store: INodeStore) {}
@@ -29,7 +28,7 @@ export class NodeController {
     }
   }
 
-  private async countNodes(req: Request, res: Response): Promise<void> {
+  public async countNodes(req: Request, res: Response): Promise<void> {
     try {
       const count = await this.store.count();
       res.send({ count });

@@ -1,20 +1,16 @@
-import { GetTree } from '@/use-cases';
-import { INodeStore as InMemoryNodeStore } from '@/infrastructure/store/InMemoryNodeStore';
+import { Request, Response } from 'express';
+
 import { INode } from '@/domain/entities/INode';
+import { InMemoryNodeStore } from '@/infrastructure/store/InMemoryNodeStore';
+import { GetTreeUseCase } from '@/application/use-cases/GetTreeUseCase';
 
-export interface ITreeController {
-  store: InMemoryNodeStore
-}
 export class TreeController {
-  private readonly store: InMemoryNodeStore
+  
+  constructor(public store: InMemoryNodeStore = new InMemoryNodeStore()) {}
 
-  constructor(private getTree: GetTree) {
-    this.store = options.store
-  }
-
-  async get(req: Request, res: Response): Promise<void> {
+  public async getTree(req: Request, res: Response): Promise<void> {
     try {
-      const usecase = new GetTree(this.store)
+      const usecase = new GetTreeUseCase(this.store)
       res.send(await usecase.execute())
     } catch (e) {
       console.error('Server.getTree', e)
@@ -23,15 +19,15 @@ export class TreeController {
     }
   }
 
-  async getASCII(req: Request, res: Response): Promise<void> {
+  public async getTreeASCII(req: Request, res: Response): Promise<void> {
     try {
-      const usecase = new GetTree(this.store)
+      const usecase = new GetTreeUseCase(this.store)
       const tree = await usecase.execute()
       const iterateNode = (node: Partial<INode>, dept = 0): string => {
         if (!node.url) {
           return ''
         }
-        const header = `${''.padStart(dept, '-')} ${node.url}\n`
+        const header = `${''.padStart(dept,'-')} ${node.url}\n`
         const body = node.children?.map(child => iterateNode(child, dept + 1)).join('\n') || ''
         return header + body
       }

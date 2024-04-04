@@ -4,9 +4,8 @@ import { isNotNil } from "@/shared/helpers/guards"
 import { INodeStore } from "@/application/interfaces/INodeStore";
 
 export class GetTreeUseCase {
-
-  private consumed = new Set<string>();
   private map = new Map<string, IScrapResult>();
+  private consumed = new Set<string>();
 
   constructor(private store: INodeStore) {}
 

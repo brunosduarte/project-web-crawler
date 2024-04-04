@@ -1,24 +1,14 @@
 import puppeteer, { Browser } from 'puppeteer';
-import { IScrapDone, IScrapResult } from '@/domain/entities/IScrapResult';
-import { isValidURL, sanitizeURL } from '@/shared/helpers/validators';
 import { isNotNil } from '@/shared/helpers/guards';
+import { isValidURL, sanitizeURL } from '@/shared/helpers/validators';
+import { IScrapDone, IScrapResult } from '@/domain/entities/IScrapResult';
 
 export class ScrapperService {
   private browserPromise?: Promise<Browser>;
 
   constructor(){}
-
-  async end() {
-    if (!this.browserPromise) {
-      return;
-    }
-    const browser = await this.getBrowser();
-    console.log('Finished!');
-    this.browserPromise = undefined;
-    await browser.close();
-  }
-
-  async scrap(_url: string | URL): Promise<IScrapDone | any> {
+  
+  async scrap(_url: string | URL): Promise<IScrapDone | undefined> {
     const url = sanitizeURL(_url);
     if(!url) {
       return;
@@ -72,5 +62,15 @@ export class ScrapperService {
       });
     }
     return await this.browserPromise;
+  }
+
+  async end() {
+    if (!this.browserPromise) {
+      return;
+    }
+    const browser = await this.getBrowser();
+    console.log('Finished!');
+    this.browserPromise = undefined;
+    await browser.close();
   }
 }

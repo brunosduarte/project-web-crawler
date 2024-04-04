@@ -1,11 +1,14 @@
 import express, { Request, Response } from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
-import { INode } from '@/domain/entities/INode';
+import bodyParser from 'body-parser';
+
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
-import { GetTreeUseCase } from '@/application/use-cases/GetTreeUseCase';
-import { queue } from '@/infrastructure/app';
+
+import { PostController } from '@/infrastructure/http/controllers/PostController';
+import { NodeController } from '@/infrastructure/http/controllers/NodeController';
+import { TreeController } from '@/infrastructure/http/controllers/TreeController';
+import { QueueController } from '@/infrastructure/http/controllers/QueueController';
 
 export interface IServerOptions {
   port: number;
@@ -17,21 +20,34 @@ export class Server {
   private server: express.Express;
   private store: INodeStore;
   private queue: ITaskQueue;
+
+  private nodeController: NodeController;
+  private treeController: TreeController;
+  private postController: PostController;
+  private queueController: QueueController;
   
   constructor(private options: IServerOptions) {
     this.server = express();
     this.server.use(cors())
     this.server.use(bodyParser.json());
+
     this.store = options.store;
     this.queue = options.queue;
+
+    this.nodeController = new NodeController(this.store);
+    this.treeController = new TreeController(this.store);
+    this.postController = new PostController();
+    this.queueController = new QueueController(this.queue, this.store);
+
     this.server
-      .post('/domain', this.postDomain.bind(this))
-      .get('/nodes', this.listNode.bind(this))
-      .get('/nodes/count', this.countNodes.bind(this))
-      .get('/nodes/:url', this.getNodeByURL.bind(this))
-      .get('/tree', this.getTree.bind(this))
-      .get('/tree/ascii', this.getTreeASCII.bind(this))
-      .get('/queue', this.getQueueStatus.bind(this))
+    .get('/nodes', (req, res) => this.nodeController.listNode(req, res))
+    .get('/nodes/:url', (req, res) => this.nodeController.getNodeByURL(req, res))
+    .get('/nodes/count', (req, res) => this.nodeController.countNodes(req, res))
+    .get('/tree', (req, res) => this.treeController.getTree(req, res))
+    .get('/tree/ascii', (req, res) => this.treeController.getTreeASCII(req, res))
+    .get('/queue', (req, res) => this.queueController.getQueueStatus(req, res))
+    .post('/domain', (req, res) => this.postController.sendURL(req, res))
+    
   }
 
   getPort(): number {
@@ -48,94 +64,5 @@ export class Server {
         reject(e);
       }
     })
-  }
-
-  async postDomain(req: Request, res: Response) {
-    try {
-      const { domain }  = req.body;
-      res.status(200).send();
-      queue.add({ url: domain });
-    } catch (e) {
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
-  }
-
-  
-  private async getTree(req: Request, res: Response): Promise<void> {
-    try {
-      const usecase = new GetTreeUseCase(this.store);
-      res.send(await usecase.execute());
-    } catch (e) {
-      console.error('Server.getTree', e);
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
-  }
-  
-  private async getTreeASCII(req: Request, res: Response): Promise<void> {
-    try {
-      const usecase = new GetTreeUseCase(this.store);
-      const tree = await usecase.execute();
-      const iterateNode = (node: Partial<INode>, dept = 0): string => {
-        if(!node.url) {
-          return ''
-        }
-        const header = `${''.padStart(dept, '-')} ${node.url}\n`;
-        const body = node.children?.map(child => iterateNode(child, dept + 1)).join('\n') || '';
-        return header + body;
-      }
-      
-      res.setHeader('Content-Type', 'text/plain').send(iterateNode(tree, 0));
-    } catch (e) {
-      console.error('Server.getTree', e);
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
-  }
-  
-  private async listNode(req: Request, res: Response): Promise<void> {
-    try {
-      res.send(await this.store.list())
-    } catch (e) {
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
-  }
-
-  private async getNodeByURL(req: Request, res: Response): Promise<void> {
-    try {
-      const found = await this.store.findByURL(req.params.url);
-      if(!found) {
-        res.status(404).send();
-      //TODO: handle errors
-        return;
-      }
-      res.send(found);
-    } catch (e) {
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
-  }
-  
-  private async countNodes(req: Request, res: Response): Promise<void> {
-    try {
-      const count = await this.store.count();
-      res.send({ count });
-    } catch (e) {
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
-  }
-
-  private async getQueueStatus(req: Request, res: Response): Promise<void> {
-    try {
-      const pending = await this.queue.size();
-      const total = await this.store.count();
-      res.send({ pending, total, percentDone: Math.round(100 * (total - pending)/total) });
-    } catch (e) {
-      // TODO: handle errors with middleware
-      res.status(500).send();
-    }
   }
 }

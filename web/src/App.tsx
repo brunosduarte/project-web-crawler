@@ -20,7 +20,7 @@ export function App() {
   const [isErrorMessage, setErrorMessage] = useState('')
 
   // const treeData = parseData(dataJSON)
-  const { data: results, isFetching } = useResults()
+  const { data: results, isFetching, is } = useResults()
   const { data: status } = useStatus()
   const { mutate: sendURL } = useMutate()
 
