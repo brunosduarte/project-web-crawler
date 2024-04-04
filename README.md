@@ -38,10 +38,10 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 [![Vitest](https://img.shields.io/badge/Vitest-gray?logo=Vitest)](https://vitest.dev)
 [![Playwright](https://img.shields.io/badge/Playwright-gray?logo=Playwright)](https://playwright.dev)
 [![TestingLibrary](https://img.shields.io/badge/TestingLibrary-gray?logo=Testing-Library)](https://testing-library.com)
+[![Docker](https://img.shields.io/badge/Docker-gray?logo=Docker)](https://www.docker.com)
 
 - Future implementations
-[![Redis](https://img.shields.io/badge/Redis-gray?logo=Redis)](https://www.redis.io)
-[![Docker](https://img.shields.io/badge/Docker-gray?logo=Docker)](https://www.docker.com)
+[![Redis/Valkey](https://img.shields.io/badge/Redis-gray?logo=Redis)](https://www.redis.io)
 
 ## 🧮 Diagram:
 
