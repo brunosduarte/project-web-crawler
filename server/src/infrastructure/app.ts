@@ -6,7 +6,6 @@ import { Server } from '@/infrastructure/http/server';
 
 export const queue = new InMemoryTaskQueue();
 export const store: INodeStore = new InMemoryNodeStore();
-
 export const worker = new WorkerService(queue, store);
 
 queue.onDone(() => worker.end());

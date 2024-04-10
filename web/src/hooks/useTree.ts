@@ -6,7 +6,8 @@ export function useTree() {
   return useQuery({
     queryFn: getTree,
     queryKey: ['getTree'],
-    // refetchInterval: 10 * 1000,
     retry: 1,
+    enabled: false,
+    // refetchInterval: 10 * 1000,
   })
 }

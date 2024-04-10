@@ -7,5 +7,6 @@ export function useResults() {
     queryFn: getScrapResults,
     queryKey: ['getScrapResults'],
     retry: 3,
+    enabled: false,
   })
 }

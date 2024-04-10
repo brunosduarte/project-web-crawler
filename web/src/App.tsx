@@ -5,13 +5,13 @@ import { MagnifyingGlass } from 'phosphor-react'
 import { useState } from 'react'
 
 import { Loading } from '@/components/Loading'
-import { ProgressBar } from '@/components/ProgressBar'
-// import { Tree } from '@/components/Tree'
+// import { ProgressBar } from '@/components/ProgressBar'
+import { Tree } from '@/components/Tree'
 import dataJSON from '@/storage/tree.json'
 import { exportSitemap } from '@/utils/generateSitemap'
+import { parseData } from '@/utils/parseData'
 
-// import { parseData } from '@/utils/parseData'
-// import { ISiteMapNode } from './entities/ISitemapNode'
+import { ISiteMapNode } from './entities/ISitemapNode'
 import { useMutate, useResults, useStatus } from './hooks'
 
 export function App() {
@@ -19,8 +19,8 @@ export function App() {
   const [isErrorTyping, setErrorTyping] = useState(false)
   const [isErrorMessage, setErrorMessage] = useState('')
 
-  // const treeData = parseData(dataJSON)
-  const { data: results, isFetching, is } = useResults()
+  const treeData = parseData(dataJSON)
+  const { data: results, isFetching } = useResults()
   const { data: status } = useStatus()
   const { mutate: sendURL } = useMutate()
 
@@ -49,7 +49,7 @@ export function App() {
               <input
                 type="text"
                 id="insert-domain"
-                placeholder="enki.com"
+                placeholder="test.com"
                 className="border-0 border-transparent text-gray-800"
                 value={searchDomain}
                 // pattern={RegExp(regexDomain)} // Convert regexDomain to string
@@ -104,11 +104,7 @@ export function App() {
           </div>
         </div>
         <div className="flex flex-col place-items-center justify-center">
-          {isFetching ? (
-            <ProgressBar progress={(status as any)?.percentDone || 0} />
-          ) : (
-            <p>fetched!</p>
-          )}
+          <Tree dataTree={treeData as ISiteMapNode} />
         </div>
       </form>
     </div>
