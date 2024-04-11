@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import '@/styles/global.css'
 
 import { MagnifyingGlass } from 'phosphor-react'
@@ -28,20 +27,18 @@ export function App() {
   const treeData = parseData(dataJSON)
 
   const regex =
-  /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/
-    // /^(https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
+    // eslint-disable-next-line no-useless-escape
+    /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/
+  // /^(https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
 
-  function ensureWebAddress(url) {
+  function ensureWebAddress(url: string) {
     setErrorTyping(false)
     setErrorMessage('')
     if (regex.test(url)) {
-      if (
-        !url.startsWith('http://') &&
-        !url.startsWith('https://') &&
-        !url.startsWith('www.')
-      ) {
-        return `https://www.${url}`
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        return `https://${url}`
       }
+      console.log(url)
       return url
     } else {
       setErrorTyping(true)
@@ -55,7 +52,6 @@ export function App() {
 
   function handleSearchDomain(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchDomain(event.target.value)
-    console.log(searchDomain)
     ensureWebAddress(searchDomain)
   }
 
@@ -76,9 +72,9 @@ export function App() {
         setErrorTyping(true)
         setErrorMessage('Insert the domain to crawl')
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e)
-      setErrorMessage(e.message)
+      setErrorMessage((e as Error).message)
     }
   }
 
@@ -97,6 +93,7 @@ export function App() {
     const progress = calculateProgress()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress === 100)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [haveDomain, status?.percentDone])
 
   return (
@@ -119,7 +116,7 @@ export function App() {
                 placeholder="test.com"
                 className="border-0 border-transparent text-gray-800"
                 value={searchDomain}
-                // pattern={checkInput.toString()}
+                disabled={isFetching}
                 onChange={handleSearchDomain}
               />
             </div>
@@ -163,7 +160,9 @@ export function App() {
         </div>
         <div className="flex flex-col place-items-center justify-center">
           {isFetching ? (
-            <ProgressBar progress={calculateProgress() || 0} />
+            <div className="mt-8">
+              <ProgressBar progress={calculateProgress() || 0} />
+            </div>
           ) : (
             isFetched && <Tree dataTree={treeData as ISiteMapNode} />
           )}
