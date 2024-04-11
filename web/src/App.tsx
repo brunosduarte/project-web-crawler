@@ -6,12 +6,11 @@ import { useEffect, useState } from 'react'
 import { Loading } from '@/components/Loading'
 import { ProgressBar } from '@/components/ProgressBar'
 import { Tree } from '@/components/Tree'
+import { ISiteMapNode } from '@/entities/ISitemapNode'
+import { useMutate, useStatus, useTree } from '@/hooks'
 import dataJSON from '@/storage/tree.json'
 import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
-
-import { ISiteMapNode } from './entities/ISitemapNode'
-import { useMutate, useStatus, useTree } from './hooks'
 
 export function App() {
   const [searchDomain, setSearchDomain] = useState('')
@@ -38,7 +37,6 @@ export function App() {
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
         return `https://${url}`
       }
-      console.log(url)
       return url
     } else {
       setErrorTyping(true)
@@ -61,7 +59,7 @@ export function App() {
         setFetched(false)
         setSearchDomain('')
         setErrorMessage('')
-        console.log(treeJSON)
+        // console.log(treeJSON)
       } else {
         if (searchDomain && !isErrorTyping) {
           sendURL(searchDomain)
@@ -79,7 +77,7 @@ export function App() {
   }
 
   function handleExportSitemap() {
-    exportSitemap(dataJSON)
+    exportSitemap(treeJSON)
   }
 
   function calculateProgress() {
@@ -93,8 +91,7 @@ export function App() {
     const progress = calculateProgress()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress === 100)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [haveDomain, status?.percentDone])
+  }, [calculateProgress, haveDomain, status.percentDone])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
@@ -116,7 +113,7 @@ export function App() {
                 placeholder="test.com"
                 className="border-0 border-transparent text-gray-800"
                 value={searchDomain}
-                disabled={isFetching}
+                disabled={isFetching || isFetched}
                 onChange={handleSearchDomain}
               />
             </div>
