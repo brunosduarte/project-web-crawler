@@ -2,11 +2,12 @@ import { useQuery } from 'react-query'
 
 import { getScrapResults } from '@/services/getScrapResults'
 
-export function useResults() {
+export function useResults({ haveDomain }: { haveDomain: boolean }) {
   return useQuery({
     queryFn: getScrapResults,
-    queryKey: ['getScrapResults'],
+    queryKey: ['getScrapResults', haveDomain],
     retry: 3,
-    enabled: false,
+    enabled: haveDomain,
+    refetchInterval: 1 * 1000,
   })
 }

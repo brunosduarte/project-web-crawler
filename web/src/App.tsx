@@ -2,35 +2,102 @@
 import '@/styles/global.css'
 
 import { MagnifyingGlass } from 'phosphor-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Loading } from '@/components/Loading'
-// import { ProgressBar } from '@/components/ProgressBar'
+import { ProgressBar } from '@/components/ProgressBar'
 import { Tree } from '@/components/Tree'
 import dataJSON from '@/storage/tree.json'
 import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
 
 import { ISiteMapNode } from './entities/ISitemapNode'
-import { useMutate, useResults, useStatus } from './hooks'
+import { useMutate, useStatus, useTree } from './hooks'
 
 export function App() {
   const [searchDomain, setSearchDomain] = useState('')
-  const [isErrorTyping, setErrorTyping] = useState(false)
   const [isErrorMessage, setErrorMessage] = useState('')
+  const [isErrorTyping, setErrorTyping] = useState(false)
+  const [isFetching, setFetching] = useState(false)
+  const [isFetched, setFetched] = useState(false)
+
+  const { mutate: sendURL, isSuccess: haveDomain } = useMutate()
+  const { data: status } = useStatus({ haveDomain })
+  const { data: treeJSON } = useTree({ haveDomain })
 
   const treeData = parseData(dataJSON)
-  const { data: results, isFetching } = useResults()
-  const { data: status } = useStatus()
-  const { mutate: sendURL } = useMutate()
 
-  // const regexDomain =
-  //   /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/
-  // ^((http|https)://)?([a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}$';
+  const regex =
+  /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/
+    // /^(https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
+
+  function ensureWebAddress(url) {
+    setErrorTyping(false)
+    setErrorMessage('')
+    if (regex.test(url)) {
+      if (
+        !url.startsWith('http://') &&
+        !url.startsWith('https://') &&
+        !url.startsWith('www.')
+      ) {
+        return `https://www.${url}`
+      }
+      return url
+    } else {
+      setErrorTyping(true)
+      setErrorMessage('Insert a valid web address')
+    }
+  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
   }
+
+  function handleSearchDomain(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearchDomain(event.target.value)
+    console.log(searchDomain)
+    ensureWebAddress(searchDomain)
+  }
+
+  function handleGenerate() {
+    try {
+      if (isFetched) {
+        setFetched(false)
+        setSearchDomain('')
+        setErrorMessage('')
+        console.log(treeJSON)
+      } else {
+        if (searchDomain && !isErrorTyping) {
+          sendURL(searchDomain)
+          setSearchDomain(searchDomain)
+          console.log(searchDomain)
+          return
+        }
+        setErrorTyping(true)
+        setErrorMessage('Insert the domain to crawl')
+      }
+    } catch (e: any) {
+      console.error(e)
+      setErrorMessage(e.message)
+    }
+  }
+
+  function handleExportSitemap() {
+    exportSitemap(dataJSON)
+  }
+
+  function calculateProgress() {
+    if (!haveDomain || !status) {
+      return 0
+    }
+    return status.percentDone
+  }
+
+  useEffect(() => {
+    const progress = calculateProgress()
+    setFetching(progress > 0 && progress < 100)
+    setFetched(progress === 100)
+  }, [haveDomain, status?.percentDone])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
@@ -52,21 +119,19 @@ export function App() {
                 placeholder="test.com"
                 className="border-0 border-transparent text-gray-800"
                 value={searchDomain}
-                // pattern={RegExp(regexDomain)} // Convert regexDomain to string
-                onChange={(event) => setSearchDomain(event.target.value)}
+                // pattern={checkInput.toString()}
+                onChange={handleSearchDomain}
               />
             </div>
           </label>
 
           <div className="mt-1 flex justify-center text-xs text-gray-400">
             {isErrorTyping ? (
-              <p className="text-red-300">{isErrorTyping}</p>
-            ) : isErrorMessage ? (
               <p className="text-red-300">{isErrorMessage}</p>
             ) : searchDomain.length === 0 ? (
               'Insert the domain to crawl'
             ) : (
-              <p className="text-transparent">{`.`}</p>
+              <br />
             )}
           </div>
 
@@ -74,42 +139,36 @@ export function App() {
             <button
               type="submit"
               className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 hover:bg-blue-600 disabled:bg-blue-800"
-              onClick={async () => {
-                try {
-                  if (searchDomain) {
-                    sendURL(searchDomain)
-                    setSearchDomain(searchDomain)
-                    console.log(results)
-                  }
-                  setErrorMessage('Insert the domain to crawl')
-                } catch (e: any) {
-                  // isError
-                  console.error(e)
-                  setErrorTyping(e.message)
-                  setErrorMessage(e.message)
-                }
-              }}
+              disabled={isFetching}
+              onClick={handleGenerate}
             >
-              {isFetching ? <Loading /> : 'Generate'}
+              {isFetching ? (
+                <Loading />
+              ) : isFetched ? (
+                'Re-Generate'
+              ) : (
+                'Generate'
+              )}
             </button>
-            <button
-              type="button"
-              className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 hover:bg-blue-600 disabled:bg-blue-800"
-              onClick={() => {
-                exportSitemap(dataJSON)
-              }}
-            >
-              Export XML
-            </button>
+            {isFetched && (
+              <button
+                type="button"
+                className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 hover:bg-blue-600 disabled:bg-blue-800"
+                onClick={handleExportSitemap}
+              >
+                Export XML
+              </button>
+            )}
           </div>
         </div>
         <div className="flex flex-col place-items-center justify-center">
-          <Tree dataTree={treeData as ISiteMapNode} />
+          {isFetching ? (
+            <ProgressBar progress={calculateProgress() || 0} />
+          ) : (
+            isFetched && <Tree dataTree={treeData as ISiteMapNode} />
+          )}
         </div>
       </form>
     </div>
   )
 }
-
-// <ProgressBar progress={(status as any)?.percentDone || 0} />
-// isFetched && <Tree dataTree={treeData as ISiteMapNode} />}

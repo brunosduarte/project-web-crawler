@@ -1,5 +1,5 @@
 interface ProgressBarProps {
-  progress: number
+  progress: number | unknown
 }
 
 export function ProgressBar(props: ProgressBarProps) {
@@ -8,7 +8,6 @@ export function ProgressBar(props: ProgressBarProps) {
       <div
         role="progressbar"
         aria-label="Progress Bar"
-        aria-valuenow={props.progress}
         className="flex h-3 w-3/4 place-items-center justify-center rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 p-3"
         style={{ width: `${props.progress}%` }}
       >
