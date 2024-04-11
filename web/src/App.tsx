@@ -94,7 +94,10 @@ export function App() {
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
-      <h1 className="mt-20 text-6xl font-bold text-white shadow-slate-500 drop-shadow-[2px_2px_var(--tw-shadow-color)]">
+      <h1
+        aria-label="SiteMapper"
+        className="mt-20 text-6xl font-bold text-white shadow-slate-500 drop-shadow-[2px_2px_var(--tw-shadow-color)]"
+      >
         SiteMapper
       </h1>
       <h2 className="mt-3 text-xs text-gray-200">
@@ -104,6 +107,7 @@ export function App() {
         <div className="flex w-fit flex-col justify-center align-middle">
           <label
             htmlFor="insert-domain"
+            aria-label="Input Domain to Crawl"
             className="mt-10 flex items-center gap-2 rounded-full bg-white p-2 pl-4 "
           >
             <MagnifyingGlass />
@@ -131,6 +135,7 @@ export function App() {
           <div className="flex flex-wrap justify-center align-middle">
             <button
               type="submit"
+              aria-label="Button Generate"
               className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 shadow-lg shadow-indigo-500/30 hover:bg-blue-600 disabled:bg-blue-800"
               disabled={isFetching}
               onClick={handleGenerate}
@@ -146,6 +151,7 @@ export function App() {
             {isFetched && (
               <button
                 type="button"
+                aria-label="Button Export Sitemap"
                 className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 shadow-lg shadow-indigo-500/30  hover:bg-blue-600 disabled:bg-blue-800"
                 onClick={handleExportSitemap}
               >

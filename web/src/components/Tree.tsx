@@ -113,6 +113,7 @@ export function Tree({ dataTree }: ITreeProps) {
         ref={svgRef}
         width={width}
         height={height}
+        aria-label="Sitemap Tree Visualization"
         style={{ border: '2px dashed #555' }}
       ></svg>
     </>
