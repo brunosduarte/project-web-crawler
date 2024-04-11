@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-useless-escape */
+// import dataJSON from '@/storage/tree.json'
 import '@/styles/global.css'
 
 import { MagnifyingGlass } from 'phosphor-react'
@@ -10,7 +11,6 @@ import { ProgressBar } from '@/components/ProgressBar'
 import { Tree } from '@/components/Tree'
 import { ISiteMapNode } from '@/entities/ISitemapNode'
 import { useMutate, useStatus, useTree } from '@/hooks'
-import dataJSON from '@/storage/tree.json'
 import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
 
@@ -25,7 +25,7 @@ export function App() {
   const { data: status } = useStatus({ haveDomain })
   const { data: treeJSON } = useTree({ haveDomain })
 
-  const treeData = parseData(dataJSON)
+  const treeData = parseData(treeJSON)
 
   const regex =
     /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/
@@ -97,27 +97,25 @@ export function App() {
       <h1 className="mt-20 text-6xl font-bold text-white shadow-slate-500 drop-shadow-[2px_2px_var(--tw-shadow-color)]">
         SiteMapper
       </h1>
-      <h2 className="mt-2 text-xs text-gray-200">
+      <h2 className="mt-3 text-xs text-gray-200">
         Generate a complete sitemap of a specific domain
       </h2>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <div className="flex w-fit flex-col justify-center align-middle">
           <label
             htmlFor="insert-domain"
-            className="flex flex-row place-items-center justify-center"
+            className="mt-10 flex items-center gap-2 rounded-full bg-white p-2 pl-4 "
           >
-            <div className="mt-10 flex items-center gap-2 rounded-full bg-white p-2 pl-4">
-              <MagnifyingGlass />
-              <input
-                type="text"
-                id="insert-domain"
-                placeholder="test.com"
-                className="border-0 border-transparent text-gray-800"
-                value={searchDomain}
-                disabled={isFetching || isFetched}
-                onChange={handleSearchDomain}
-              />
-            </div>
+            <MagnifyingGlass />
+            <input
+              type="text"
+              id="insert-domain"
+              placeholder="https://www.test.com"
+              className="border-0 border-transparent text-gray-800"
+              value={searchDomain}
+              disabled={isFetching || isFetched}
+              onChange={handleSearchDomain}
+            />
           </label>
 
           <div className="mt-1 flex justify-center text-xs text-gray-400">
