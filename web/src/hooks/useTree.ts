@@ -8,6 +8,5 @@ export function useTree({ haveDomain }: { haveDomain: boolean }) {
     queryKey: ['getTree'],
     retry: 1,
     enabled: haveDomain,
-    // refetchInterval: 10 * 1000,
   })
 }

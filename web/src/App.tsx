@@ -10,18 +10,18 @@ import { Loading } from '@/components/Loading'
 import { ProgressBar } from '@/components/ProgressBar'
 import { Tree } from '@/components/Tree'
 import { ISiteMapNode } from '@/entities/ISitemapNode'
-import { useMutate, useStatus, useTree } from '@/hooks'
+import { useSetDomain, useStatus, useTree } from '@/hooks'
 import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
 
 export function App() {
   const [searchDomain, setSearchDomain] = useState('')
   const [isErrorMessage, setErrorMessage] = useState('')
-  const [isErrorTyping, setErrorTyping] = useState(false)
+  const [isError, setError] = useState(false)
   const [isFetching, setFetching] = useState(false)
   const [isFetched, setFetched] = useState(false)
 
-  const { mutate: sendURL, isSuccess: haveDomain } = useMutate()
+  const { mutate: sendURL, isSuccess: haveDomain } = useSetDomain()
   const { data: status } = useStatus({ haveDomain })
   const { data: treeJSON } = useTree({ haveDomain })
 
@@ -31,7 +31,7 @@ export function App() {
     /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/
 
   function ensureWebAddress(url: string) {
-    setErrorTyping(false)
+    setError(false)
     setErrorMessage('')
     if (regex.test(url)) {
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -39,7 +39,7 @@ export function App() {
       }
       return url
     } else {
-      setErrorTyping(true)
+      setError(true)
       setErrorMessage('Insert a valid web address')
     }
   }
@@ -60,13 +60,13 @@ export function App() {
         setSearchDomain('')
         setErrorMessage('')
       } else {
-        if (searchDomain && !isErrorTyping) {
+        if (searchDomain && !isError) {
           sendURL(searchDomain)
           setSearchDomain(searchDomain)
           console.log(searchDomain)
           return
         }
-        setErrorTyping(true)
+        setError(true)
         setErrorMessage('Insert the domain to crawl')
       }
     } catch (e: unknown) {
@@ -123,7 +123,7 @@ export function App() {
           </label>
 
           <div className="mt-1 flex justify-center text-xs text-gray-400">
-            {isErrorTyping ? (
+            {isError ? (
               <p className="text-red-300">{isErrorMessage}</p>
             ) : searchDomain.length === 0 ? (
               'Insert the domain to crawl'
