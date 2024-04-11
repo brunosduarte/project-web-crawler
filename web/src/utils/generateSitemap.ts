@@ -31,8 +31,7 @@ export function downloadSitemap(xmlContent: string, domain: string) {
   document.body.removeChild(link)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function exportSitemap(data: JSON | any) {
+export function exportSitemap(data: ISiteMapNode) {
   const urls = extractUrls(data)
   const xmlContent = generateSitemapXml(urls)
   const domain = new URL(data.url).host

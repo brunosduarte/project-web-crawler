@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-useless-escape */
 import '@/styles/global.css'
 
 import { MagnifyingGlass } from 'phosphor-react'
@@ -26,9 +28,7 @@ export function App() {
   const treeData = parseData(dataJSON)
 
   const regex =
-    // eslint-disable-next-line no-useless-escape
     /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/
-  // /^(https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
 
   function ensureWebAddress(url: string) {
     setErrorTyping(false)
@@ -59,7 +59,6 @@ export function App() {
         setFetched(false)
         setSearchDomain('')
         setErrorMessage('')
-        // console.log(treeJSON)
       } else {
         if (searchDomain && !isErrorTyping) {
           sendURL(searchDomain)
@@ -77,7 +76,7 @@ export function App() {
   }
 
   function handleExportSitemap() {
-    exportSitemap(treeJSON)
+    exportSitemap(treeJSON as ISiteMapNode)
   }
 
   function calculateProgress() {
@@ -91,11 +90,13 @@ export function App() {
     const progress = calculateProgress()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress === 100)
-  }, [calculateProgress, haveDomain, status.percentDone])
+  }, [haveDomain, status?.percentDone])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
-      <h1 className="mt-20 text-6xl font-bold text-white">SiteMapper</h1>
+      <h1 className="mt-20 text-6xl font-bold text-white shadow-slate-500 drop-shadow-[2px_2px_var(--tw-shadow-color)]">
+        SiteMapper
+      </h1>
       <h2 className="mt-2 text-xs text-gray-200">
         Generate a complete sitemap of a specific domain
       </h2>
@@ -132,7 +133,7 @@ export function App() {
           <div className="flex flex-wrap justify-center align-middle">
             <button
               type="submit"
-              className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 hover:bg-blue-600 disabled:bg-blue-800"
+              className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 shadow-lg shadow-indigo-500/30 hover:bg-blue-600 disabled:bg-blue-800"
               disabled={isFetching}
               onClick={handleGenerate}
             >
@@ -147,7 +148,7 @@ export function App() {
             {isFetched && (
               <button
                 type="button"
-                className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 hover:bg-blue-600 disabled:bg-blue-800"
+                className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 shadow-lg shadow-indigo-500/30  hover:bg-blue-600 disabled:bg-blue-800"
                 onClick={handleExportSitemap}
               >
                 Export XML
