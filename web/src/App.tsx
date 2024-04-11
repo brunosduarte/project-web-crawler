@@ -6,6 +6,7 @@ import '@/styles/global.css'
 import { MagnifyingGlass } from 'phosphor-react'
 import { useEffect, useState } from 'react'
 
+import { EstimatedTime } from '@/components/EstimatedTime'
 import { Loading } from '@/components/Loading'
 import { ProgressBar } from '@/components/ProgressBar'
 import { Tree } from '@/components/Tree'
@@ -86,11 +87,20 @@ export function App() {
     return status.percentDone
   }
 
+  function itemsTotal() {
+    return status?.total
+  }
+  function itemsPending() {
+    return status?.pending
+  }
+
   useEffect(() => {
     const progress = calculateProgress()
+    itemsTotal()
+    itemsPending()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress === 100)
-  }, [haveDomain, status?.percentDone])
+  }, [haveDomain, status?.percentDone, status?.total, status?.pending])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
@@ -162,8 +172,12 @@ export function App() {
         </div>
         <div className="flex flex-col place-items-center justify-center">
           {isFetching ? (
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col items-center justify-center">
               <ProgressBar progress={calculateProgress() || 0} />
+              <EstimatedTime
+                total={itemsTotal() || 0}
+                pending={itemsPending() || 0}
+              />
             </div>
           ) : (
             isFetched && <Tree dataTree={treeData as ISiteMapNode} />
