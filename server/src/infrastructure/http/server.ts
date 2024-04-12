@@ -1,8 +1,10 @@
-import Fastify, { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
+import { errorHandler } from './middleware/errorHandler';
+import { config } from '@/application/config/config';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
-import { PostController, NodeController, TreeController, QueueController } from '@/infrastructure/http/controllers';
+import { NodeController, TreeController, QueueController, PostController } from '@/infrastructure/http/controllers';
 
 export interface IServerOptions {
   port: number;
@@ -20,18 +22,19 @@ export class Server {
   private postController: PostController;
   private queueController: QueueController;
 
-  constructor(private options: IServerOptions) {
+  constructor(options: IServerOptions) {
     this.server = Fastify();
     this.server.register(cors);
+    this.server.setErrorHandler(errorHandler);
 
-    this.store = options.store;
     this.queue = options.queue;
+    this.store = options.store;
 
     this.nodeController = new NodeController(this.store);
     this.treeController = new TreeController(this.store);
     this.postController = new PostController();
     this.queueController = new QueueController(this.queue, this.store);
-
+  
     this.setupRoutes();
   }
 
@@ -45,21 +48,13 @@ export class Server {
     this.server.post('/domain', (request, reply) => this.postController.sendURL(request, reply));
   }
 
-  getPort(): number {
-    return this.options.port;
-  }
-
   async start(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.server.listen(this.options.port, (err, address) => {
-        if (err) {
-          console.error(`Error starting server: ${err}`);
-          reject(err);
-        } else {
-          console.log(`Server listening at ${address}`);
-          resolve();
-        }
-      });
-    });
+    try {
+      await this.server.listen({ port: config.port });
+      console.log(`Listening at http://localhost:${config.port}`);
+    } catch (err) {
+      console.error('Error starting server:', err);
+      process.exit(1);
+    }
   }
 }

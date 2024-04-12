@@ -17,3 +17,12 @@ GET {{baseUrl}}/tree
 
 ### @treeascii
 GET {{baseUrl}}/tree/ascii
+
+### @nodes
+GET {{baseUrl}}/nodes
+
+### @nodes/count
+GET {{baseUrl}}/nodes/count
+
+### @/nodes/:url
+GET {{baseUrl}}/nodes/:url

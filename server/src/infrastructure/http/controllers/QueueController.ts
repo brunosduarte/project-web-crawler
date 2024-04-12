@@ -12,7 +12,7 @@ export class QueueController {
       const total = await this.store.count();
       res.send({ pending, total, percentDone: Math.round(100 * (total - pending) / total) });
     } catch (e) {
-      res.status(500).send();
+      res.status(500).send('Error Queue Processing');
     }
   }
 }

@@ -9,22 +9,24 @@ export class NodeController {
       res.send(await this.store.list())
     } catch (e) {
       // TODO: handle errors with middleware
-      res.status(500).send();
+      console.error('listNode', e)
+      res.status(500).send('Error1');
     }
   }
 
-  public async getNodeByURL(req: FastifyRequest, res: FastifyReply): Promise<void> {
+  public async getNodeByURL(req: FastifyRequest|any, res: FastifyReply): Promise<void> {
     try {
       const found = await this.store.findByURL(req.params.url);
       if(!found) {
-        res.status(404).send();
+        res.status(404).send('Error2');
       //TODO: handle errors
         return;
       }
       res.send(found);
     } catch (e) {
       // TODO: handle errors with middleware
-      res.status(500).send();
+      console.error('getNodeByURL', e)
+      res.status(500).send('Error3');
     }
   }
 
@@ -34,7 +36,8 @@ export class NodeController {
       res.send({ count });
     } catch (e) {
       // TODO: handle errors with middleware
-      res.status(500).send();
+      console.error('countNodes', e)
+      res.status(500).send('Error4');
     }
   }
 }

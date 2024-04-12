@@ -5,7 +5,7 @@ export class PostController{
 
   constructor() {}
   
-  public async sendURL(req: FastifyRequest, res: FastifyReply): Promise<void> {
+  public async sendURL(req: FastifyRequest|any, res: FastifyReply): Promise<void> {
     try {
       const { domain } = req.body;
       res.status(200).send();
