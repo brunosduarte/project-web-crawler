@@ -1,5 +1,4 @@
-import { Request, Response } from 'express';
-
+import { FastifyRequest, FastifyReply } from 'fastify';
 import { INode } from '@/domain/entities/INode';
 import { InMemoryNodeStore } from '@/infrastructure/store/InMemoryNodeStore';
 import { GetTreeUseCase } from '@/application/use-cases/GetTreeUseCase';
@@ -9,7 +8,7 @@ export class TreeController {
   
   constructor(public store: INodeStore = new InMemoryNodeStore()) {}
 
-  public async getTree(req: Request, res: Response): Promise<void> {
+  public async getTree(req: FastifyRequest, res: FastifyReply): Promise<void> {
     try {
       const usecase = new GetTreeUseCase(this.store)
       res.send(await usecase.execute())
@@ -20,7 +19,7 @@ export class TreeController {
     }
   }
 
-  public async getTreeASCII(req: Request, res: Response): Promise<void> {
+  public async getTreeASCII(req: FastifyRequest, res: FastifyReply): Promise<void> {
     try {
       const usecase = new GetTreeUseCase(this.store)
       const tree = await usecase.execute()
@@ -33,7 +32,8 @@ export class TreeController {
         return header + body
       }
 
-      res.setHeader('Content-Type', 'text/plain').send(iterateNode(tree, 0))
+      res.header('Content-Type', 'text/plain');
+      res.send(iterateNode(tree, 0));
     } catch (e) {
       console.error('Server.getTree', e)
       // TODO: handle errors with middleware

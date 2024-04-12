@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import { FastifyRequest, FastifyReply } from 'fastify';
 import { queue } from '@/infrastructure/app';
 
 export class PostController{
 
   constructor() {}
   
-  public async sendURL(req: Request, res: Response): Promise<void> {
+  public async sendURL(req: FastifyRequest, res: FastifyReply): Promise<void> {
     try {
       const { domain } = req.body;
       res.status(200).send();

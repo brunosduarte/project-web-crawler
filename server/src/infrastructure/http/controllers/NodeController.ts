@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import { FastifyRequest, FastifyReply } from 'fastify';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 
 export class NodeController {
   constructor(private store: INodeStore) {}
 
-  public async listNode(req: Request, res: Response): Promise<void> {
+  public async listNode(req: FastifyRequest, res: FastifyReply): Promise<void> {
     try {
       res.send(await this.store.list())
     } catch (e) {
@@ -13,7 +13,7 @@ export class NodeController {
     }
   }
 
-  public async getNodeByURL(req: Request, res: Response): Promise<void> {
+  public async getNodeByURL(req: FastifyRequest, res: FastifyReply): Promise<void> {
     try {
       const found = await this.store.findByURL(req.params.url);
       if(!found) {
@@ -28,7 +28,7 @@ export class NodeController {
     }
   }
 
-  public async countNodes(req: Request, res: Response): Promise<void> {
+  public async countNodes(req: FastifyRequest, res: FastifyReply): Promise<void> {
     try {
       const count = await this.store.count();
       res.send({ count });
