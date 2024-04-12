@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:20-alpine
 
 RUN apk add --no-cache \
     chromium \
@@ -23,11 +23,14 @@ USER pptruser
 
 WORKDIR /puppeteer
 WORKDIR /user/app
+
 COPY package*.json ./
 
 RUN yarn
 
 COPY . .
+
+RUN yarn build
 
 EXPOSE 3000
 CMD ["yarn", "start"]

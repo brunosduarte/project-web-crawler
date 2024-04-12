@@ -8,20 +8,20 @@
   "main": "src/infrastructure/app.ts",
   "scripts": {
     "dev": "tsx watch src/infrastructure/app.ts",
-    "start": "node --watch ./src/infrastructure/app.ts",
+    "start": "node --watch --trace-warnings --allow-worker build/infrastructure/app.js",
+    "build": "tsup src --out-dir build",
     "lint": "eslint src --ext .ts --fix",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
-    "test:coverage": "vitest --coverage",
+    "test:coverage": "vitest run --coverage",
     "test:debug": "node --experimental-vm-modules --inspect-brk node_modules/.bin/jest --injectGlobals false --runInBand --watchAll test/"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
     "fastify": "^4.26.2",
     "p-queue": "^6.6.2",
-    "puppeteer": "^22.0.0",
-    "tsx": "^4.7.1"
+    "puppeteer": "^22.0.0"
   },
   "devDependencies": {
     "@enkidevs/eslint-config-backend": "^12.0.0",
@@ -41,6 +41,8 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "4.1.0",
     "typescript": "^5.4.2",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.1",
     "vitest": "^1.3.1"
   }
 }
