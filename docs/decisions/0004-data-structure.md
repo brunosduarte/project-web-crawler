@@ -2,13 +2,12 @@
 
 ## Context and Problem Statement
 
-How present the data properly?
+How to present results properly?
 
 ## Considered Options
 
 * Tree
 * List
-* Graph
 
 ## Decision Outcome
 
