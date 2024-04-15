@@ -2,7 +2,7 @@
 
 ## Context and Problem Statement
 
-Consume items of Queue
+Consuming items of the queue
 
 ## Considered Options
 

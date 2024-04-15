@@ -11,5 +11,10 @@ How to organize the files and structure folders?
 
 ## Decision Outcome
 
-Chosen option: "Clean Architecture", because Organizing your codebase is crucial for maintaining a modular architecture. A well-structured folder hierarchy enhances code readability and discoverability. Each module should have a clear and distinct purpose, encapsulating related functions and components.
-For instance, you might organize your codebase into folders like “controllers,” “services,” “models,” and “routes.” These folders correspond to different layers of your application, providing a clean separation of concerns.
+Chosen option: "Clean Architecture", because Organized codebase is crucial for maintaining a modular architecture. A well-structured folder hierarchy enhances
+code readability and discoverability. Each module have a clear and distinct
+purpose, encapsulating related functions and components.
+
+-
+For instance, you might organize your codebase into folders like “controllers,” “services,” “models,” and “routes.” These folders correspond to different layers
+of your application, providing a clean separation of concerns.

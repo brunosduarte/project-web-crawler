@@ -2,7 +2,7 @@
 
 ## Context and Problem Statement
 
-Generate a Queue of links for systematic processing
+Generate a queue of links for systematic processing
 
 ## Considered Options
 

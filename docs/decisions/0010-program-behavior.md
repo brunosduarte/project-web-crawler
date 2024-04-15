@@ -2,12 +2,12 @@
 
 ## Context and Problem Statement
 
-Interaction with the User is very important
+Interaction with User's is very important
 
 ## Considered Options
 
 * Interaction
-* Only list items
+* Just list items
 
 ## Decision Outcome
 

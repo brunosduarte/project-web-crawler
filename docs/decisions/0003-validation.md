@@ -2,12 +2,12 @@
 
 ## Context and Problem Statement
 
-Control the Items Eligible for Addition to the Queue
+Control the items eligible for addition to the queue
 
 ## Considered Options
 
 * Validation
-* Just put on the Queue
+* Just put on the queue
 
 ## Decision Outcome
 
