@@ -11,4 +11,4 @@ Output a simple Sitemap
 
 ## Decision Outcome
 
-Chosen option: "Frontend", because Implementing a tree-type structure facilitates easy visualization and comprehension of data, providing a clear and intuitive overview.  The results also can be exported to a default sitemap XML file.
+Chosen option: "Frontend", because Implementing a tree-type structure enhances the visualization and comprehension of data, offering a clear and intuitive overview. The results also can be exported to a default sitemap XML file.

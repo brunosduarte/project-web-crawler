@@ -14,23 +14,18 @@
 
 ## 📋 Project
 
-In this project was implemented a web crawler that dig into a domain and extract all internal links generating a sitemap with the content.
-On the <em>"Frontend"</em> you insert the domain, this information is sent to the <em>"Server"</em> that crawl the website and generate a list of links.
-The process to dig into the website is made on server, spreading the job to <em>"Workers"</em> that pick up the list of founded links in the root page and distribute the job with .
-For the job operation between <em>"Workers"</em> and <em>"Server"</em> was used the concept of 
-When the <em>"Server"</em> gives back the result to the <em>"Frontend"</em> is generated a Tree view of the results using the library D3.js.
-Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML file</strong>.
+This project involved the development of a web crawler that delves into a specific domain to extract all internal links, creating a sitemap of the content. In the <em>"front-end"</em>, users can input the domain they wish to crawl. Upon completion of the crawling process, a tree-graph view of the results is generated, which can also be exported to a sitemap XML file.
 
 ## 🚀 Technologies
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-gray?logo=TypeScript)](https://typescriptlang.org)
 [![Node.js](https://img.shields.io/badge/Node.js-gray?logo=Node.js)](https://nodejs.org)
 [![React.js](https://img.shields.io/badge/React.js-gray?logo=React)](https://react.dev)
-[![Express](https://img.shields.io/badge/Express-gray?logo=Express)](https://www.expressjs.com)
+[![Fastify](https://img.shields.io/badge/Fastify-gray?logo=Fastify)](https://fastify.io)
 [![Vite](https://img.shields.io/badge/Vite-gray?logo=Vite)](https://vitejs.dev)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
 [![Tanstack-Query](https://img.shields.io/badge/ReactQuery-gray?logo=React-Query)](https://tanstack.com/query/latest)
 [![AxiosSisyphus](https://img.shields.io/badge/AxiosSisyphus-gray?logo=Blazor)](https://www.npmjs.com/package/@enkidevs/axios-sisyphus)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-gray?logo=TailwindCSS)](https://tailwindcss.com)
 [![D3.js](https://img.shields.io/badge/D3.js-gray?logo=D3.js)](https://www.d3js.org)
 [![XML](https://img.shields.io/badge/XML-gray?logo=diagrams.net)](https://www.npmjs.com/package/xml)
 [![PQueue](https://img.shields.io/badge/PQueue-gray?logo=Dask)](https://www.npmjs.com/package/p-queue)
@@ -39,9 +34,6 @@ Click on the button <strong>"Export"<strong> and download a <strong>Sitemap XML 
 [![Playwright](https://img.shields.io/badge/Playwright-gray?logo=Playwright)](https://playwright.dev)
 [![TestingLibrary](https://img.shields.io/badge/TestingLibrary-gray?logo=Testing-Library)](https://testing-library.com)
 [![Docker](https://img.shields.io/badge/Docker-gray?logo=Docker)](https://www.docker.com)
-
-- Future implementations
-[![Redis/Valkey](https://img.shields.io/badge/Redis-gray?logo=Redis)](https://www.redis.io)
 
 ## 🧮 Diagram:
 
@@ -70,7 +62,7 @@ $ git clone https://github.com/sagelabs/bruno-duarte-interview.git sitemapper
 ```
 
 ```bash
-# Server
+# Back-end
 
 # Go to the repository
 $ cd server
@@ -86,7 +78,7 @@ $ npm run dev
 ```
 
 ```bash
-# Frontend
+# Front-end
 
 # Got to the repository
 $ cd web
