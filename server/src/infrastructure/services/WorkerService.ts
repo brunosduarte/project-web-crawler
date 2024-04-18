@@ -28,7 +28,7 @@ export class WorkerService {
       .filter((item: { href: string | undefined; }) => isSameDomain(item.href, res.url))
       .map((item: { href: any; }) => item.href);
 
-    const uniqueLinks = Array.from(new Set(links));
+    const uniqueLinks: string[] = Array.from(new Set(links));
     
     const tasks = uniqueLinks.map(href => this.addToQueue(href))
 
