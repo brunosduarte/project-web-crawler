@@ -2,7 +2,7 @@ import { ITask } from '@/domain/valueObjects/ITask';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ScrapperService } from '@/infrastructure/services/ScrapperService';
-import { isSameDomain, isValidURL } from '@/shared/helpers/validators';
+import { isSameDomain, isValidURL } from '@/infrastructure/helpers/validators';
 
 export class WorkerService {
   private scrapper = new ScrapperService();

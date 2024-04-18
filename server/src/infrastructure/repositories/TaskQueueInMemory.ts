@@ -2,7 +2,7 @@ import PQueue from 'p-queue';
 import { ITaskQueue, TaskWorker } from '@/application/interfaces/ITaskQueue';
 import { ITask } from '@/domain/valueObjects/ITask';
 
-export class InMemoryTaskQueue implements ITaskQueue {
+export class TaskQueueInMemory implements ITaskQueue {
   private worker: TaskWorker | undefined;
   private queue = new PQueue({
     concurrency: 10,

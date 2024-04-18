@@ -1,10 +1,13 @@
-// infrastructure/http/routes.ts
 import { FastifyInstance } from 'fastify';
 import { NodeController, TreeController, QueueController, PostController } from '@/infrastructure/http/controllers';
-import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { INodeStore } from '@/application/interfaces/INodeStore';
+import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 
-export function registerRoutes(server: FastifyInstance, queue: ITaskQueue, store: INodeStore): void {
+export function registerRoutes (server: FastifyInstance, opts: { store: INodeStore; queue: ITaskQueue }) {
+  const nodeController = new NodeController(opts.store);
+  const treeController = new TreeController(opts.store);
+  const queueController = new QueueController(opts.queue, opts.store);
+  const postController = new PostController();
 
   server.get('/nodes', nodeController.listNode);
   server.get('/nodes/:url', nodeController.getNodeByURL);
@@ -14,9 +17,3 @@ export function registerRoutes(server: FastifyInstance, queue: ITaskQueue, store
   server.get('/queue', queueController.getQueueStatus);
   server.post('/domain', postController.sendURL);
 }
-
-//export function registerRoutes(server: FastifyInstance, queue: ITaskQueue, store: INodeStore): void {
-// const nodeController = new NodeController(store);
-// const treeController = new TreeController(store);
-// const queueController = new QueueController(queue, store);
-// const postController = new PostController();

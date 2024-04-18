@@ -1,7 +1,7 @@
 import puppeteer, { Browser } from 'puppeteer';
-import { isNotNil } from '@/shared/helpers/guards';
-import { isValidURL, sanitizeURL } from '@/shared/helpers/validators';
-import { IScrapDone, IScrapResult } from '@/domain/entities/IScrapResult';
+import { isNotNil } from '@/infrastructure/helpers/guards';
+import { sanitizeURL } from '@/infrastructure/helpers/validators';
+import { IScrapResult } from '@/domain/entities/IScrapResult';
 
 export class ScrapperService {
   private browserPromise?: Promise<Browser>;

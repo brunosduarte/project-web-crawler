@@ -1,6 +1,6 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
-import { errorHandler } from './middleware/errorHandler';
+import { errorHandler } from '@/middleware/errorHandler';
 import { config } from '@/application/config/config';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';

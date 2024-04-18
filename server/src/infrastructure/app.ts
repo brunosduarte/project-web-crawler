@@ -1,12 +1,11 @@
 import { Server } from '@/infrastructure/http/server';
-import { InMemoryTaskQueue } from './queue/InMemoryTaskQueue';
+import { NodeStoreInMemory, TaskQueueInMemory } from '@/infrastructure/repositories';
 import { INodeStore } from '@/application/interfaces/INodeStore';
-import { InMemoryNodeStore } from './store/InMemoryNodeStore';
 import { WorkerService } from './services/WorkerService';
 import { config } from '@/application/config/config';
 
-export const queue = new InMemoryTaskQueue();
-export const store: INodeStore = new InMemoryNodeStore();
+export const queue = new TaskQueueInMemory();
+export const store: INodeStore = new NodeStoreInMemory();
 export const worker = new WorkerService(queue, store);
 
 //queue.onDone(() => worker.end());

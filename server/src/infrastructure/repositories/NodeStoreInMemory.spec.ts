@@ -1,10 +1,10 @@
-import { InMemoryNodeStore } from '@/infrastructure/store/InMemoryNodeStore';
+import { NodeStoreInMemory } from '@/infrastructure/repositories';
 
 describe('InMemoryNodeStore', () => {
-  let store: InMemoryNodeStore;
+  let store: NodeStoreInMemory;
 
   beforeEach(() => {
-    store = new InMemoryNodeStore();
+    store = new NodeStoreInMemory();
   });
 
   it('should save a result', async () => {

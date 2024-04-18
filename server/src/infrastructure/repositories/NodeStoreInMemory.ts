@@ -1,7 +1,7 @@
 import { IScrapResult } from '@/domain/entities/IScrapResult';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 
-export class InMemoryNodeStore implements INodeStore {
+export class NodeStoreInMemory implements INodeStore {
   private data: Map<string, IScrapResult> = new Map();
 
   async saveResult(data: IScrapResult): Promise<void> {

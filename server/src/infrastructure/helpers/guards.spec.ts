@@ -1,4 +1,4 @@
-import { isNotNil } from '@/shared/helpers/guards';
+import { isNotNil } from '@/infrastructure/helpers/guards';
 
 describe('isNotNil', () => {
   it('should return true when value is not null or undefined', () => {
