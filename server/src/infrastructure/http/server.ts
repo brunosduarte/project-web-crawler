@@ -1,7 +1,6 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
-import fastifySwagger from '@fastify/swagger';
-import fastifySwaggerUI from '@fastify/swagger-ui';
+
 import { errorHandler } from '@/middleware/errorHandler';
 import { config } from '@/application/config/config';
 import { INodeStore } from '@/application/interfaces/INodeStore';

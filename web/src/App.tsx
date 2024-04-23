@@ -71,8 +71,11 @@ export function App() {
         setErrorMessage('Insert the domain to crawl')
       }
     } catch (e: unknown) {
-      console.error(e)
+      setError(true)
       setErrorMessage((e as Error).message)
+      console.error(e)
+    } finally {
+      setError(false)
     }
   }
 
