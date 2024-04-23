@@ -22,7 +22,7 @@ export class ScrapperService {
         const href = document.location.href;
         const links = Array.from(document.links).map(link => link.href);
         return { title, links, href }
-      });
+      }, { timeout: 30_000 });
     
       return {
         done: true,

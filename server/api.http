@@ -9,7 +9,7 @@ POST {{baseUrl}}/domain
 Content-Type: application/json
 
 {
-  "domain":"https://code.visualstudio.com"
+  "domain":"https://fastify.dev"
 }
 
 ### @queue
