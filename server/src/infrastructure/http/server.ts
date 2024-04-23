@@ -1,5 +1,7 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
+import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUI from '@fastify/swagger-ui';
 import { errorHandler } from '@/middleware/errorHandler';
 import { config } from '@/application/config/config';
 import { INodeStore } from '@/application/interfaces/INodeStore';
@@ -24,7 +26,10 @@ export class Server {
 
   constructor(options: IServerOptions) {
     this.server = Fastify();
-    this.server.register(cors);
+    this.server.register(cors, {
+      origin: "*",
+//      origin: 'http://localhost:3000' || 'https://sitemapper.net',
+    });
     this.server.setErrorHandler(errorHandler);
 
     this.queue = options.queue;

@@ -8,7 +8,7 @@ export const queue = new TaskQueueInMemory();
 export const store: INodeStore = new NodeStoreInMemory();
 export const worker = new WorkerService(queue, store);
 
-//queue.onDone(() => worker.end());
+queue.onDone(() => worker.end());
 
 const server = new Server({
   port: config.port,

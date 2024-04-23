@@ -31,13 +31,10 @@ export function EstimatedTime({ total, pending }: EstimatedTimeProps) {
     }
   }, [total, pending, startTime])
 
-  if (
-    typeof total === 'undefined' ||
-    typeof pending === 'undefined' ||
-    pending === 0
-  ) {
-    return <div className="mt-10 text-sm">Fetching completed</div>
-  }
-
-  return <div className="mt-10 text-sm text-slate-100">{timeRemaining}</div>
+  return (
+    <div className="mt-10 flex flex-col items-center text-sm text-slate-100">
+      <p>Estimated remaining time:</p>
+      <p className="ml-2">{timeRemaining}</p>
+    </div>
+  )
 }

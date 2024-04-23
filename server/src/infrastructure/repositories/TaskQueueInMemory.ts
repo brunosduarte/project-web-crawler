@@ -9,9 +9,9 @@ export class TaskQueueInMemory implements ITaskQueue {
   });
 
   constructor(){
-    this.queue.clear();
+    this.clear()
   }
-
+  
   async add(task: ITask): Promise<void> {
     const worker = this.worker;
     if(!worker) {
@@ -26,6 +26,11 @@ export class TaskQueueInMemory implements ITaskQueue {
 
   onDone(callback: () => void) {
     this.queue.on('idle', callback);
+    //console.log('Finished!');
+  }
+
+  clear() {
+    this.queue.clear();
   }
 
   async size(): Promise<number> {

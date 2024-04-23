@@ -1,4 +1,7 @@
 ###@baseUrl = https://
+### https://code.visualstudio.com
+### https://fastify.dev
+### https://www.enki.com
 @baseUrl = http://localhost:3000
 
 ### Post
@@ -6,7 +9,7 @@ POST {{baseUrl}}/domain
 Content-Type: application/json
 
 {
-  "domain":"https://fastify.dev/"
+  "domain":"https://code.visualstudio.com"
 }
 
 ### @queue

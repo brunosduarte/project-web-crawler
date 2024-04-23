@@ -3,6 +3,7 @@ import { INodeStore } from '@/application/interfaces/INodeStore';
 
 export class NodeStoreInMemory implements INodeStore {
   private data: Map<string, IScrapResult> = new Map();
+  static clear: any;
 
   async saveResult(data: IScrapResult): Promise<void> {
     this.data.set(data.url, data);
@@ -18,5 +19,10 @@ export class NodeStoreInMemory implements INodeStore {
 
   async count(): Promise<number> {
     return this.data.size;
+  }
+
+  async clear(): Promise<any> {
+    
+    return this.data.clear();
   }
 }

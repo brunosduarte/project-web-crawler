@@ -59,6 +59,8 @@ export class ScrapperService {
           '--window-size=1600,900',
           '--start-maximized',
         ],
+        timeout: 30_000,
+        protocolTimeout: 240_000,
       });
     }
     return await this.browserPromise;

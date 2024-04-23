@@ -1,5 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { queue } from '@/infrastructure/app';
+import { queue, store } from '@/infrastructure/app';
+import { NodeStoreInMemory } from '@/infrastructure/repositories';
 
 export class PostController{
 
@@ -9,6 +10,8 @@ export class PostController{
     try {
       const { domain } = req.body;
       res.status(200).send();
+      store.clear()
+      queue.clear()
       queue.add({ url: domain });
     } catch (e) {
       // TODO: handle errors with middleware
