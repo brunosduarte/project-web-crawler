@@ -8,8 +8,8 @@
   "main": "src/infrastructure/app.ts",
   "scripts": {
     "dev": "tsx watch src/infrastructure/app.ts",
-    "start": "node --allow-worker dist/infrastructure/app.mjs",
-    "build": "tsup src --format esm",
+    "start": "node --allow-worker dist/infrastructure/app.js",
+    "build": "tsup src",
     "lint": "eslint src --ext .ts --fix",
     "test": "vitest run",
     "test:ui": "vitest --ui",

@@ -2,13 +2,12 @@ import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
 
 import { errorHandler } from '@/middleware/errorHandler';
-import { config } from '@/application/config/config';
+import { config } from '@/application/config';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { registerRoutes } from './routes';
 
 export interface IServerOptions {
-  port: number;
   store: INodeStore;
   queue: ITaskQueue;
 }
@@ -22,7 +21,6 @@ export class Server {
     this.server = Fastify();
     this.server.register(cors, {
       origin: "*",
-      // origin: 'http://localhost:3000' || 'https://sitemapper.net',
     });
     this.queue = options.queue;
     this.store = options.store;
@@ -34,9 +32,9 @@ export class Server {
   async start(): Promise<void> {
     try {
       await this.server.listen({ port: config.port });
-      console.log(`Listening at http://localhost:${config.port}`);
+      console.log(`Listening at ${config.host}`);
     } catch (err) {
-      console.error('Error starting server:', err);
+      console.error('Failed to start server: ', err);
       process.exit(1);
     }
   }

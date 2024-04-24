@@ -1,6 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { queue, store } from '@/infrastructure/app';
-import { NodeStoreInMemory } from '@/infrastructure/repositories';
 
 export class PostController{
 

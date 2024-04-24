@@ -11,7 +11,6 @@ export function registerRoutes (server: FastifyInstance, store: INodeStore, queu
 
   server.get('/nodes', (req, res) => nodeController.listNode(req, res));
   server.get('/nodes/:url', (req, res) => nodeController.getNodeByURL(req, res));
-  server.get('/nodes/count', (req, res) => nodeController.countNodes(req, res));
   server.get('/tree', (req, res) => treeController.getTree(req, res));
   server.get('/tree/ascii', (req, res) => treeController.getTreeASCII(req, res));
   server.get('/queue', (req, res) => queueController.getQueueStatus(req, res));

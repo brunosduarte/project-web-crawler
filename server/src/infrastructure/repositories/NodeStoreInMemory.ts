@@ -21,8 +21,7 @@ export class NodeStoreInMemory implements INodeStore {
     return this.data.size;
   }
 
-  async clear(): Promise<any> {
-    
+  clear(): void {   
     return this.data.clear();
   }
 }

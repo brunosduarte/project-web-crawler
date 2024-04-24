@@ -10,7 +10,6 @@ node_modules
 # Tests
 coverage
 
-build
 dist
 Dockerfile
 .git*

@@ -29,16 +29,5 @@ export class NodeController {
       res.status(500).send('Error3');
     }
   }
-
-  public async countNodes(req: FastifyRequest, res: FastifyReply): Promise<void> {
-    try {
-      const count = await this.store.count();
-      res.send({ count });
-    } catch (e) {
-      // TODO: handle errors with middleware
-      console.error('countNodes', e)
-      res.status(500).send('Error4');
-    }
-  }
 }
 

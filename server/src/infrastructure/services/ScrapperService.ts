@@ -22,7 +22,7 @@ export class ScrapperService {
         const href = document.location.href;
         const links = Array.from(document.links).map(link => link.href);
         return { title, links, href }
-      }, { timeout: 30_000 });
+      }, { timeout: 60_000 });
     
       return {
         done: true,
@@ -59,7 +59,7 @@ export class ScrapperService {
           '--window-size=1600,900',
           '--start-maximized',
         ],
-        timeout: 30_000,
+        timeout: 60_000,
         protocolTimeout: 240_000,
       });
     }

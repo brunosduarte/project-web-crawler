@@ -4,7 +4,7 @@ import { ITask } from '@/domain/valueObjects/ITask';
 
 export class TaskQueueInMemory implements ITaskQueue {
   private worker: TaskWorker | undefined;
-  private queue = new PQueue({
+  public queue = new PQueue({
     concurrency: 10,
   });
 
@@ -20,20 +20,19 @@ export class TaskQueueInMemory implements ITaskQueue {
     this.queue.add(() => worker(task));
   }
 
+  async size(): Promise<number> {
+    return this.queue.size;
+  }
+
   setWorker(worker: TaskWorker): void {
     this.worker = worker;
   }
 
-  onDone(callback: () => void) {
+  onDone(callback: () => void): void {
     this.queue.on('idle', callback);
-    //console.log('Finished!');
   }
 
-  clear() {
+  clear(): void {
     this.queue.clear();
-  }
-
-  async size(): Promise<number> {
-    return this.queue.size;
   }
 }

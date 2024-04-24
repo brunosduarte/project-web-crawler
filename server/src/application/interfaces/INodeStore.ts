@@ -5,5 +5,5 @@ export interface INodeStore {
   findByURL(url: string): Promise<IScrapResult | void>;
   list(): Promise<IScrapResult[]>;
   count(): Promise<number>;
-  clear(): any;
+  clear(): void;
 }

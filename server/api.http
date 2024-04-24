@@ -1,7 +1,5 @@
-###@baseUrl = https://
-### https://code.visualstudio.com
-### https://fastify.dev
-### https://www.enki.com
+### https://www.enki.com | https://code.visualstudio.com | https://fastify.dev
+### @baseUrl = https://
 @baseUrl = http://localhost:3000
 
 ### Post
@@ -9,7 +7,7 @@ POST {{baseUrl}}/domain
 Content-Type: application/json
 
 {
-  "domain":"https://fastify.dev"
+  "domain":"https://www.enki.com"
 }
 
 ### @queue
@@ -23,9 +21,6 @@ GET {{baseUrl}}/tree/ascii
 
 ### @nodes
 GET {{baseUrl}}/nodes
-
-### @nodes/count
-GET {{baseUrl}}/nodes/count
 
 ### @/nodes/:url
 GET {{baseUrl}}/nodes/:url
