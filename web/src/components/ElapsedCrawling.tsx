@@ -7,7 +7,7 @@ interface EstimatedTimeProps {
   pending: number | undefined
 }
 
-export function EstimatedTime({ total, pending }: EstimatedTimeProps) {
+export function ElapsedCrawling({ total, pending }: EstimatedTimeProps) {
   const [timeRemaining, setTimeRemaining] = useState('Calculating...')
   const [startTime, setStartTime] = useState<Date | null>(null)
 
@@ -33,8 +33,10 @@ export function EstimatedTime({ total, pending }: EstimatedTimeProps) {
 
   return (
     <div className="mt-10 flex flex-col items-center text-sm text-slate-100">
-      <p>Estimated remaining time:</p>
-      <p className="ml-2">{timeRemaining}</p>
+      <p>
+        Elapsed crawling... Total: {total} | Pending: {pending}
+      </p>
+      <p>Estimated remaining time: {timeRemaining}</p>
     </div>
   )
 }

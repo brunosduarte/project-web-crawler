@@ -6,7 +6,7 @@ import '@/styles/global.css'
 import { MagnifyingGlass } from 'phosphor-react'
 import { useEffect, useState } from 'react'
 
-import { EstimatedTime } from '@/components/EstimatedTime'
+import { ElapsedCrawling } from '@/components/ElapsedCrawling'
 import { Loading } from '@/components/Loading'
 import { ProgressBar } from '@/components/ProgressBar'
 import { Tree } from '@/components/Tree'
@@ -103,7 +103,7 @@ export function App() {
     itemsPending()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress === 100)
-  }, [status?.percentDone])
+  }, [status?.percentDone, haveDomain])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
@@ -121,14 +121,14 @@ export function App() {
           <label
             htmlFor="insert-domain"
             aria-label="Input Domain to Crawl"
-            className="mt-10 flex items-center gap-2 rounded-full bg-white p-2 pl-4 "
+            className="mt-10 flex w-80 items-center gap-2 rounded-full bg-white p-2 pl-4"
           >
             <MagnifyingGlass />
             <input
               type="text"
               id="insert-domain"
               placeholder="https://www.test.com"
-              className="border-0 border-transparent text-gray-800"
+              className="w-64 border-0 border-transparent bg-white text-gray-800 focus:ring-0"
               value={searchDomain}
               disabled={isFetching || isFetched}
               onChange={handleSearchDomain}
@@ -177,7 +177,7 @@ export function App() {
           {isFetching ? (
             <div className="mt-8 flex flex-col items-center justify-center">
               <ProgressBar progress={calculateProgress() || 0} />
-              <EstimatedTime
+              <ElapsedCrawling
                 total={itemsTotal() || 0}
                 pending={itemsPending() || 0}
               />

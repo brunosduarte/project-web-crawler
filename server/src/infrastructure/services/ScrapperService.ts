@@ -22,8 +22,7 @@ export class ScrapperService {
         const href = document.location.href;
         const links = Array.from(document.links).map(link => link.href);
         return { title, links, href }
-      }, { timeout: 240_000 });
-    
+      }, { timeout: 0 })
       return {
         done: true,
         url,
@@ -65,8 +64,8 @@ export class ScrapperService {
           '--deterministic-fetch',
           '--window-size=1600,900',
         ],
-        timeout: 240_000,
-        protocolTimeout: 240_000,
+        timeout: 0,
+        protocolTimeout: 0,
       });
     }
     return await this.browserPromise;
