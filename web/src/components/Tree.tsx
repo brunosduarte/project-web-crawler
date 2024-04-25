@@ -1,121 +1,108 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { HierarchyPointNode } from 'd3'
 import * as d3 from 'd3'
 import { useEffect, useRef } from 'react'
 
 import { ISiteMapNode } from '@/entities/ISitemapNode'
-import { ITreeProps } from '@/entities/ITreeNode'
-import { ICustomHierarchyNode, INodeData } from '@/entities/types'
 
-export interface HierarchyPointLink<Datum> {
-  source: HierarchyPointNode<Datum>
-  target: HierarchyPointNode<Datum>
-}
-const { innerWidth: widthMax, innerHeight: heightMax } = window
-const height = heightMax - 340
-const width = widthMax - 20
-
-const treeCreation = (treeData: ISiteMapNode) => {
-  const root: ICustomHierarchyNode = d3.hierarchy<ISiteMapNode>(
-    treeData,
-  ) as ICustomHierarchyNode
-  root.dx = 50
-  root.dy = width
-  return d3.tree<ISiteMapNode>().nodeSize([root.dx, root.dy])(root)
+interface ITreeProps {
+  dataTree: ISiteMapNode
 }
 
 export function Tree({ dataTree }: ITreeProps) {
-  const svgRef = useRef<SVGSVGElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const svg = d3.select(svgRef.current)
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const context = canvas.getContext('2d')
+    if (!context) return
+
+    const width = canvas.width
+    const height = canvas.height
+
+    const treeLayout = d3
+      .tree()
+      .size([height, width - 160])
+      .nodeSize([250, 180])
+
+    const root = d3.hierarchy(dataTree, (d) => d.children)
+    treeLayout(root)
+
     const zoomBehavior = d3
       .zoom()
-      .scaleExtent([2, 400])
+      .scaleExtent([0.001, 5])
       .on('zoom', (event) => {
-        svg.select('g').attr('transform', event.transform)
+        context.save()
+        context.clearRect(0, 0, width, height)
+        context.translate(event.transform.x, event.transform.y)
+        context.scale(event.transform.k, event.transform.k)
+        drawTree(context, root)
+        context.restore()
       })
 
-    svg.call(zoomBehavior as any)
-  }, [])
-
-  const root = treeCreation(dataTree)
-
-  let x0 = Infinity
-  let x1 = -x0
-
-  useEffect(() => {
-    root.each((d) => {
-      if (d.x > x1) x1 = d.x
-      if (d.x < x0) x0 = d.x
-    })
-    const svg = d3
-      .select(svgRef.current)
-      .attr('viewBox', [50, 50, width, x1 - x0 + root.x * 10])
-    svg.selectAll('*').remove()
-
-    const g = svg
-      .append('g')
-      .attr('font-family', 'sans-serif')
-      .attr('font-size', 16)
-      .attr('transform', `translate(${root.y / 2},${root.x - x0})`)
-
-    const link = g
-      .append('g')
-      .attr('fill', 'none')
-      .attr('stroke', '#d8d5af')
-      .attr('stroke-opacity', 0.5)
-      .attr('stroke-width', 1.5)
-      .selectAll('path')
-      .data(root.links())
-      .join('path')
-      .attr('d', (d) => {
-        const linkGenerator = d3
-          .linkHorizontal<d3.HierarchyPointLink<INodeData>, [number, number]>()
-          .source((d) => [d.source.y, d.source.x])
-          .target((d) => [d.target.y, d.target.x])
-        return linkGenerator(d as any)
-      })
-
-    const node = g
-      .append('g')
-      .attr('stroke-linejoin', 'round')
-      .attr('stroke-width', 1)
-      .selectAll('g')
-      .data(root.descendants())
-      .join('g')
-      .attr('transform', (d) => `translate(${d.y},${d.x})`)
-
-    node
-      .append('circle')
-      .attr('fill', (d) => (d.children ? '#555' : '#fff'))
-      .attr('r', 1)
-
-    node
-      .append('text')
-      .attr('dy', '2rem')
-      .attr('x', (d) => (d.children ? -10 : 10))
-      .attr('text-anchor', (d) => (d.children ? 'end' : 'start'))
-      .text((d) => d.data.url)
-      .clone(true)
-      .lower()
-      .attr('stroke', 'white')
+    d3.select(canvas).call(zoomBehavior)
   }, [dataTree])
 
+  function handleResetView() {
+    const canvas = canvasRef.current
+    const context = canvas.getContext('2d')
+    if (context) {
+      context.setTransform(1, 0, 0, 1, 0, 0)
+      context.clearRect(0, 0, canvas.width, canvas.height)
+      drawTree(context, d3.hierarchy(dataTree))
+    }
+  }
+
   return (
-    <>
-      <p className="text-xs text-gray-500">
-        Click inside the dashed area, zoom in and drag to view in detail
-      </p>
-      <svg
-        ref={svgRef}
-        width={width}
-        height={height}
-        aria-label="Sitemap Tree Visualization"
-        style={{ border: '2px dashed #555' }}
-      ></svg>
-    </>
+    <div className="flex flex-col items-center">
+      <div className="flex flex-col justify-center">
+        <p className="text-xs text-gray-500">
+          Click inside the dashed area, zoom in and drag to view in detail
+        </p>
+        <button
+          className="border-1 rounded-md bg-slate-400 p-1 text-xs text-white"
+          onClick={handleResetView}
+        >
+          Reset View
+        </button>
+      </div>
+      <canvas
+        className="border border-dashed border-gray-700"
+        ref={canvasRef}
+        width={window.innerWidth - 20}
+        height={window.innerHeight - 200}
+      />
+    </div>
   )
+}
+
+function drawTree(context, root) {
+  const linkGenerator = d3
+    .linkHorizontal()
+    .x((d) => d.y)
+    .y((d) => d.x)
+
+  context.beginPath()
+  root.links().forEach((link) => {
+    context.moveTo(link.source.y, link.source.x)
+    context.lineTo(link.target.y, link.target.x)
+  })
+  context.strokeStyle = '#d8d5af'
+  context.stroke()
+
+  root.descendants().forEach((d) => {
+    context.beginPath()
+    context.arc(d.y, d.x, 5, 0, 2 * Math.PI)
+    context.fillStyle = d.children ? '#555' : '#999'
+    context.fill()
+    context.strokeStyle = '#fff'
+    context.stroke()
+  })
+
+  context.fillStyle = '#999'
+  context.textAlign = 'start'
+  context.textBaseline = 'middle'
+  context.font = '12px Arial'
+  root.descendants().forEach((d) => {
+    context.fillText(d.children ? d.data.url : d.data.title, d.y + 8, d.x)
+  })
 }

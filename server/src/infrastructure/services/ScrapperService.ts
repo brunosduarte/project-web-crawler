@@ -22,7 +22,7 @@ export class ScrapperService {
         const href = document.location.href;
         const links = Array.from(document.links).map(link => link.href);
         return { title, links, href }
-      }, { timeout: 60_000 });
+      }, { timeout: 240_000 });
     
       return {
         done: true,
@@ -48,18 +48,24 @@ export class ScrapperService {
         headless: 'shell',
         ignoreHTTPSErrors: true,
         defaultViewport: null,
-        ignoreDefaultArgs: ['--enable-automation'],
+        // ignoreDefaultArgs: ['--enable-automation'],
         args: [
+          '--enable-automation',
+          "--no-first-run",
           '--no-sandbox',
           '--no-zygote',
+          '--disable-gpu',
+          '--disable-webgl',
+          '--disable-dev-shm-usage',
           '--disable-setuid-sandbox',
+          '--disable-features=IsolateOrigins',
+          '--disable-site-isolation-trials',
+          "--disable-accelerated-2d-canvas",
           '--disable-infobars',
-          '--enable-gpu',
-          '--enable-webgl',
+          '--deterministic-fetch',
           '--window-size=1600,900',
-          '--start-maximized',
         ],
-        timeout: 60_000,
+        timeout: 240_000,
         protocolTimeout: 240_000,
       });
     }

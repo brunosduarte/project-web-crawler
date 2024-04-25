@@ -103,7 +103,7 @@ export function App() {
     itemsPending()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress === 100)
-  }, [haveDomain, status?.percentDone, status?.total, status?.pending])
+  }, [status?.percentDone])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
