@@ -1,12 +1,12 @@
 import puppeteer, { Browser } from 'puppeteer';
+
+import { IScrapperService } from '@/domain/services/IScrapperService';
+import { IScrapResult } from '@/domain/entities/IScrapResult';
 import { isNotNil } from '@/infrastructure/helpers/guards';
 import { sanitizeURL } from '@/infrastructure/helpers/validators';
-import { IScrapResult } from '@/domain/entities/IScrapResult';
 
-export class ScrapperService {
+export class ScrapperService implements IScrapperService {
   private browserPromise?: Promise<Browser>;
-
-  constructor(){}
   
   async scrap(_url: string | URL): Promise<IScrapResult> {
     const url = sanitizeURL(_url);
@@ -47,10 +47,9 @@ export class ScrapperService {
         headless: 'shell',
         ignoreHTTPSErrors: true,
         defaultViewport: null,
-        // ignoreDefaultArgs: ['--enable-automation'],
         args: [
           '--enable-automation',
-          "--no-first-run",
+          '--no-first-run',
           '--no-sandbox',
           '--no-zygote',
           '--disable-gpu',
@@ -59,7 +58,7 @@ export class ScrapperService {
           '--disable-setuid-sandbox',
           '--disable-features=IsolateOrigins',
           '--disable-site-isolation-trials',
-          "--disable-accelerated-2d-canvas",
+          '--disable-accelerated-2d-canvas',
           '--disable-infobars',
           '--deterministic-fetch',
           '--window-size=1600,900',
@@ -71,7 +70,7 @@ export class ScrapperService {
     return await this.browserPromise;
   }
 
-  async end() {
+  async end(): Promise<void> {
     if (!this.browserPromise) {
       return;
     }

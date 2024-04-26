@@ -1,6 +1,7 @@
 import PQueue from 'p-queue';
-import { ITaskQueue, TaskWorker } from '@/application/interfaces/ITaskQueue';
+
 import { ITask } from '@/domain/valueObjects/ITask';
+import { ITaskQueue, TaskWorker } from '@/application/interfaces/ITaskQueue';
 
 export class TaskQueueInMemory implements ITaskQueue {
   private worker: TaskWorker | undefined;

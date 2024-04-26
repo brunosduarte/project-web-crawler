@@ -12,7 +12,7 @@ RUN apk add --no-cache \
 
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-RUN yarn add puppeteer@13.5.0
+RUN yarn add puppeteer
 
 RUN addgroup -S pptruser && adduser -S -G pptruser pptruser \
     && mkdir -p /home/pptruser/Downloads /app \
@@ -33,4 +33,5 @@ COPY . .
 RUN yarn build
 
 EXPOSE 3000
+EXPOSE 3001
 CMD ["yarn", "start"]

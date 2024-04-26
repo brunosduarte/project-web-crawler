@@ -1,7 +1,8 @@
 import { FastifyInstance } from 'fastify';
-import { NodeController, TreeController, QueueController, PostController } from '@/infrastructure/http/controllers';
+
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
+import { NodeController, TreeController, QueueController, PostController } from '@/infrastructure/http/controllers';
 
 export function registerRoutes (server: FastifyInstance, store: INodeStore, queue: ITaskQueue) {
   const nodeController = new NodeController(store);

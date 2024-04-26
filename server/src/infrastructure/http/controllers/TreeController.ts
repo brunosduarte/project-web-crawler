@@ -1,7 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
+
 import { INode } from '@/domain/entities/INode';
-import { GetTreeUseCase } from '@/application/use-cases/GetTreeUseCase';
 import { INodeStore } from '@/application/interfaces/INodeStore';
+import { GetTreeUseCase } from '@/application/use-cases/GetTreeUseCase';
 
 export class TreeController {
   

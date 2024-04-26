@@ -3,24 +3,23 @@ import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ScrapperService } from '@/infrastructure/services/ScrapperService';
 import { isSameDomain, isValidURL } from '@/infrastructure/helpers/validators';
+import { IWorkerService } from '@/domain/services/IWorkerService';
 
-export class WorkerService {
-  private scrapper = new ScrapperService();
+export class WorkerService implements IWorkerService {
+  public scrapper = new ScrapperService();
+
   constructor(private queue: ITaskQueue, private store: INodeStore) {
     queue.setWorker(task => this.worker(task));
   }
 
-  private async worker({ url }: ITask) {
+  public async worker({ url }: ITask) {
     console.log('Processing: ', url);
-    const found = await this.store.findByURL(url);
-    if(found?.done) {
-      return;
-    }
-    const res = await this.scrapper.scrap(url);
 
-    if(!res) {
-      return;
-    }
+    const found = await this.store.findByURL(url);
+    if(found?.done) { return; }
+
+    const res = await this.scrapper.scrap(url);
+    if(!res) { return; }
 
     await this.store.saveResult(res);
     const links = res.items
@@ -36,14 +35,11 @@ export class WorkerService {
   }
 
   async addToQueue(url: string) {
-    if(!isValidURL(url)) {
-      return;
-    }
+    if(!isValidURL(url)) { return; }
 
     const found = await this.store.findByURL(url);
-    if(found) {
-      return;
-    }
+    if(found) { return; }
+
     await this.store.saveResult({ done: false, url })
     await this.queue.add({ url });
   }

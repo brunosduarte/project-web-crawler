@@ -1,8 +1,8 @@
-import { WorkerService } from '@/infrastructure/services/WorkerService';
+import { ITask } from '@/domain/valueObjects/ITask';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { INodeStore } from '@/application/interfaces/INodeStore';
+import { WorkerService } from '@/infrastructure/services/WorkerService';
 import { ScrapperService } from '@/infrastructure/services/ScrapperService';
-import { ITask } from '@/domain/valueObjects/ITask';
 
 describe('WorkerService', () => {
   let workerService: WorkerService;
@@ -31,7 +31,7 @@ describe('WorkerService', () => {
   });
 
   it('should process a task', async () => {
-    const task: ITask = { url: 'https://www.test.com' };
+    const task: ITask = { url: 'https://example.com' };
     storeMock.findByURL.mockResolvedValueOnce(null);
     scrapperMock.scrap.mockResolvedValueOnce({ items: [] });
     await workerService.worker(task);
@@ -40,7 +40,7 @@ describe('WorkerService', () => {
   });
 
   it('should add a task to the queue', async () => {
-    const url = 'https://www.test.com';
+    const url = 'https://example.com';
     storeMock.findByURL.mockResolvedValueOnce(null);
     await workerService.addToQueue(url);
     expect(storeMock.findByURL).toHaveBeenCalledWith(url);
@@ -49,7 +49,7 @@ describe('WorkerService', () => {
   });
 
   it('should not add a task to the queue if it already exists', async () => {
-    const url = 'https://www.test.com';
+    const url = 'https://example.com';
     storeMock.findByURL.mockResolvedValueOnce({});
     await workerService.addToQueue(url);
     expect(storeMock.findByURL).toHaveBeenCalledWith(url);

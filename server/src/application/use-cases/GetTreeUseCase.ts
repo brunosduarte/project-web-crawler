@@ -1,7 +1,7 @@
-import { isNotNil } from "@/infrastructure/helpers/guards"
 import { INode } from "@/domain/entities/INode";
 import { IScrapResult } from "@/domain/entities/IScrapResult";
 import { INodeStore } from "@/application/interfaces/INodeStore";
+import { isNotNil } from "@/infrastructure/helpers/guards"
 
 export class GetTreeUseCase {
   private map = new Map<string, IScrapResult>();

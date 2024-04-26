@@ -1,9 +1,10 @@
 import puppeteer, { Browser } from 'puppeteer';
+
 import { ScrapperService } from "./ScrapperService";
 
 describe('ScrapperService', () => {
   let scrapperService: ScrapperService;
-  let puppeteerLaunchSpy: vi.SpyInstance;
+  let puppeteerLaunchSpy: vi.SpyInstance<Promise<Browser>, [puppeteer.LaunchOptions]>;
 
   beforeEach(() => {
     scrapperService = new ScrapperService();
@@ -11,7 +12,7 @@ describe('ScrapperService', () => {
   });
 
   afterEach(async () => {
-    await scrapperService.end();
+    //scrapperService.end();
     puppeteerLaunchSpy.mockRestore();
   });
 
@@ -34,22 +35,22 @@ describe('ScrapperService', () => {
     });
   });
 
-  // describe('getBrowser', () => {
-  //   it('should return a browser instance', async () => {
-  //     puppeteerLaunchSpy.mockResolvedValueOnce({} as puppeteer.Browser);
-  //     const browser = await scrapperService.getBrowser();
-  //     expect(browser).toBeDefined();
-  //     expect(puppeteerLaunchSpy).toHaveBeenCalled();
-  //   });
+  describe('getBrowser', () => {
+    it('should return a browser instance', async () => {
+      puppeteerLaunchSpy.mockResolvedValueOnce({} as puppeteer.Browser);
+      const browser = await scrapperService.getBrowser();
+      expect(browser).toBeDefined();
+      expect(puppeteerLaunchSpy).toHaveBeenCalled();
+    });
 
-  //   it('should return the same browser instance if called multiple times', async () => {
-  //     puppeteerLaunchSpy.mockResolvedValueOnce({} as puppeteer.Browser);
-  //     const browser1 = await scrapperService.getBrowser();
-  //     const browser2 = await scrapperService.getBrowser();
-  //     expect(browser1).toBe(browser2);
-  //     expect(puppeteerLaunchSpy).toHaveBeenCalledTimes(1);
-  //   });
-  // });
+    it('should return the same browser instance if called multiple times', async () => {
+      puppeteerLaunchSpy.mockResolvedValueOnce({} as puppeteer.Browser);
+      const browser1 = await scrapperService.getBrowser();
+      const browser2 = await scrapperService.getBrowser();
+      expect(browser1).toBe(browser2);
+      expect(puppeteerLaunchSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe('end', () => {
     it('should close the browser if it is open', async () => {

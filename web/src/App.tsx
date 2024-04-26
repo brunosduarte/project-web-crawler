@@ -127,7 +127,7 @@ export function App() {
             <input
               type="text"
               id="insert-domain"
-              placeholder="https://www.test.com"
+              placeholder="https://www.enki.com"
               className="w-64 border-0 border-transparent bg-white text-gray-800 focus:ring-0"
               value={searchDomain}
               disabled={isFetching || isFetched}

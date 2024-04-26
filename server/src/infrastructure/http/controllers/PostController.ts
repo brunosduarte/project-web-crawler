@@ -1,4 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
+
 import { queue, store } from '@/infrastructure/app';
 
 export class PostController{

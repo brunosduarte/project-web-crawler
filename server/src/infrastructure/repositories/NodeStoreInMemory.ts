@@ -5,7 +5,7 @@ export class NodeStoreInMemory implements INodeStore {
   private data: Map<string, IScrapResult> = new Map();
   static clear: any;
 
-  async saveResult(data: IScrapResult): Promise<void> {
+  async saveResult(data: IScrapResult | any): Promise<void> {
     this.data.set(data.url, data);
   }
 

@@ -7,4 +7,4 @@ services:
       context: .
     container_name: web-crawler
     ports:
-      - "3000:3333"
+      - "3000:3001"

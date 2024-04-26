@@ -20,7 +20,7 @@ export class Server {
   constructor(options: IServerOptions) {
     this.server = Fastify();
     this.server.register(cors, {
-      origin: "*",
+      origin: '*',
     });
     this.queue = options.queue;
     this.store = options.store;
