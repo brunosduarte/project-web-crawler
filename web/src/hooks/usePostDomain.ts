@@ -3,7 +3,7 @@ import { useMutation } from 'react-query'
 import { queryClient } from '@/lib/react-query'
 import { sendURL } from '@/services/sendURL'
 
-export function useSetDomain() {
+export function usePostDomain() {
   return useMutation({
     mutationFn: sendURL,
     retry: 3,
@@ -13,5 +13,6 @@ export function useSetDomain() {
     onError: () => {
       console.log('Error', sendURL)
     },
+    // refetchInterval: 1_000,
   })
 }

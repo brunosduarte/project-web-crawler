@@ -10,7 +10,7 @@ import { Loading } from '@/components/Loading'
 import { ProgressBar } from '@/components/ProgressBar'
 import { Tree } from '@/components/Tree'
 import { ISiteMapNode } from '@/entities/ISitemapNode'
-import { useSetDomain, useStatus, useTree } from '@/hooks'
+import { usePostDomain, useStatus, useTree } from '@/hooks'
 import { exportSitemap } from '@/utils/generateSitemap'
 import { parseData } from '@/utils/parseData'
 
@@ -21,7 +21,7 @@ export function App() {
   const [isFetching, setFetching] = useState(false)
   const [isFetched, setFetched] = useState(false)
 
-  const { mutate: sendURL, isSuccess: haveDomain } = useSetDomain()
+  const { mutate: sendURL, isSuccess: haveDomain } = usePostDomain()
   const { data: status } = useStatus({ haveDomain })
   const { data: treeJSON } = useTree({ haveDomain })
 
@@ -68,18 +68,27 @@ export function App() {
         setErrorMessage('')
       } else {
         if (searchDomain && !isError) {
-          console.log(searchDomain)
-          sendURL(searchDomain)
-          setSearchDomain(searchDomain)
-          return
+          sendURL(searchDomain, {
+            onError: (e) => {
+              setError(true)
+              setErrorMessage('Error: ' + (e as Error).message)
+              console.log('Send URL failed:', searchDomain)
+            },
+            onSuccess: () => {
+              setError(false)
+              setErrorMessage('')
+              setSearchDomain(searchDomain)
+              console.log(searchDomain)
+            },
+          })
         }
         setError(true)
         setErrorMessage('Insert the domain to crawl')
       }
     } catch (e: unknown) {
       setError(true)
-      setErrorMessage((e as Error).message)
-      console.error(e)
+      setErrorMessage('Error during URL submission' + (e as Error).message)
+      console.error('Error during URL submission', e)
     } finally {
       setError(false)
     }

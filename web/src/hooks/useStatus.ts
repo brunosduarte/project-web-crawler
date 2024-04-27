@@ -6,7 +6,7 @@ export function useStatus({ haveDomain }: { haveDomain: boolean }) {
   return useQuery({
     queryFn: getScrapStatus,
     queryKey: ['getScrapStatus', haveDomain],
+    refetchInterval: 1_000,
     enabled: haveDomain,
-    refetchInterval: 1 * 1000,
   })
 }
