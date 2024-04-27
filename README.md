@@ -14,7 +14,7 @@
 
 ## 📋 Project
 
-This project involved the development of a web crawler that delves into a specific domain to extract all internal links, creating a sitemap of the content. In the <em>"front-end"</em>, users can input the domain they wish to crawl. Upon completion of the crawling process, a tree-graph view of the results is generated, which can also be exported to a sitemap XML file.
+This project involved the development of a web crawler that delves into a specific domain to extract all internal links and assets. In the <em>"front-end"</em>, users input the domain they wish to crawl, and when the <em>"back-end"</em> completes the crawling process, a tree-graph view of the results is generated, which can also be exported to a sitemap XML file.
 
 ## 🚀 Technologies
 
@@ -53,7 +53,7 @@ https://sitemapper.net
 
 ## 📦 Installation
 
-To clone and run this application, you will need [Git][git], [NodeJS][nodejs] and [npm][npm] installed on your computer. In your terminal, run:
+To clone and run this application, you will need [Git][git], [Node.js@20+][nodejs] and [npm][npm] installed on your computer. In your terminal, run:
 
 
 ```bash
