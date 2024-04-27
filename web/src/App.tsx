@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-useless-escape */
-// import dataJSON from '@/storage/tree.json'
 import '@/styles/global.css'
 
 import { MagnifyingGlass } from 'phosphor-react'
@@ -28,16 +27,23 @@ export function App() {
 
   const treeData = parseData(treeJSON)
 
-  const regex =
-    /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/
+  function isURL(url: string) {
+    const pattern = new RegExp(
+      '^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i', // fragment locator
+    )
+    return pattern.test(url)
+  }
 
   function ensureWebAddress(url: string) {
-    setError(false)
-    setErrorMessage('')
-    if (regex.test(url)) {
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        return `https://${url}`
-      }
+    if (isURL(url)) {
+      setError(false)
+      setErrorMessage('')
       return url
     } else {
       setError(true)
@@ -50,8 +56,8 @@ export function App() {
   }
 
   function handleSearchDomain(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearchDomain(event.target.value)
     ensureWebAddress(searchDomain)
+    setSearchDomain(event.target.value)
   }
 
   function handleGenerate() {
@@ -62,9 +68,9 @@ export function App() {
         setErrorMessage('')
       } else {
         if (searchDomain && !isError) {
+          console.log(searchDomain)
           sendURL(searchDomain)
           setSearchDomain(searchDomain)
-          console.log(searchDomain)
           return
         }
         setError(true)
@@ -102,13 +108,13 @@ export function App() {
     itemsTotal()
     itemsPending()
     setFetching(progress > 0 && progress < 100)
-    setFetched(progress === 100)
+    setFetched(progress >= 100)
   }, [status?.percentDone, haveDomain])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
       <h1
-        aria-label="SiteMapper"
+        aria-label="site mapper"
         className="mt-20 text-6xl font-bold text-white shadow-slate-500 drop-shadow-[2px_2px_var(--tw-shadow-color)]"
       >
         SiteMapper
@@ -120,7 +126,7 @@ export function App() {
         <div className="flex w-fit flex-col justify-center align-middle">
           <label
             htmlFor="insert-domain"
-            aria-label="Input Domain to Crawl"
+            aria-label="input domain to crawl"
             className="mt-10 flex w-80 items-center gap-2 rounded-full bg-white p-2 pl-4"
           >
             <MagnifyingGlass />
@@ -148,7 +154,7 @@ export function App() {
           <div className="flex flex-wrap justify-center align-middle">
             <button
               type="submit"
-              aria-label="Button Generate"
+              aria-label="button generate"
               className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 shadow-lg shadow-indigo-500/30 hover:bg-blue-600 disabled:bg-blue-800"
               disabled={isFetching}
               onClick={handleGenerate}
@@ -164,7 +170,7 @@ export function App() {
             {isFetched && (
               <button
                 type="button"
-                aria-label="Button Export Sitemap"
+                aria-label="button export sitemap"
                 className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 shadow-lg shadow-indigo-500/30  hover:bg-blue-600 disabled:bg-blue-800"
                 onClick={handleExportSitemap}
               >

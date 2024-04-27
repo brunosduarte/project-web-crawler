@@ -7,6 +7,7 @@ export async function sendURL(url: string): Promise<number> {
     domain: url,
   })
   const statusReceived = response.status
-  console.log(statusReceived)
+  console.log(response)
+  // console.log(statusReceived)
   return statusReceived
 }

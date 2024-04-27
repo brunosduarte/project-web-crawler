@@ -40,15 +40,26 @@ describe('parseData', () => {
       ],
     }
     const expectedNode = {
-      name: 'Sample Title',
+      name: 'Example',
       children: [
-        { name: 'Child 1', children: [] },
-        { name: 'Child 2', children: [] },
+        {
+          title: 'Child 1',
+          name: 'child1',
+          children: [],
+          url: 'https://example.com/child1',
+          done: 'true',
+        },
+        {
+          title: 'Child 2',
+          name: 'child2',
+          children: [],
+          url: 'https://example.com/child2',
+          done: 'true',
+        },
       ],
     }
 
     const result = parseData(mockData)
-
     expect(result).toEqual(expectedNode)
   })
 })

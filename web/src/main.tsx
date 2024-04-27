@@ -10,10 +10,10 @@ import { queryClient } from './lib/react-query'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
+    <Analytics />
+    <SpeedInsights />
     <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>
-    <Analytics />
-    <SpeedInsights />
   </React.StrictMode>,
 )
