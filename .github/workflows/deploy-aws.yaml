@@ -3,7 +3,7 @@ name: Deploy Node.js Application to AWS Elastic Beanstalk
 on:
   push:
     branches:
-      - main  # Adjust this as necessary for your workflow
+      - main
 
 jobs:
   deploy:
@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
-        node-version: '20'  # Specify the Node.js version you are using
+        node-version: '20'
 
     - name: Install Node.js dependencies
       run: |
@@ -33,7 +33,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2  # Change to your AWS region
+        aws-region: us-east-1
 
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v18
@@ -43,5 +43,5 @@ jobs:
         application_name: your-application-name
         environment_name: your-environment-name
         version_label: ${{ github.sha }}
-        region: us-west-2  # Change to your AWS region
+        region: us-east-1
         deployment_package: deploy.zip
