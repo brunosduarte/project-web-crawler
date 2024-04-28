@@ -32,7 +32,7 @@ export function ElapsedCrawling({ total, pending }: EstimatedTimeProps) {
   }, [total, pending, startTime])
 
   return (
-    <div className="mt-10 flex flex-col items-center text-sm text-slate-100">
+    <div className="mt-10 flex flex-col self-start text-sm text-slate-100">
       <p>
         Elapsed crawling... Total: {total} | Pending: {pending}
       </p>

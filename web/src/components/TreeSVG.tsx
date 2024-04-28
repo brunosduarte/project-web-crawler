@@ -6,13 +6,22 @@ import * as d3 from 'd3'
 import { useEffect, useRef } from 'react'
 
 import { ISiteMapNode } from '@/entities/ISitemapNode'
-import { ICustomHierarchyNode, INodeData } from '@/entities/types'
 
 interface ITreeProps {
   dataTree: ISiteMapNode
 }
 
-export interface HierarchyPointLink<Datum> {
+interface ICustomHierarchyNode extends d3.HierarchyNode<ISiteMapNode> {
+  dx: number
+  dy: number
+}
+
+interface INodeData {
+  name: string
+  children?: INodeData[]
+}
+
+interface HierarchyPointLink<Datum> {
   source: HierarchyPointNode<Datum>
   target: HierarchyPointNode<Datum>
 }

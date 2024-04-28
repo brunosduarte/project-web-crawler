@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios'
 
 import { api } from '@/lib/axios'
@@ -14,6 +13,9 @@ export async function sendURL(
     return { statusReceived: response.status }
   } catch (error: any) {
     console.error('Error sending URL:', error.message)
-    return error.message
+    return {
+      statusReceived: error.response?.status || 500,
+      errorMessage: error.message || 'Unknown error',
+    }
   }
 }
