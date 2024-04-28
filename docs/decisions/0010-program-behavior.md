@@ -2,13 +2,13 @@
 
 ## Context and Problem Statement
 
-Interaction with User's is very important
+What to expect from the application?
 
 ## Considered Options
 
-* Interaction
-* Just list items
+* Prototype
+* Production
 
 ## Decision Outcome
 
-Chosen option: "Interaction", because In today’s digital landscape, engaging user interaction is crucial. Presenting a visually appealing and user-friendly interface enhances the attractiveness of an application, significantly increasing its chances of success. It was treated like a work project.
+Chosen option: "Prototype", because This selection was influenced by treating the project with the rigor of a work assignment, though the application remains in a prototype/pre-production phase. Comprehensive documentation and a robust suite of tests have been implemented to ensure the development of a reliable, scalable, and maintainable product. In today's digital environment, fostering engaging user interactions is essential, and was tried to make a visually appealing and user-friendly interface not only enhancing the attractiveness of the application but also significantly boosting its potential for success.
