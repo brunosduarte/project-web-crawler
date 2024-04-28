@@ -52,6 +52,7 @@ export function App() {
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    ensureWebAddress(searchDomain)
     event.preventDefault()
   }
 
@@ -77,8 +78,8 @@ export function App() {
             onSuccess: () => {
               setError(false)
               setErrorMessage('')
-              setSearchDomain(searchDomain)
               console.log(searchDomain)
+              setSearchDomain(searchDomain)
             },
           })
         }
@@ -134,9 +135,9 @@ export function App() {
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <div className="flex w-fit flex-col justify-center align-middle">
           <label
-            htmlFor="insert-domain"
             aria-label="input domain to crawl"
-            className="mt-10 flex w-80 items-center gap-2 rounded-full bg-white p-2 pl-4"
+            htmlFor="insert-domain"
+            className="mt-10 flex w-80 self-center gap-2 rounded-full bg-white p-2 pl-4"
           >
             <MagnifyingGlass />
             <input
@@ -156,14 +157,16 @@ export function App() {
             ) : searchDomain.length === 0 ? (
               'Insert the domain to crawl'
             ) : (
-              <br />
+              <p>
+                <br />
+              </p>
             )}
           </div>
 
           <div className="flex flex-wrap justify-center align-middle">
             <button
-              type="submit"
               aria-label="button generate"
+              type="submit"
               className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 shadow-lg shadow-indigo-500/30 hover:bg-blue-600 disabled:bg-blue-800"
               disabled={isFetching}
               onClick={handleGenerate}
@@ -178,8 +181,8 @@ export function App() {
             </button>
             {isFetched && (
               <button
-                type="button"
                 aria-label="button export sitemap"
+                type="button"
                 className="m-4 flex w-36 place-items-center justify-center rounded-xl bg-blue-500 p-2 text-slate-300 shadow-lg shadow-indigo-500/30  hover:bg-blue-600 disabled:bg-blue-800"
                 onClick={handleExportSitemap}
               >
@@ -191,8 +194,12 @@ export function App() {
         <div className="flex flex-col place-items-center justify-center">
           {isFetching ? (
             <div className="mt-8 flex flex-col items-center justify-center">
-              <ProgressBar progress={calculateProgress() || 0} />
+              <ProgressBar
+                aria-label="progress bar"
+                progress={calculateProgress() || 0}
+              />
               <ElapsedCrawling
+                aria-label="elapsed crawling"
                 total={itemsTotal() || 0}
                 pending={itemsPending() || 0}
               />

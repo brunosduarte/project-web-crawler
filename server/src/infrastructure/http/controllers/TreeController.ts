@@ -12,10 +12,9 @@ export class TreeController {
     try {
       const usecase = new GetTreeUseCase(this.store)
       res.send(await usecase.execute())
-    } catch (e) {
-      console.error('getTree', e)
-      // TODO: handle errors with middleware
-      res.status(500).send('Error5')
+    } catch (e: any) {
+      console.error('getTree: ', e?.message)
+      res.status(500).send('Error getting tree: '+e?.message)
     }
   }
 
@@ -31,13 +30,11 @@ export class TreeController {
         const body = node.children?.map(child => iterateNode(child, dept + 1)).join('\n') || ''
         return header + body
       }
-
       res.header('Content-Type', 'text/plain');
       res.send(iterateNode(tree, 0));
-    } catch (e) {
-      console.error('getTreeASCII', e)
-      // TODO: handle errors with middleware
-      res.status(500).send('Error6')
+    } catch (e: any) {
+      console.error('getTreeASCII: ', e?.message)
+      res.status(500).send('Error getting ASCII: '+e?.message)
     }
   }
 }

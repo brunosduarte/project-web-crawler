@@ -1,7 +1,6 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
 
-import { errorHandler } from '@/middleware/errorHandler';
 import { config } from '@/application/config';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
@@ -25,16 +24,14 @@ export class Server {
     this.queue = options.queue;
     this.store = options.store;
     registerRoutes(this.server, this.store, this.queue); 
-
-    this.server.setErrorHandler(errorHandler);
   }
 
   async start(): Promise<void> {
     try {
       await this.server.listen({ port: config.port });
       console.log(`Listening at ${config.host}`);
-    } catch (err) {
-      console.error('Failed to start server: ', err);
+    } catch (e: any) {
+      console.error('Failed to start server: '+e?.message);
       process.exit(1);
     }
   }

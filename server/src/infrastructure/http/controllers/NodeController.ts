@@ -8,10 +8,9 @@ export class NodeController {
   public async listNode(req: FastifyRequest, res: FastifyReply): Promise<void> {
     try {
       res.send(await this.store.list())
-    } catch (e) {
-      // TODO: handle errors with middleware
-      console.error('listNode', e)
-      res.status(500).send('Error1');
+    } catch (e: any) {
+      console.log('listNode: ', e?.message)
+      res.status(500).send('Error listing node: '+e?.message);
     }
   }
 
@@ -19,15 +18,13 @@ export class NodeController {
     try {
       const found = await this.store.findByURL(req.params.url);
       if(!found) {
-        res.status(404).send('Error2');
-      //TODO: handle errors
+        res.status(404).send('Content not found');
         return;
       }
       res.send(found);
-    } catch (e) {
-      // TODO: handle errors with middleware
-      console.error('getNodeByURL', e)
-      res.status(500).send('Error3');
+    } catch (e: any) {
+      console.log('getNodeByURL: ', e?.message)
+      res.status(500).send('Error getting node by URL: '+e?.message);
     }
   }
 }

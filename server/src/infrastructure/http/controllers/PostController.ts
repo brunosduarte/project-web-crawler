@@ -9,13 +9,13 @@ export class PostController{
   public async sendURL(req: FastifyRequest|any, res: FastifyReply): Promise<void> {
     try {
       const { domain } = req.body;
-      res.status(200).send();
       store.clear()
       queue.clear()
-      queue.add({ url: domain });
-    } catch (e) {
-      // TODO: handle errors with middleware
-      res.status(500).send();
+      await queue.add({ url: domain });
+      await res.status(200).send();
+    } catch (e: any) {
+      console.log('sendURL: ', e?.message)
+      res.status(500).send('Error sending URL: '+e?.message);
     }
   }
 }

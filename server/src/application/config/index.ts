@@ -1,5 +1,5 @@
 const _host = process.env.HOST || 'localhost';
-const _port = process.env.PORT || 3000;
+const _port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
 export const config = {
   port: _port,

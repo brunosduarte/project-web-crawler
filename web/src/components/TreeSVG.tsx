@@ -122,10 +122,10 @@ export function Tree({ dataTree }: ITreeProps) {
         Click inside the dashed area, zoom in and drag to view in detail
       </p>
       <svg
+        aria-label="Sitemap Tree Visualization"
         ref={svgRef}
         width={width}
         height={height}
-        aria-label="Sitemap Tree Visualization"
         style={{ border: '2px dashed #555' }}
       ></svg>
     </>

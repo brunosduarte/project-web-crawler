@@ -66,7 +66,8 @@ export function Tree({ dataTree }: ITreeProps) {
         </button>
       </div>
       <canvas
-        className="border border-dashed border-gray-700"
+        aria-label="sitemap tree visualization"
+        className="border-2 border-dashed border-gray-700"
         ref={canvasRef}
         width={window.innerWidth - 20}
         height={window.innerHeight - 390}

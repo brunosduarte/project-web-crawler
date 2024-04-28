@@ -8,7 +8,7 @@ export function ProgressBar(props: ProgressBarProps) {
       <div
         role="progressbar"
         aria-label="Progress Bar"
-        className="flex h-3 w-3/4 place-items-center justify-center rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 p-3"
+        className="flex h-3 w-3/4 place-items-center justify-center rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 p-3 shadow-lg shadow-indigo-500/30"
         style={{ width: `${props.progress}%` }}
       >
         {`${props.progress}%`}
