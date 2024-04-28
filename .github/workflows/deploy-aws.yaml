@@ -36,12 +36,12 @@ jobs:
         aws-region: us-east-1
 
     - name: Deploy to Elastic Beanstalk
-      uses: einaregilsson/beanstalk-deploy@v18
+      uses: einaregilsson/beanstalk-deploy@v22
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: your-application-name
-        environment_name: your-environment-name
+        application_name: site-mapper
+        environment_name: site-mapper-env
         version_label: ${{ github.sha }}
         region: us-east-1
         deployment_package: deploy.zip
