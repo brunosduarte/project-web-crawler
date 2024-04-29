@@ -32,8 +32,8 @@ jobs:
       run: |
         cd server
         docker build -t site-mapper .
-        docker tag site-mapper:${{ github.sha }} public.ecr.aws/r8b6j1v6/site-mapper:${{ github.sha }}
-        docker push public.ecr.aws/r8b6j1v6/site-mapper:${{ github.sha }}
+        docker tag site-mapper:latest public.ecr.aws/r8b6j1v6/site-mapper:latest
+        docker push public.ecr.aws/r8b6j1v6/site-mapper:latest
 
     # - name: Fill in the new image ID in the ECS task definition
     #   id: latest
