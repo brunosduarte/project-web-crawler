@@ -31,8 +31,9 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       run: |
         cd server
-        docker build -t ${{ vars.ECR_REPOSITORY }}:${{ github.sha }} .
-        docker push ${{ vars.ECR_REPOSITORY_URI }}:${{ github.sha }}
+        docker build -t site-mapper .
+        docker tag site-mapper:latest public.ecr.aws/r8b6j1v6/site-mapper:latest
+        docker push public.ecr.aws/r8b6j1v6/site-mapper:latest
 
     - name: Fill in the new image ID in the ECS task definition
       id: latest

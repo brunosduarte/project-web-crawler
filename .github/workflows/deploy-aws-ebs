@@ -45,3 +45,13 @@
 #         version_label: ${{ github.sha }}
 #         region: us-east-1
 #         deployment_package: deploy.zip
+
+        
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r8b6j1v6
+
+
+        docker build -t ${{ vars.ECR_REPOSITORY }}:${{ github.sha }} .
+        docker tag site-mapper-12:latest public.ecr.aws/r8b6j1v6/site-mapper-12:latest
+        
+        docker push public.ecr.aws/r8b6j1v6/site-mapper-12:latest
+        docker push ${{ vars.ECR_REPOSITORY_URI }}:${{ github.sha }}
