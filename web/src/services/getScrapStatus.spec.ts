@@ -1,4 +1,3 @@
-// tests/getScrapStatus.test.ts
 import { api } from '@/lib/axios'
 
 import { getScrapStatus } from './getScrapStatus'
@@ -10,25 +9,25 @@ vi.mock('@/lib/axios', () => ({
 }))
 
 describe('getScrapStatus', () => {
-  it('returns the correct status when the API call succeeds', async () => {
+  it('should call the API endpoint and return the data', async () => {
     const mockData = {
       pending: 5,
-      total: 100,
-      percentDone: 5,
+      total: 10,
+      percentDone: 50,
     }
     ;(api.get as vi.Mock).mockResolvedValueOnce({ data: mockData })
 
     const result = await getScrapStatus()
-    await expect(result).toEqual(mockData)
+
+    expect(api.get).toHaveBeenCalledWith('/queue')
+    expect(result).toEqual(mockData)
   })
 
-  it('returns an error message when the API call fails', async () => {
-    const errorMessage = 'Network error'
-    ;(api.get as vi.Mock).mockResolvedValueOnce({ message: errorMessage })
-
+  it('should handle API errors', async () => {
+    const mockError = new Error('API error')
+    ;(api.get as vi.Mock).mockRejectedValueOnce({ error: mockError })
     const result = await getScrapStatus()
-    expect(result).toEqual(errorMessage)
-    // expect(console.error).toHaveBeenCalledWith('Error queue:', errorMessage)
+    expect(result).toEqual('Unknown error occurred')
   })
 
   it('handles unexpected return types', async () => {
@@ -39,36 +38,3 @@ describe('getScrapStatus', () => {
     // await expect(result).toBe('Unknown error occurred')
   })
 })
-
-// import { api } from '@/lib/axios'
-
-// import { getScrapStatus } from './getScrapStatus'
-
-// vi.mock('@/lib/axios', () => ({
-//   api: {
-//     get: vi.fn(),
-//   },
-// }))
-
-// describe('getScrapStatus', () => {
-//   it('should call the API endpoint and return the data', async () => {
-//     const mockData = {
-//       pending: 5,
-//       total: 10,
-//       percentDone: 50,
-//     }
-//     ;(api.get as vi.Mock).mockResolvedValueOnce({ data: mockData })
-
-//     const result = await getScrapStatus()
-
-//     expect(api.get).toHaveBeenCalledWith('/queue')
-//     expect(result).toEqual(mockData)
-//   })
-
-//   it('should handle API errors', async () => {
-//     const mockError = new Error('API error')
-//     ;(api.get as vi.Mock).mockRejectedValueOnce(mockError)
-
-//     await expect(getScrapStatus()).rejects.toThrow(mockError)
-//   })
-// })

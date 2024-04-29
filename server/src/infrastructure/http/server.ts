@@ -29,12 +29,10 @@ export class Server {
   async start(): Promise<void> {
     this.server.listen({ port: _port, host: '0.0.0.0' }, (err, address) => {
       if (err) {
-        this.server.log.error(err)
         console.error('Failed to start the server: ',err?.message);
         process.exit(1);
       }
-      this.server.log.info(`server listening on ${address}`);
-      console.log(`Listening at ${address}:${_port}`)
+      console.log(`Listening at ${address}`)
     });
   }
 }
