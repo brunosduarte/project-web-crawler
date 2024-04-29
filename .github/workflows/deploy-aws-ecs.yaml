@@ -48,4 +48,4 @@ jobs:
       with:
         service: site-mapper-1-deploy
         cluster: site-mapper-1
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        task-definition: site-mapper-1-task
