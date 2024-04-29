@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from 'react-query'
 
 import { queryClient } from '@/lib/react-query'
@@ -10,10 +11,9 @@ export function usePostDomain() {
     onSuccess: () => {
       queryClient.invalidateQueries(['getTree', 'getScrapStatus'])
     },
-    onError: () => {
-      console.log('Error', sendURL)
+    onError: (e: any) => {
+      console.error('Error URL: ', e?.message)
+      queryClient.invalidateQueries(['getTree', 'getScrapStatus'])
     },
-    // throwOnError: (error) => error.response?.status >= 500,
-    // refetchInterval: 1_000,
   })
 }

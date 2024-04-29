@@ -1,6 +1,6 @@
 ### https://www.enki.com | https://code.visualstudio.com | https://fastify.dev
 ### @baseUrl = https://  http://localhost:3000
-@baseUrl = https://project-web-crawler.onrender.com
+@baseUrl = https://project-web-crawler-production.up.railway.app/
 
 ### Post
 POST {{baseUrl}}/domain
