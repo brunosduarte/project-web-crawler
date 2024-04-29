@@ -9,5 +9,6 @@ export function useTree({ haveDomain }: { haveDomain: boolean }) {
     retry: 3,
     refetchInterval: 1_000,
     enabled: haveDomain,
+    throwOnError: (error) => error.response?.status >= 500,
   })
 }

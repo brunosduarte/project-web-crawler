@@ -17,7 +17,6 @@ describe('sendURL', () => {
     const url = 'https://example.com'
     const statusReceived = 200
 
-    // Mock the axios post method to return a successful response
     api.post.mockResolvedValueOnce({ status: statusReceived })
 
     const result = await sendURL(url)
@@ -30,7 +29,6 @@ describe('sendURL', () => {
     const url = 'example.c'
     const errorMessage = 'Request failed'
 
-    // Mock the axios post method to throw an error
     api.post.mockRejectedValueOnce({ message: errorMessage })
 
     const result = await sendURL(url)

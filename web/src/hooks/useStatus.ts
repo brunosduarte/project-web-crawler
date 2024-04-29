@@ -8,5 +8,6 @@ export function useStatus({ haveDomain }: { haveDomain: boolean }) {
     queryKey: ['getScrapStatus', haveDomain],
     refetchInterval: 1_000,
     enabled: haveDomain,
+    throwOnError: (error) => error.response?.status >= 500,
   })
 }

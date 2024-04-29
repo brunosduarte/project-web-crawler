@@ -1,4 +1,6 @@
-import { AxiosResponse } from 'axios'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { AxiosError, AxiosResponse } from 'axios'
 
 import { api } from '@/lib/axios'
 
@@ -9,13 +11,13 @@ export async function sendURL(
     const response: AxiosResponse = await api.post('/domain', {
       domain: url,
     })
-    console.log('Status Code:', response.status)
+    // console.log('Status Code:', response.status)
     return { statusReceived: response.status }
-  } catch (error: any) {
-    console.error('Error sending URL:', error.message)
+  } catch (e: AxiosError | any) {
+    console.error('Error sending URL:', e?.message)
     return {
-      statusReceived: error.response?.status || 500,
-      errorMessage: error.message || 'Unknown error',
+      statusReceived: e?.response?.status || 500,
+      errorMessage: e?.message || 'Unknown error',
     }
   }
 }

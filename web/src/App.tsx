@@ -137,7 +137,7 @@ export function App() {
           <label
             aria-label="input domain to crawl"
             htmlFor="insert-domain"
-            className="mt-10 flex w-80 self-center gap-2 rounded-full bg-white p-2 pl-4"
+            className="mt-10 flex w-80 gap-2 self-center rounded-full bg-white p-2 pl-4"
           >
             <MagnifyingGlass />
             <input

@@ -13,6 +13,7 @@ export function usePostDomain() {
     onError: () => {
       console.log('Error', sendURL)
     },
+    // throwOnError: (error) => error.response?.status >= 500,
     // refetchInterval: 1_000,
   })
 }
