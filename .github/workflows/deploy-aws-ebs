@@ -1,57 +1,47 @@
-# name: Deploy Node.js Application to AWS Elastic Beanstalk
+name: Deploy Node.js Application to AWS Elastic Beanstalk
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v3
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-#     - name: Set up Node.js
-#       uses: actions/setup-node@v3
-#       with:
-#         node-version: '20'
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
 
-#     - name: Install Node.js dependencies
-#       run: |
-#         cd server
-#         npm install
+    - name: Install Node.js dependencies
+      run: |
+        cd server
+        npm install
 
-#     - name: Zip application files
-#       run: |
-#         cd server
-#         zip -r ../deploy.zip . -x '*.git*'
+    - name: Zip application files
+      run: |
+        cd server
+        zip -r ../deploy.zip . -x '*.git*'
 
-#     - name: Set up AWS credentials
-#       uses: aws-actions/configure-aws-credentials@v1
-#       with:
-#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#         aws-region: us-east-1
+    - name: Set up AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
-#     - name: Deploy to Elastic Beanstalk
-#       uses: einaregilsson/beanstalk-deploy@v22
-#       with:
-#         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#         application_name: site-mapper
-#         environment_name: site-mapper-env
-#         version_label: ${{ github.sha }}
-#         region: us-east-1
-#         deployment_package: deploy.zip
-
-        
-        # aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r8b6j1v6
-
-
-        # docker build -t ${{ vars.ECR_REPOSITORY }}:${{ github.sha }} .
-        # docker tag site-mapper-12:latest public.ecr.aws/r8b6j1v6/site-mapper-12:latest
-        
-        # docker push public.ecr.aws/r8b6j1v6/site-mapper-12:latest
-        # docker push ${{ vars.ECR_REPOSITORY_URI }}:${{ github.sha }}
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v22
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: site-mapper
+        environment_name: site-mapper-env
+        version_label: ${{ github.sha }}
+        region: us-east-1
+        deployment_package: deploy.zip

@@ -31,21 +31,21 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       run: |
         cd server
-        docker build -t site-mapper .
-        docker tag site-mapper:latest public.ecr.aws/r8b6j1v6/site-mapper:latest
-        docker push public.ecr.aws/r8b6j1v6/site-mapper:latest
+        docker build -t ${{ vars.ECR_REPOSITORY }}:${{ github.sha }} .
+        docker tag ${{ vars.ECR_REPOSITORY }}:${{ github.sha }} ${{ vars.ECR_REPOSITORY_URI }}:${{ github.sha }}
+        docker push ${{ vars.ECR_REPOSITORY_URI }}:${{ github.sha }}
 
     # - name: Fill in the new image ID in the ECS task definition
     #   id: latest
     #   uses: aws-actions/amazon-ecs-render-task-definition@v1
     #   with:
-    #     task-definition: site-mapper-1-task
-    #     container-name: site-mapper-1-container
+    #     task-definition: site-mapper-task
+    #     container-name: site-mapper-container
     #     image: ${{ vars.ECR_REPOSITORY }}:${{ github.sha }}
 
     - name: Deploy to ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        service: site-mapper-1-deploy
-        cluster: site-mapper-1
-        task-definition: site-mapper-1-task
+        service: site-mapper-deploy
+        cluster: site-mapper
+        task-definition: site-mapper-task
