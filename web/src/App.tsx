@@ -27,7 +27,7 @@ export function App() {
 
   const treeData = parseData(treeJSON)
 
-  function isURL(url: string) {
+  function isValidHttpURL(url: string) {
     const pattern = new RegExp(
       '^(https?:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
@@ -41,7 +41,7 @@ export function App() {
   }
 
   function ensureWebAddress(url: string) {
-    if (isURL(url)) {
+    if (isValidHttpURL(url)) {
       setError(false)
       setErrorMessage('')
       return url
@@ -137,7 +137,7 @@ export function App() {
           <label
             aria-label="input domain to crawl"
             htmlFor="insert-domain"
-            className="mt-10 flex w-80 gap-2 self-center rounded-full bg-white p-2 pl-4"
+            className="mt-10 flex w-80 gap-2 self-center items-center rounded-full bg-white p-2 pl-4"
           >
             <MagnifyingGlass />
             <input

@@ -7,7 +7,7 @@ POST {{baseUrl}}/domain
 Content-Type: application/json
 
 {
-  "domain":"https://www.enki.com"
+  "domain":"enki.com"
 }
 
 ### @queue
