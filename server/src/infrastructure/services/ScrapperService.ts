@@ -35,7 +35,7 @@ export class ScrapperService implements IScrapperService {
       };
     } catch (e: any) {
       console.error('Scraping failed: ', e?.message);
-      throw new Error(`Failed to load the URL: ${e?.message}`);
+      // throw new Error(`Failed to load the URL: ${e?.message}`);
     } finally {
       await page.close();
     }
@@ -45,10 +45,9 @@ export class ScrapperService implements IScrapperService {
     if (!this.browserPromise) {
       this.browserPromise = puppeteer.launch({
         headless: 'shell',
-        ignoreHTTPSErrors: true,
         defaultViewport: null,
+        ignoreHTTPSErrors: true,
         args: [
-          '--enable-automation',
           '--no-first-run',
           '--no-sandbox',
           '--no-zygote',
@@ -60,6 +59,7 @@ export class ScrapperService implements IScrapperService {
           '--disable-site-isolation-trials',
           '--disable-accelerated-2d-canvas',
           '--disable-infobars',
+          '--enable-automation',
           '--deterministic-fetch',
           '--window-size=1600,900',
         ],

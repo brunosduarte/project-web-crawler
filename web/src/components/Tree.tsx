@@ -56,7 +56,7 @@ export function Tree({ dataTree }: ITreeProps) {
     <div className="flex flex-col items-center">
       <div className="flex flex-col justify-center">
         <p className="text-xs text-gray-500">
-          Click inside the dashed area, zoom in and drag to view in detail
+          Click inside the dashed area, zooming and dragging to view in detail
         </p>
         <button
           className="border-1 rounded-md bg-slate-400 p-1 text-xs text-white"
@@ -70,7 +70,7 @@ export function Tree({ dataTree }: ITreeProps) {
         className="border-2 border-dashed border-gray-700"
         ref={canvasRef}
         width={window.innerWidth - 20}
-        height={window.innerHeight - 390}
+        height={window.innerHeight - 405}
       />
     </div>
   )

@@ -11,13 +11,8 @@ export async function sendURL(
     const response: AxiosResponse = await api.post('/domain', {
       domain: url,
     })
-    // console.log('Status Code:', response.status)
     return { statusReceived: response.status }
   } catch (e: AxiosError | any) {
-    console.error('Error sending URL:', e?.message)
-    return {
-      statusReceived: e?.response?.status || 500,
-      errorMessage: e?.message || 'Unknown error',
-    }
+    throw new Error((e as Error).message)
   }
 }

@@ -5,7 +5,7 @@ import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { registerRoutes } from './routes';
 
-export interface IServerOptions {
+interface IServerOptions {
   store: INodeStore;
   queue: ITaskQueue;
 }
@@ -29,7 +29,7 @@ export class Server {
   async start(): Promise<void> {
     this.server.listen({ port: _port, host: '0.0.0.0' }, (err, address) => {
       if (err) {
-        console.error('Failed to start the server: ',err?.message);
+        console.error('Failed to start server: ',err?.message);
         process.exit(1);
       }
       console.log(`Listening at ${address}`)

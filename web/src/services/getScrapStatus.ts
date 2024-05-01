@@ -9,11 +9,11 @@ export async function getScrapStatus(): Promise<{
   total: number
   percentDone: number
 }> {
+  const { data } = await api.get('/queue')
   try {
-    const { data } = await api.get('/queue')
     return data
   } catch (e: AxiosError | any) {
-    console.error('Error queue:', e?.message)
+    console.error('Error status: ', e?.message)
     return e?.message || 'Unknown error occurred'
   }
 }

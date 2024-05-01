@@ -1,3 +1,19 @@
-.vscode
+# Dependencies
 node_modules
+
+# Environment
 .env
+
+# IDE
+.vscode
+
+# Tests
+coverage
+
+# Build
+dist
+build
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

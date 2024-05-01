@@ -9,11 +9,16 @@ export function usePostDomain() {
     mutationFn: sendURL,
     retry: 3,
     onSuccess: () => {
-      queryClient.invalidateQueries(['getTree', 'getScrapStatus'])
+      try {
+        console.log('noError:', sendURL.arguments[0])
+        queryClient.invalidateQueries(['getTree', 'getScrapStatus'])
+      } catch (err: any) {
+        return err?.message
+      }
     },
     onError: (e: any) => {
-      console.error('Error URL: ', e?.message)
-      queryClient.invalidateQueries(['getTree', 'getScrapStatus'])
+      console.error('Error: ', e?.message)
+      return e?.message || 'Unknown error'
     },
   })
 }

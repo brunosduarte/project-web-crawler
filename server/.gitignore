@@ -1,4 +1,15 @@
-.vscode
+# Dependencies
 node_modules
+
+# Environment
+.env
+
+# IDE
+.vscode
+
+# Tests
 coverage
+
+# Build
 dist
+build

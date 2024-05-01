@@ -1,4 +1,4 @@
-name: Deploy Node.js Application to AWS Elastic Beanstalk
+name: Deploy to AWS Elastic Beanstalk
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:

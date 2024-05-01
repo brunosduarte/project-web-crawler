@@ -1,5 +1,6 @@
-import { errorHandler } from '@/middleware/errorHandler';
 import { FastifyError } from 'fastify';
+
+import { errorHandler } from '@/middleware/errorHandler';
 
 vi.mock('fastify');
 

@@ -12,7 +12,6 @@ describe('ScrapperService', () => {
   });
 
   afterEach(async () => {
-    //scrapperService.end();
     puppeteerLaunchSpy.mockRestore();
   });
 

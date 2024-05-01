@@ -1,9 +1,9 @@
 import { ITask } from '@/domain/valueObjects/ITask';
+import { IWorkerService } from '@/domain/services/IWorkerService';
 import { ITaskQueue } from '@/application/interfaces/ITaskQueue';
 import { INodeStore } from '@/application/interfaces/INodeStore';
 import { ScrapperService } from '@/infrastructure/services/ScrapperService';
 import { isSameDomain, isValidURL } from '@/infrastructure/helpers/validators';
-import { IWorkerService } from '@/domain/services/IWorkerService';
 
 export class WorkerService implements IWorkerService {
   public scrapper = new ScrapperService();

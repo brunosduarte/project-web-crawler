@@ -23,13 +23,13 @@ export function App() {
 
   const { mutate: sendURL, isSuccess: haveDomain } = usePostDomain()
   const { data: status } = useStatus({ haveDomain })
-  const { data: treeJSON } = useTree({ haveDomain })
+  const { data: treeJSON } = useTree({ isFetched })
 
   const treeData = parseData(treeJSON)
 
   function isValidHttpURL(url: string) {
     const pattern = new RegExp(
-      '^(https?:\\/\\/)?' + // protocol
+      '^(http(s)?:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
@@ -52,8 +52,8 @@ export function App() {
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    ensureWebAddress(searchDomain)
     event.preventDefault()
+    ensureWebAddress(searchDomain)
   }
 
   function handleSearchDomain(event: React.ChangeEvent<HTMLInputElement>) {
@@ -73,12 +73,10 @@ export function App() {
             onError: (e) => {
               setError(true)
               setErrorMessage('Error: ' + (e as Error).message)
-              console.log('Send URL failed:', searchDomain)
             },
             onSuccess: () => {
               setError(false)
               setErrorMessage('')
-              console.log(searchDomain)
               setSearchDomain(searchDomain)
             },
           })
@@ -88,15 +86,23 @@ export function App() {
       }
     } catch (e: unknown) {
       setError(true)
-      setErrorMessage('Error during URL submission' + (e as Error).message)
-      console.error('Error during URL submission', e)
+      setErrorMessage('Error during URL submission: ' + (e as Error).message)
+      console.error('Error during URL submission: ', e)
     } finally {
       setError(false)
     }
   }
 
   function handleExportSitemap() {
-    exportSitemap(treeJSON as ISiteMapNode)
+    try {
+      exportSitemap(treeJSON as ISiteMapNode)
+    } catch (e) {
+      setError(true)
+      setErrorMessage('Error during XML export: ' + (e as Error).message)
+      console.error('Error during XML export: ', e)
+    } finally {
+      setError(false)
+    }
   }
 
   function calculateProgress() {
@@ -119,25 +125,28 @@ export function App() {
     itemsPending()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress >= 100)
-  }, [status?.percentDone, haveDomain])
+  }, [status?.percentDone])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
-      <h1
-        aria-label="site mapper"
-        className="mt-20 text-6xl font-bold text-white shadow-slate-500 drop-shadow-[2px_2px_var(--tw-shadow-color)]"
-      >
-        SiteMapper
-      </h1>
-      <h2 className="mt-3 text-xs text-gray-200">
-        Generate a complete sitemap of a specific domain
-      </h2>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+      <header>
+        <h1
+          aria-label="site mapper"
+          className="mt-20 text-6xl font-bold text-white shadow-slate-500 drop-shadow-[2px_2px_var(--tw-shadow-color)]"
+        >
+          SiteMapper
+        </h1>
+        <h2 className="mt-3 text-xs text-gray-200">
+          Generate a complete sitemap of a specific domain
+        </h2>
+      </header>
+
+      <form onSubmit={handleSubmit} className="flex flex-col">
         <div className="flex w-fit flex-col justify-center align-middle">
           <label
             aria-label="input domain to crawl"
             htmlFor="insert-domain"
-            className="mt-10 flex w-80 gap-2 self-center items-center rounded-full bg-white p-2 pl-4"
+            className="mt-10 flex w-80 items-center gap-2 self-center rounded-full bg-white p-2 pl-4"
           >
             <MagnifyingGlass />
             <input
@@ -191,24 +200,27 @@ export function App() {
             )}
           </div>
         </div>
-        <div className="flex flex-col place-items-center justify-center">
-          {isFetching ? (
-            <div className="mt-8 flex flex-col items-center justify-center">
-              <ProgressBar
-                aria-label="progress bar"
-                progress={calculateProgress() || 0}
-              />
-              <ElapsedCrawling
-                aria-label="elapsed crawling"
-                total={itemsTotal() || 0}
-                pending={itemsPending() || 0}
-              />
-            </div>
-          ) : (
-            isFetched && <Tree dataTree={treeData as ISiteMapNode} />
-          )}
-        </div>
       </form>
+      <div className="h-full w-full">
+        {isFetching ? (
+          <div className="mt-10 flex h-full flex-col justify-evenly p-20">
+            <ProgressBar
+              aria-label="progress bar"
+              progress={calculateProgress() || 0}
+            />
+            <ElapsedCrawling
+              aria-label="elapsed crawling"
+              total={itemsTotal() || 0}
+              pending={itemsPending() || 0}
+            />
+          </div>
+        ) : (
+          isFetched && <Tree dataTree={treeData as ISiteMapNode} />
+        )}
+      </div>
+      <footer className="flex flex-row align-middle text-sm text-slate-400">
+        <p>©2024 BSD Systems</p>
+      </footer>
     </div>
   )
 }

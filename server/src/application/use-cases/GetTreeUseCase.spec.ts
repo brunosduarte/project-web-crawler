@@ -1,5 +1,5 @@
-import { GetTreeUseCase } from './GetTreeUseCase';
 import { INodeStore } from "@/application/interfaces/INodeStore";
+import { GetTreeUseCase } from './GetTreeUseCase';
 
 describe('GetTreeUseCase', () => {
   let storeMock: INodeStore;

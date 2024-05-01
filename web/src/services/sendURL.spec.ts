@@ -1,3 +1,5 @@
+import { AxiosError, AxiosResponse } from 'axios'
+
 import { api } from '@/lib/axios'
 
 import { sendURL } from './sendURL'
@@ -16,8 +18,14 @@ describe('sendURL', () => {
   it('should return the status code when the request is successful', async () => {
     const url = 'https://example.com'
     const statusReceived = 200
+    const mockResponse: AxiosResponse = {
+      status: statusReceived,
+      data: {},
+      headers: {},
+      config: {},
+    }
 
-    api.post.mockResolvedValueOnce({ status: statusReceived })
+    api.post.mockResolvedValueOnce(mockResponse)
 
     const result = await sendURL(url)
 
@@ -25,15 +33,19 @@ describe('sendURL', () => {
     expect(result).toEqual({ statusReceived })
   })
 
-  it('should return the error message when the request fails', async () => {
-    const url = 'example.c'
+  it('should throw an error when the request fails', async () => {
+    const url = 'https://example.com'
     const errorMessage = 'Request failed'
+    const mockError: AxiosError = {
+      message: errorMessage,
+      name: '',
+      config: {},
+      isAxiosError: true,
+    }
 
-    api.post.mockRejectedValueOnce({ message: errorMessage })
+    api.post.mockRejectedValueOnce(mockError)
 
-    const result = await sendURL(url)
-
+    await expect(sendURL(url)).rejects.toThrow(errorMessage)
     expect(api.post).toHaveBeenCalledWith('/domain', { domain: url })
-    expect(result).toEqual({ statusReceived: 500, errorMessage })
   })
 })

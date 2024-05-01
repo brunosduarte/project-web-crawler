@@ -9,7 +9,7 @@ export class NodeController {
     try {
       res.send(await this.store.list())
     } catch (e: any) {
-      console.log('listNode: ', e?.message)
+      console.error('listNode: ', e?.message)
       res.status(500).send('Error listing node: '+e?.message);
     }
   }
@@ -23,7 +23,7 @@ export class NodeController {
       }
       res.send(found);
     } catch (e: any) {
-      console.log('getNodeByURL: ', e?.message)
+      console.error('getNodeByURL: ', e?.message)
       res.status(500).send('Error getting node by URL: '+e?.message);
     }
   }

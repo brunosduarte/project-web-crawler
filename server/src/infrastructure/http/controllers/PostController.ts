@@ -12,7 +12,7 @@ export class PostController{
       await queue.add({ url: domain });
       await res.status(200).send();
     } catch (e: any) {
-      console.log('sendURL: ', e?.message)
+      console.error('sendURL: ', e?.message)
       res.status(500).send('Error sending URL: '+e?.message);
     }
   }

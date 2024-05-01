@@ -43,7 +43,7 @@ This project involved the development of a web crawler that delves into a specif
 
 ## 🌐 Prototype
 
-https://sitemapper.net
+https://www.sitemapper.net
 
 ## 📷 Preview
 
@@ -96,7 +96,7 @@ This project is under license. [MIT](LICENSE).
 
 ## 📫 Contact
 
-by [**Bruno S. Duarte**](https://www.linkedin.com/in/brunosduarte/) 🚀
+by [**Bruno S. Duarte**](https://github.com/brunosduarte) 🚀
 
 [git]: https://git-scm.com
 [nodejs]: https://nodejs.org/

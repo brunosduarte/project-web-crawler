@@ -7,8 +7,6 @@ export const config: sisyphus.Config = {
 }
 export const axiosConfig = {
   url: 'http://localhost:3000',
-  method: 'POST',
-  // data,
 }
 
 sisyphus.post(config, axiosConfig)
