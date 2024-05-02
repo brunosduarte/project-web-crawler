@@ -42,8 +42,8 @@ export function App() {
 
   function ensureWebAddress(url: string) {
     if (isValidHttpURL(url)) {
-      setError(false)
       setErrorMessage('')
+      setError(false)
       return url
     } else {
       setError(true)
@@ -57,8 +57,8 @@ export function App() {
   }
 
   function handleSearchDomain(event: React.ChangeEvent<HTMLInputElement>) {
-    ensureWebAddress(searchDomain)
     setSearchDomain(event.target.value)
+    ensureWebAddress(searchDomain)
   }
 
   function handleGenerate() {
@@ -88,7 +88,6 @@ export function App() {
     } catch (e: unknown) {
       setError(true)
       setErrorMessage('Error during URL submission: ' + (e as Error).message)
-      console.error('Error during URL submission: ', e)
     } finally {
       setError(false)
       setErrorMessage('')
@@ -101,7 +100,6 @@ export function App() {
     } catch (e) {
       setError(true)
       setErrorMessage('Error during XML export: ' + (e as Error).message)
-      console.error('Error during XML export: ', e)
     } finally {
       setError(false)
     }
@@ -127,11 +125,14 @@ export function App() {
     itemsPending()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress >= 100)
-  }, [status?.percentDone])
+    if (searchDomain) {
+      setSearchDomain(searchDomain)
+    }
+  }, [status?.percentDone, searchDomain])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
-      <header>
+      <header className="text-center">
         <h1
           aria-label="site mapper"
           className="mt-20 text-6xl font-bold text-white shadow-slate-500 drop-shadow-[2px_2px_var(--tw-shadow-color)]"
@@ -220,7 +221,7 @@ export function App() {
           isFetched && <Tree dataTree={treeData as ISiteMapNode} />
         )}
       </div>
-      <footer className="flex flex-row align-middle text-sm text-slate-400">
+      <footer className="align-middle text-sm text-slate-400">
         <p>©2024 BsD Systems</p>
       </footer>
     </div>

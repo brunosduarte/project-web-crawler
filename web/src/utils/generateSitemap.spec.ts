@@ -34,16 +34,18 @@ describe('extractUrls', () => {
 
     const urls = extractUrls(mockDataNode)
 
-    expect(urls).toEqual([
-      'https://example.com',
-      'https://example.com/page1',
-      'https://example.com/page2',
-      'https://example.com/page2/subpage1',
-      'https://example.com/page2/subpage2',
-    ])
+    expect(urls).toEqual(
+      new Set([
+        'https://example.com',
+        'https://example.com/page1',
+        'https://example.com/page2',
+        'https://example.com/page2/subpage1',
+        'https://example.com/page2/subpage2',
+      ]),
+    )
   })
 
-  it('should return an empty array if the node is not done', () => {
+  it('should return an empty if the node is not done', () => {
     const mockDataNode = {
       url: 'https://example.com',
       done: false,
@@ -51,7 +53,6 @@ describe('extractUrls', () => {
     }
 
     const urls = extractUrls(mockDataNode)
-
-    expect(urls).toEqual([])
+    expect(urls).toEqual(new Set())
   })
 })
