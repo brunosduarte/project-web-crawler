@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 
 import { queue, store } from '@/infrastructure/app';
 import { PostController } from './PostController';
+import { ensureHttps } from '@/infrastructure/helpers/validators';
 
 describe('PostController', () => {
   let controller: PostController;
@@ -25,7 +26,7 @@ describe('PostController', () => {
 
     expect(store.clear).toHaveBeenCalled();
     expect(queue.clear).toHaveBeenCalled();
-    expect(queue.add).toHaveBeenCalledWith({ url: req.body.domain });
+    expect(queue.add).toHaveBeenCalledWith({ url: ensureHttps(req.body.domain) });
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.send).toHaveBeenCalled();
   });
@@ -38,7 +39,7 @@ describe('PostController', () => {
 
     expect(store.clear).toHaveBeenCalled();
     expect(queue.clear).toHaveBeenCalled();
-    expect(queue.add).toHaveBeenCalledWith({ url: req.body.domain });
+    expect(queue.add).toHaveBeenCalledWith({ url: ensureHttps(req.body.domain) });
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.send).toHaveBeenCalledWith('Error sending URL: ' + error.message);
   });

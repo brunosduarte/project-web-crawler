@@ -16,10 +16,15 @@ export class WorkerService implements IWorkerService {
     console.log('Processing: ', url);
 
     const found = await this.store.findByURL(url);
-    if(found?.done) { return; }
+    if(found?.done) { 
+      return; 
+    }
 
     const res = await this.scrapper.scrap(url);
-    if(!res) { return; }
+    if(!res) { 
+      console.error('Failed to scrap: ', url);
+      return;
+    }
 
     await this.store.saveResult(res);
     const links = res.items

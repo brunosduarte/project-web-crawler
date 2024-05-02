@@ -1,14 +1,17 @@
 import { ISiteMapNode } from '@/entities/ISitemapNode'
 
-export function extractUrls(node: ISiteMapNode, urls: string[] = []): string[] {
+export function extractUrls(
+  node: ISiteMapNode,
+  urls: Set<string> = new Set(),
+): Set<string> {
   if (node.done) {
-    urls.push(node.url)
+    urls.add(node.url)
   }
   node.children?.forEach((child) => extractUrls(child, urls))
   return urls
 }
 
-export function generateSitemapXml(urls: string[]): string {
+export function generateSitemapXml(urls: Set<string>): string {
   let xmlContent = '<?xml version="1.0" encoding="UTF-8"?>'
   xmlContent += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
   urls.forEach((url) => {

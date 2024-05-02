@@ -64,6 +64,7 @@ export function App() {
   function handleGenerate() {
     try {
       if (isFetched) {
+        setError(false)
         setFetched(false)
         setSearchDomain('')
         setErrorMessage('')
@@ -90,6 +91,7 @@ export function App() {
       console.error('Error during URL submission: ', e)
     } finally {
       setError(false)
+      setErrorMessage('')
     }
   }
 
@@ -152,7 +154,7 @@ export function App() {
             <input
               type="text"
               id="insert-domain"
-              placeholder="https://www.enki.com"
+              placeholder="e.g. https://www.enki.com"
               className="w-64 border-0 border-transparent bg-white text-gray-800 focus:ring-0"
               value={searchDomain}
               disabled={isFetching || isFetched}
@@ -203,7 +205,7 @@ export function App() {
       </form>
       <div className="h-full w-full">
         {isFetching ? (
-          <div className="mt-10 flex h-full flex-col justify-evenly p-20">
+          <div className="flex h-full flex-col justify-evenly p-20">
             <ProgressBar
               aria-label="progress bar"
               progress={calculateProgress() || 0}
@@ -219,7 +221,7 @@ export function App() {
         )}
       </div>
       <footer className="flex flex-row align-middle text-sm text-slate-400">
-        <p>©2024 BSD Systems</p>
+        <p>©2024 BsD Systems</p>
       </footer>
     </div>
   )

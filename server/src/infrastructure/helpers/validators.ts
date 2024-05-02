@@ -7,6 +7,14 @@ export const isValidURL = (href: string | URL): boolean  => {
   }
 }
 
+export const ensureHttps = (url: string): string => {
+  const regex = /^(https:\/\/)/;
+  if (!regex.test(url)) {
+      return `https://${url}`;
+  }
+  return url;
+}
+
 export const sanitizeURL = (href: string | URL): string | void => {
   try {
     const url = new URL(href)

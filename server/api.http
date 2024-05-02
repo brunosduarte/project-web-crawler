@@ -1,13 +1,13 @@
 ### https://www.enki.com | https://code.visualstudio.com | https://fastify.dev
-### @baseUrl = http://localhost:3000
-@baseUrl = https://project-web-crawler-production.up.railway.app/
+### @baseUrl = https://project-web-crawler-production.up.railway.app/
+@baseUrl = http://localhost:3000
 
 ### Post
 POST {{baseUrl}}/domain
 Content-Type: application/json
 
 {
-  "domain":"http://www.enki.com"
+  "domain":"enki"
 }
 
 ### @queue

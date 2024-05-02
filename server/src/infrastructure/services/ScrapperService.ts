@@ -34,7 +34,7 @@ export class ScrapperService implements IScrapperService {
           .map(href => ({ type: 'link', href }))
       };
     } catch (e: any) {
-      console.error('Scraping failed: ', e?.message);
+      console.error('Error: ', e?.message);
       // throw new Error(`Failed to load the URL: ${e?.message}`);
     } finally {
       await page.close();

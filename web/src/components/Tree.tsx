@@ -70,7 +70,7 @@ export function Tree({ dataTree }: ITreeProps) {
         className="border-2 border-dashed border-gray-700"
         ref={canvasRef}
         width={window.innerWidth - 20}
-        height={window.innerHeight - 405}
+        height={window.innerHeight - 410}
       />
     </div>
   )
