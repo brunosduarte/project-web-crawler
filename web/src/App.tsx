@@ -64,10 +64,10 @@ export function App() {
   function handleGenerate() {
     try {
       if (isFetched) {
-        setError(false)
         setFetched(false)
         setSearchDomain('')
         setErrorMessage('')
+        setError(false)
       } else {
         if (searchDomain && !isError) {
           sendURL(searchDomain, {
@@ -76,8 +76,8 @@ export function App() {
               setErrorMessage('Error: ' + (e as Error).message)
             },
             onSuccess: () => {
-              setError(false)
               setErrorMessage('')
+              setError(false)
               setSearchDomain(searchDomain)
             },
           })
@@ -125,10 +125,7 @@ export function App() {
     itemsPending()
     setFetching(progress > 0 && progress < 100)
     setFetched(progress >= 100)
-    if (searchDomain) {
-      setSearchDomain(searchDomain)
-    }
-  }, [status?.percentDone, searchDomain])
+  }, [status?.percentDone])
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto ">
